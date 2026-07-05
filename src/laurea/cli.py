@@ -13,6 +13,7 @@ from . import __version__
 from .detectors import REGISTRY, run_all
 from .github import collect, resolve_token
 from .models import Finding, Report
+from .arena import build_row, update_leaderboard
 from .render import render_all
 from .verdict import append_entry, collect_verdict, load_history, verdict_card
 
@@ -68,8 +69,23 @@ def main(argv: list[str] | None = None) -> int:
         p.add_argument("--login", required=(name != "render"))
         p.add_argument("--assets", default="assets", type=Path)
     sub.add_parser("axes")
+    arena = sub.add_parser("arena")
+    arena.add_argument("--login", required=True)
+    arena.add_argument("--leaderboard", default="LEADERBOARD.md", type=Path)
 
     args = parser.parse_args(argv)
+    if args.cmd == "arena":
+        snapshot = collect(args.login, resolve_token())
+        report = Report(
+            login=args.login,
+            generated_at=datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+            snapshot=snapshot,
+            findings=run_all(snapshot),
+        )
+        update_leaderboard(args.leaderboard, build_row(report))
+        print(f"arena: verified @{args.login} -> {args.leaderboard}")
+        return 0
+
     if args.cmd == "axes":
         for det in REGISTRY:
             print(f"{det.__name__}: {(det.__doc__ or '').strip() or 'axis detector'}")

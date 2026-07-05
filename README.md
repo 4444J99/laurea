@@ -35,6 +35,13 @@ a chart, not a feeling:
   <img src="assets/cards/verdict.svg" alt="verdict meter" width="420"/>
 </p>
 
+## The arena
+
+Laurels you can challenge: open an issue titled `arena: your-login` and
+CI recomputes **your** laurels from the live public API — no
+self-reporting, same floors and citations for everyone — then writes a
+verified row into **[LEADERBOARD.md](LEADERBOARD.md)**.
+
 ## Run it on yourself in 60 seconds
 
 1. **[Use this template](../../generate)** (or fork).
