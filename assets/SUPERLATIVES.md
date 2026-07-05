@@ -1,12 +1,12 @@
 # SUPERLATIVES
 
-*Generated 2026-07-05 11:13 UTC for [@4444J99](https://github.com/4444J99). Every claim below is recomputed from the live GitHub API; every percentile is a conservative floor with a cited baseline (see [METHODOLOGY.md](METHODOLOGY.md)).*
+*Generated 2026-07-05 16:19 UTC for [@4444J99](https://github.com/4444J99). Every claim below is recomputed from the live GitHub API; every percentile is a conservative floor with a cited baseline (see [METHODOLOGY.md](METHODOLOGY.md)).*
 
 ## Contribution volume (12 months) — **top 0.1%** *(at least 1 in 1,000)*
 
-**Measured:** 26,511 contributions/yr
+**Measured:** 26,518 contributions/yr
 
-26,511 contributions in the last 12 months (13,402 commits, 2,291 pull requests) — about 72 shipped units of work every single day.
+26,518 contributions in the last 12 months (13,407 commits, 2,293 pull requests) — about 72 shipped units of work every single day.
 
 **What this means:** 72 shipped units of work per day, every day of the year, weekends included. A typical active developer records a few hundred contributions per year; the top floors here mean this account outpaces at least 999 of every 1,000 active developers. That is not typing speed — it is an engineer who industrialized his own process.
 
@@ -14,9 +14,9 @@
 
 ## Integration throughput — **top 0.1%** *(at least 1 in 1,000)*
 
-**Measured:** 2,291 PRs/yr
+**Measured:** 2,293 PRs/yr
 
-2,291 pull requests opened in 12 months — ~44 reviewed, mergeable units of work every week.
+2,293 pull requests opened in 12 months — ~44 reviewed, mergeable units of work every week.
 
 **What this means:** ~44 reviewed, mergeable units of work every week. Many strong professional engineers open fewer pull requests in a year than this account opens in a month.
 
@@ -62,11 +62,11 @@ Shipped repositories lead in 5 distinct stack layers: backend, creative, fronten
 
 *Baseline: Layer mapping over primary languages of owned non-fork repos; covering 4+ layers with shipped code is the working definition of full-stack, and polyglot shipping at this breadth is a top-percentile behavior (see language_breadth baseline).*
 
-## Python full-stack engineer — composite placement — **top 1%** *(at least 1 in 100)*
+## Python full-stack output profile — composite placement — **top 1%** *(at least 1 in 100)*
 
 **Measured:** 1 percentile floor
 
-Conjunction holds: 26,511 contributions/yr (top-1% floor cleared), 272 owned repos (top-1% floor cleared), Python leads the corpus (101 repos), and shipped code spans 5 stack layers. A conjunction of independent top-1% conditions is at most as common as its rarest member — the composite top-1% claim is therefore a floor, not an estimate..
+Conjunction holds: 26,518 contributions/yr (top-1% floor cleared), 272 owned repos (top-1% floor cleared), Python leads the corpus (101 repos), and shipped code spans 5 stack layers. A conjunction of independent top-1% conditions is at most as common as its rarest member — the composite top-1% claim is therefore a floor, not an estimate..
 
 **What this means:** Read it like an underwriter: each leg alone places its holder past the 99th percentile, and holding all four simultaneously is rarer than any single leg. At most 1 engineer in 100 can make this claim; this one re-proves it by machine every morning.
 
@@ -81,3 +81,14 @@ On GitHub since 2016 — 9.5 years of shipped history.
 **What this means:** A decade of public, timestamped history. The output measured above is a trajectory, not a sprint — and every year of it is auditable.
 
 *Baseline: Account creation date (no percentile claimed for tenure).*
+
+## What these numbers do not establish
+
+This instrument measures an *output profile* — scale, breadth, and operational complexity of shipped work. It deliberately does not measure:
+
+- code quality, correctness, maintainability, or security
+- system reliability in production
+- product adoption, user satisfaction, or business impact (the verdict meter records adoption signals separately)
+- engineering judgment under uncertainty
+
+Those require different evidence (code review, testing, production performance, real-world outcomes) — tracked as the quality-signal detector roadmap in the repo's issues, never inferred from volume.

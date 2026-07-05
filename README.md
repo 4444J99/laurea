@@ -46,10 +46,15 @@ a chart, not a feeling:
 4. Embed the cards anywhere:
    `https://raw.githubusercontent.com/YOU/laurea/main/assets/cards/hero.svg`
 
-## How the top-1% claim actually works
+## How the claim actually works — and what it is
 
 Anyone can put "top 1%" in a bio. LAVREA makes it a **theorem with
-measured premises**:
+measured premises** — and scopes it honestly: the composite classifies a
+top-1% *output profile* (scale, breadth, operational complexity — the
+orchestration skillset of AI-native engineering), not a universal
+ranking of ability. Quality, correctness, and adoption are different
+questions needing different evidence; the report renders what it does
+*not* establish right next to what it does.
 
 1. Each axis (contribution volume, portfolio size, language breadth,
    integration throughput…) is measured exactly, from the live API.

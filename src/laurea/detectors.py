@@ -234,7 +234,11 @@ def tenure(snapshot: Snapshot) -> Finding:
 
 
 def composite_python_full_stack(findings: list[Finding], snapshot: Snapshot) -> Finding | None:
-    """The headline: 'top 1% Python full-stack engineer', as a conjunction.
+    """The headline: a top-1% Python full-stack OUTPUT PROFILE, as a conjunction.
+
+    Deliberately scoped: the conjunction classifies measured output (scale,
+    breadth, operational complexity) — it does not and cannot rank
+    engineering ability, code quality, or impact (see NOT_MEASURED).
 
     Requires ALL of: contribution volume at top-1% floor or better,
     portfolio size at top-1% floor or better, Python leading the shipped
@@ -253,7 +257,7 @@ def composite_python_full_stack(findings: list[Finding], snapshot: Snapshot) -> 
     python_repos = langs["Python"]
     return Finding(
         axis="composite_python_full_stack",
-        title="Python full-stack engineer — composite placement",
+        title="Python full-stack output profile — composite placement",
         value=1.0,
         unit="percentile floor",
         tier=TIER_TOP_1,

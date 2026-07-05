@@ -11,6 +11,16 @@ from __future__ import annotations
 from xml.sax.saxutils import escape
 
 from .baselines import TIER_TOP_01, TIER_TOP_1, TIER_TOP_5, odds_for
+
+# The instrument's negative space, rendered on every report. A measurement
+# that hides what it cannot see stops being an instrument.
+NOT_MEASURED = (
+    "code quality, correctness, maintainability, or security",
+    "system reliability in production",
+    "product adoption, user satisfaction, or business impact "
+    "(the verdict meter records adoption signals separately)",
+    "engineering judgment under uncertainty",
+)
 from .models import Finding, Report
 
 GOLD = "#e3b341"
@@ -92,9 +102,14 @@ def _wrap(text: str, width: int) -> list[str]:
 def hero_card(report: Report) -> str:
     composite = report.by_axis("composite_python_full_stack")
     headline = (
-        "TOP 1% PYTHON FULL-STACK ENGINEER"
+        "TOP 0.1% ENGINEERING THROUGHPUT"
         if composite
         else "ENGINEERING OUTPUT — MEASURED"
+    )
+    subline = (
+        "top-1% Python full-stack output profile — scale, breadth, and operational complexity, measured daily"
+        if composite
+        else "recomputed daily from the live GitHub API"
     )
     c = report.snapshot["contributions"]
     repos = len([r for r in report.snapshot["repos"] if not r["isFork"]])
@@ -118,7 +133,7 @@ def hero_card(report: Report) -> str:
   <rect width="799" height="239" x="0.5" y="0.5" rx="12" fill="{BG}" stroke="{BORDER}"/>
   {_laurel(400, 78, 1.1)}
   <text class="tier fade" fill="url(#shH)" text-anchor="middle" x="400" y="96" style="font-size:20px">{escape(headline)}</text>
-  <text class="ev fade d1" text-anchor="middle" x="400" y="118">computed, not claimed — every floor is odds you can read: top 1% means at least 1 in 100, top 0.1% at least 1 in 1,000</text>
+  <text class="ev fade d1" text-anchor="middle" x="400" y="118">{escape(subline)} · top 1% = at least 1 in 100, top 0.1% = at least 1 in 1,000</text>
   {cols}
   <text class="ev fade d4" text-anchor="middle" x="400" y="222">LAVREA · the laurels are computed · github.com/{escape(report.login)}/laurea</text>
 </svg>
@@ -171,6 +186,21 @@ def superlatives_md(report: Report) -> str:
         if f.analysis:
             lines += [f"**What this means:** {f.analysis}", ""]
         lines += [f"*Baseline: {f.source}.*", ""]
+    lines += [
+        "## What these numbers do not establish",
+        "",
+        "This instrument measures an *output profile* — scale, breadth, and "
+        "operational complexity of shipped work. It deliberately does not measure:",
+        "",
+    ]
+    lines += [f"- {item}" for item in NOT_MEASURED]
+    lines += [
+        "",
+        "Those require different evidence (code review, testing, production "
+        "performance, real-world outcomes) — tracked as the quality-signal "
+        "detector roadmap in the repo's issues, never inferred from volume.",
+        "",
+    ]
     return "\n".join(lines)
 
 

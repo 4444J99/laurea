@@ -1,5 +1,17 @@
 # METHODOLOGY — the honesty contract
 
+## 0. Scope: what kind of claim this is
+
+LAVREA classifies a measured **output profile** — the scale, breadth, and
+operational complexity of shipped GitHub work. It is a rule-based,
+reproducible descriptor, not a peer-reviewed ranking of engineering
+ability. In the AI-assisted era these metrics track the orchestration
+skills (architecture, decomposition, specification, verification,
+integration) rather than typing speed — and they say nothing about code
+quality, correctness, reliability, adoption, or impact, which require
+different evidence. Every generated report renders that negative space
+explicitly ("What these numbers do not establish").
+
 A percentile claim is only worth what its weakest assumption is worth.
 LAVREA's rendering pipeline is therefore built around four rules:
 

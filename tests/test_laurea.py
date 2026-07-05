@@ -95,8 +95,10 @@ def test_rendered_svgs_are_valid_xml_with_animation():
         root = ET.fromstring(assets[key])  # raises on invalid XML
         assert root.tag.endswith("svg")
         assert "animate" in assets[key] or "@keyframes" in assets[key]
-    assert "TOP 1% PYTHON FULL-STACK ENGINEER" in assets["cards/hero.svg"]
+    assert "TOP 0.1% ENGINEERING THROUGHPUT" in assets["cards/hero.svg"]
+    assert "output profile" in assets["cards/hero.svg"]
     assert "METHODOLOGY.md" in assets["SUPERLATIVES.md"]
+    assert "do not establish" in assets["SUPERLATIVES.md"]
 
 
 def test_every_measured_finding_carries_analysis():
