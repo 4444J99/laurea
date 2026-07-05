@@ -122,9 +122,49 @@ TIER_ODDS = {
     TIER_TOP_5: "at least 1 in 20",
 }
 
+# The denominators — who the percentage is OUT OF. Two cited populations:
+# every claim's cohort is computed against the harder class (annually
+# active developers), with the all-accounts bound shown for scale.
+POPULATIONS = {
+    "github_accounts": (
+        100_000_000,
+        "100M+ developer accounts (GitHub Octoverse 2023; the platform has "
+        "kept growing since, so this denominator is an undercount)",
+    ),
+    "active_developers": (
+        30_000_000,
+        "annually active developers — accounts recording contributions in a "
+        "given year; independent GH Archive analyses and industry estimates "
+        "of the global professional developer population (Evans Data, "
+        "SlashData) both land in the tens of millions; 30M is the working "
+        "denominator, and the math is shown so any reader can substitute "
+        "their own",
+    ),
+}
+
+_TIER_FRACTION = {TIER_TOP_01: 0.001, TIER_TOP_1: 0.01, TIER_TOP_5: 0.05}
+
+# Physical anchors that make a cohort size feel like a number of humans.
+_ANCHORS = (
+    (50_000, "fewer people than fill one large stadium"),
+    (400_000, "roughly one mid-size city"),
+    (2_000_000, "roughly one major metro area"),
+)
+
 
 def odds_for(tier: str) -> str | None:
     return TIER_ODDS.get(tier)
+
+
+def cohort_for(tier: str, population: str = "active_developers") -> tuple[int, str] | None:
+    """(max cohort size, human framing) for a tier floor against a cited population."""
+    frac = _TIER_FRACTION.get(tier)
+    if frac is None:
+        return None
+    size, _ = POPULATIONS[population]
+    cohort = int(size * frac)
+    anchor = next((a for limit, a in _ANCHORS if cohort <= limit), "a small fraction of the field")
+    return cohort, anchor
 
 
 def tier_rank(tier: str) -> int:

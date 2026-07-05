@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from xml.sax.saxutils import escape
 
-from .baselines import TIER_TOP_01, TIER_TOP_1, TIER_TOP_5, odds_for
+from .baselines import POPULATIONS, TIER_TOP_01, TIER_TOP_1, TIER_TOP_5, cohort_for, odds_for
 
 # The instrument's negative space, rendered on every report. A measurement
 # that hides what it cannot see stops being an instrument.
@@ -185,7 +185,26 @@ def superlatives_md(report: Report) -> str:
         ]
         if f.analysis:
             lines += [f"**What this means:** {f.analysis}", ""]
+        if (cohort := cohort_for(f.tier)) is not None:
+            n, anchor = cohort
+            lines += [
+                f"**Out of how many people:** the {f.tier} floor, taken against "
+                f"≈30M annually active developers, is a worldwide cohort of at "
+                f"most ~{n:,} people — {anchor}.",
+                "",
+            ]
         lines += [f"*Baseline: {f.source}.*", ""]
+    lines += ["## The denominators — who the percentages are out of", ""]
+    for _key, (size, desc) in POPULATIONS.items():
+        lines += [f"- **≈{size:,}** — {desc}.", ""]
+    lines += [
+        "Cohorts above use the harder class (annually active developers): "
+        "top 1% of 30M is at most ~300,000 people worldwide; top 0.1% is at "
+        "most ~30,000 — fewer people than fill one large stadium, across the "
+        "entire planet's developer population. Substitute your own denominator; "
+        "the multiplication is the whole method.",
+        "",
+    ]
     lines += [
         "## What these numbers do not establish",
         "",

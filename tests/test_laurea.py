@@ -114,3 +114,13 @@ def test_superlatives_translate_tiers_into_odds():
     )
     md = render_all(report)["SUPERLATIVES.md"]
     assert "at least 1 in 1,000" in md and "What this means:" in md
+    assert "at most ~30,000 people" in md and "The denominators" in md
+
+
+def test_cohort_math_is_floor_times_population():
+    from laurea.baselines import cohort_for
+    n, anchor = cohort_for("top 0.1%")
+    assert n == 30_000 and "stadium" in anchor
+    n, _ = cohort_for("top 1%")
+    assert n == 300_000
+    assert cohort_for("notable") is None
