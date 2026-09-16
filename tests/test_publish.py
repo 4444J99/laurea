@@ -170,7 +170,7 @@ def test_untrusted_context_stops_before_push(sandbox, change):
 
 
 def test_failure_receipt_preserves_known_remote_branch_and_redacts_error(monkeypatch, capsys):
-    def fail(kind, *, issue, receipt):
+    def fail(kind, *, issue, receipt, refresh_table):
         receipt.update(status="branch_published", branch="automation/metrics/12-1", head_sha="a" * 40)
         raise RuntimeError("PRIVATE provider details")
     monkeypatch.setattr(p, "publish", fail)
@@ -302,3 +302,45 @@ def test_independently_merged_entrants_both_reach_table_pr(sandbox):
     assert all("@" + login in rendered for login in ("alice", "bob", "4444J99"))
     assert git("rev-parse", "main", cwd=remote) == accepted
     assert git("diff", "--name-only", accepted, result["head_sha"]) == "LEADERBOARD.md"
+
+
+@pytest.mark.parametrize("foreign_change", [False, True])
+def test_refresh_existing_table_fast_forwards_or_rejects_foreign_work(sandbox, foreign_change):
+    from laurea.arena import materialize_entries, write_entry
+    root, remote, env, calls, _, settings, git, original = sandbox
+    branch = "automation/arena-table/9-1"
+    git("switch", "-c", branch)
+    materialize_entries(root / "arena/entries", root / "LEADERBOARD.md", baseline=root / "arena/baseline.json")
+    git("add", "LEADERBOARD.md")
+    if foreign_change:
+        (root / "foreign.txt").write_text("preserve")
+        git("add", "foreign.txt")
+    git("commit", "-m", "previous table proposal")
+    previous = git("rev-parse", "HEAD")
+    git("push", "origin", branch)
+    git("switch", "main")
+    write_entry(root / "arena/entries", issue=1,
+                row=dict(login="alice", contributions=1, prs=1, repos=1, languages=1,
+                         measured_axes=1, verified="2026-09-16"), observed_at="2026-09-16T00:00:00Z")
+    git("add", "arena/entries/1.json")
+    git("commit", "-m", "accepted entrant")
+    accepted = git("rev-parse", "HEAD")
+    git("push", "origin", "main")
+    env.update(GITHUB_EVENT_NAME="push", GITHUB_SHA=accepted)
+    settings["default_sha"] = accepted
+    settings["pending"] = [{"number": 9, "state": "open",
+        "head": {"ref": branch, "sha": previous, "repo": {"id": 7}},
+        "base": {"ref": "main", "repo": {"id": 7}}}]
+    materialize_entries(root / "arena/entries", root / "LEADERBOARD.md", baseline=root / "arena/baseline.json")
+    if foreign_change:
+        with pytest.raises(ValueError, match="outside generated table"):
+            p.publish("arena-table", root=root, env=env, refresh_table=True)
+        assert git("rev-parse", branch, cwd=remote) == previous
+        return
+    result = p.publish("arena-table", root=root, env=env, refresh_table=True)
+    assert result["status"] == "table_branch_refreshed"
+    new = git("rev-parse", branch, cwd=remote)
+    assert git("show", "-s", "--format=%P", new).split() == [previous, accepted]
+    assert "@alice" in git("show", new + ":LEADERBOARD.md", cwd=remote)
+    assert git("rev-parse", "main", cwd=remote) == accepted
+    assert not any(call[:3] == ["gh", "pr", "create"] or "--force" in call for call in calls)

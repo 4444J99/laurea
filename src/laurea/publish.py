@@ -18,7 +18,7 @@ def command(argv, *, root, env):
     return result.stdout.rstrip("\n")
 
 
-def publish(kind, *, issue=None, root=None, env=None, receipt=None):
+def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_table=False):
     root = Path(root or Path.cwd()).resolve()
     env = dict(os.environ if env is None else env)
     receipt = {} if receipt is None else receipt
@@ -128,6 +128,14 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None):
                 raise ValueError("pending table PR identity unavailable")
             pending.append({"pr_url": f"https://github.com/{repository}/pull/{pr['number']}",
                             "head_sha": head["sha"], "branch": head["ref"]})
+        if len(pending) == 1 and refresh_table:
+            owner = pending[0]
+            receipt.update(status="pending_predecessor", pending=pending, branch=owner["branch"], pr_url=owner["pr_url"])
+            head = refresh_table_branch(run, owner, sha, receipt)
+            receipt.update(status="table_branch_refreshed", pending=pending, head_sha=head,
+                           pr_url=owner["pr_url"], branch=owner["branch"],
+                           boundary="Existing proposal advanced without force; merge and current-tree verification remain required.")
+            return receipt
         if pending:
             receipt.update(status="pending_predecessor", pending=pending,
                            boundary="Existing table proposals retain ownership; no new branch or PR was created.",
@@ -192,14 +200,45 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None):
         Path(body_path).unlink(missing_ok=True)
 
 
+
+def refresh_table_branch(run, owner, source_sha, receipt):
+    """Advance a table-only proposal from a validated current-source checkout."""
+    branch, old = owner["branch"], owner["head_sha"]
+    if not re.fullmatch(r"automation/arena-table/[1-9][0-9]*-[1-9][0-9]*", branch):
+        raise ValueError("unrecognized table branch")
+    if run("git", "ls-remote", "origin", "refs/heads/" + branch).split() != [old, "refs/heads/" + branch]:
+        raise ValueError("table predecessor moved")
+    run("git", "fetch", "--no-tags", "origin", old)
+    base = run("git", "merge-base", source_sha, old)
+    if run("git", "diff", "--name-only", base, old).splitlines() != ["LEADERBOARD.md"]:
+        raise ValueError("predecessor contains changes outside generated table")
+    run("git", "add", "--", "LEADERBOARD.md")
+    tree = run("git", "write-tree")
+    if run("git", "rev-parse", old + "^{tree}") == tree:
+        return old
+    # Two parents preserve the predecessor and bind all accepted default changes.
+    head = run("git", "-c", "user.name=laurea[bot]", "-c", "user.email=actions@github.com",
+               "commit-tree", tree, "-p", old, "-p", source_sha,
+               "-m", "arena-table: refresh from " + source_sha)
+    receipt.update(status="table_refresh_prepared", head_sha=head, predecessor_sha=old)
+    try:
+        run("git", "push", "origin", head + ":refs/heads/" + branch)
+    except (OSError, RuntimeError, subprocess.TimeoutExpired):
+        pass  # Read back once; never retry an ambiguous push.
+    if run("git", "ls-remote", "origin", "refs/heads/" + branch).split() != [head, "refs/heads/" + branch]:
+        raise RuntimeError("table refresh unverified; reconcile existing proposal")
+    return head
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--kind", required=True, choices=("metrics", "arena", "arena-table"))
     parser.add_argument("--issue", type=int)
+    parser.add_argument("--refresh-table", action="store_true")
     args = parser.parse_args(argv)
     receipt = {}
     try:
-        publish(args.kind, issue=args.issue, receipt=receipt)
+        publish(args.kind, issue=args.issue, receipt=receipt, refresh_table=args.refresh_table)
     except (OSError, ValueError, KeyError, TypeError, AttributeError, RuntimeError, subprocess.TimeoutExpired):
         receipt.update(last_verified_state=receipt.get("status", "none"), status="unverified",
                        reason="publication requires reconciliation; no retry was attempted")
