@@ -1,0 +1,56 @@
+{
+  "observed_at": "2026-09-16T06:10:03.843284+00:00",
+  "scope": {
+    "allowlisted_targets": 6,
+    "targets_inspected": 2,
+    "targets_not_inspected": 4,
+    "runs_inspected": 3,
+    "jobs_inspected": 6,
+    "health": "unmeasured"
+  },
+  "observations": [
+    {
+      "repository": "organvm/the-thing-without-a-name",
+      "repository_id": 1320324017,
+      "head": "73da6dc1c4339c9cc75c8253c7ef5173e4091256",
+      "run": 33509795974,
+      "jobs": [
+        99862422478
+      ],
+      "executed_steps": 0
+    },
+    {
+      "repository": "organvm/the-thing-without-a-name",
+      "repository_id": 1320324017,
+      "head": "73da6dc1c4339c9cc75c8253c7ef5173e4091256",
+      "run": 34675569830,
+      "jobs": [
+        103504716120,
+        103504716140,
+        103504716151
+      ],
+      "executed_steps": 0
+    },
+    {
+      "repository": "organvm/learning-resources",
+      "head": "b5f3aba021238135a12497a121f78b3ec2985eb0",
+      "run": 34629534343,
+      "jobs": [
+        103362694179,
+        103362694368
+      ],
+      "executed_steps": 0
+    }
+  ],
+  "identity_boundary": {
+    "allowlisted_danse_id": 1320324017,
+    "personal_same_name_id": 1347780050,
+    "same_repository": false
+  },
+  "limits": [
+    "No executed code failure established by these jobs.",
+    "Admission cause and remedy unverified.",
+    "These are diagnostic reads, not trusted relay execution or protected-canary receipts.",
+    "No seventh relay target, workflow dispatch, provider launch or account change."
+  ]
+}
