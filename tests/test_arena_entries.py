@@ -111,3 +111,32 @@ def test_baseline_survives_new_entrants_and_older_observations(tmp_path):
     assert "`@4444J99` | 33,587" in text and "@alice" in text
     write_entry(entries, issue=3, row=row("4444J99"), observed_at=STAMP)
     assert "`@4444J99` | 1" in materialize_entries(entries, table, baseline=baseline)
+
+
+def test_newly_accepted_entrant_invalidates_old_table_without_mutation(tmp_path):
+    from laurea.arena import materialize_entries, check_materialized_entries
+    entries = tmp_path / "entries"
+    write_entry(entries, issue=1, row=row("alice"), observed_at=STAMP)
+    table = tmp_path / "table.md"
+    materialize_entries(entries, table)
+    check_materialized_entries(entries, table)
+    previous = table.read_bytes()
+    write_entry(entries, issue=2, row=row("bob"), observed_at=STAMP)
+    with pytest.raises(ValueError, match="stale"):
+        check_materialized_entries(entries, table)
+    assert table.read_bytes() == previous
+    materialize_entries(entries, table)
+    check_materialized_entries(entries, table)
+    assert "@alice" in table.read_text() and "@bob" in table.read_text()
+
+
+def test_cli_check_is_read_only(tmp_path):
+    from laurea import cli
+    from laurea.arena import materialize_entries
+    entries = tmp_path / "entries"
+    write_entry(entries, issue=1, row=row("alice"), observed_at=STAMP)
+    table = tmp_path / "table.md"
+    materialize_entries(entries, table)
+    before = table.stat().st_mtime_ns
+    assert cli.main(["arena-table", "--entries", str(entries), "--leaderboard", str(table), "--check"]) == 0
+    assert table.stat().st_mtime_ns == before

@@ -20,6 +20,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
+          fetch-depth: 0
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.12"
@@ -27,3 +28,13 @@ jobs:
         run: python -m pip install -e '.[test]'
       - name: Run repository tests
         run: python -m pytest tests -q
+      - name: Reject stale leaderboard replacements
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          CHANGED=$(git diff --name-only "$BASE_SHA" HEAD -- LEADERBOARD.md)
+          if [ "$CHANGED" = "LEADERBOARD.md" ]; then
+            mkdir -p arena/entries
+            laurea arena-table --entries arena/entries --baseline arena/baseline.json --check
+          fi

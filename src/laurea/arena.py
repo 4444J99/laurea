@@ -221,3 +221,13 @@ def materialize_entries(directory: Path, leaderboard: Path, *, baseline: Path | 
     finally:
         Path(temporary).unlink(missing_ok=True)
     return text
+
+
+def check_materialized_entries(directory: Path, leaderboard: Path, *, baseline: Path | None = None) -> None:
+    """Reject a stale table without modifying any caller-owned output."""
+    if leaderboard.is_symlink() or not leaderboard.is_file() or leaderboard.stat().st_size > 10000000:
+        raise ValueError("bounded regular leaderboard required")
+    with tempfile.TemporaryDirectory() as scratch:
+        expected = materialize_entries(directory, Path(scratch) / "expected.md", baseline=baseline)
+    if leaderboard.read_bytes() != expected.encode("utf-8"):
+        raise ValueError("leaderboard is stale relative to accepted records")
