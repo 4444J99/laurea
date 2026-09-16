@@ -93,3 +93,20 @@ Security summaries include observed critical/high/medium/low vulnerability count
 unknown severities, and separate credential-alert counts. These are repository-wide
 alert observations, not scans bound to the current default SHA. No alert contents,
 locations, secret values, or account metadata are published.
+
+## Generated-content publication
+
+The scheduled metrics and issue-driven arena workflows prepare generated-content
+PRs on unique branches. They do not push to the default branch or merge their PRs.
+The publisher verifies its source commit, destination repository, allowed changed
+paths, remote branch tip, and resulting PR identity. A failed or ambiguous write
+is reconciled by a readback, never a blind retry. Failed PR creation leaves the
+remote branch and owning workflow receipt available for recovery.
+
+Arena PRs link their source issue for closure when the snapshot lands. An unchanged
+snapshot does not create a PR or close an issue. GitHub may require approval to run
+checks on PRs created with `GITHUB_TOKEN`; see the official
+[workflow-trigger contract](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow).
+Opening a PR, receiving workflow approval, passing checks, and merging remain
+distinct events. Repository/account admission and publication permission failures
+remain visible; the publisher does not change those settings or substitute tokens.

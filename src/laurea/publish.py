@@ -1,0 +1,168 @@
+"""Publish generated files through a unique PR branch, never the default ref."""
+from __future__ import annotations
+
+import argparse
+import json
+import os
+from pathlib import Path
+import re
+import subprocess
+import tempfile
+from urllib.parse import quote
+
+
+def command(argv, *, root, env):
+    result = subprocess.run(argv, cwd=root, env=env, capture_output=True, text=True, timeout=30)
+    if result.returncode or len(result.stdout) + len(result.stderr) > 2_000_000:
+        raise RuntimeError("publication command did not complete")
+    return result.stdout.rstrip("\n")
+
+
+def publish(kind, *, issue=None, root=None, env=None, receipt=None):
+    root = Path(root or Path.cwd()).resolve()
+    env = dict(os.environ if env is None else env)
+    receipt = {} if receipt is None else receipt
+    repository = env.get("GITHUB_REPOSITORY", "")
+    sha = env.get("GITHUB_SHA", "")
+    run_id, attempt = env.get("GITHUB_RUN_ID", ""), env.get("GITHUB_RUN_ATTEMPT", "")
+    allowed_events = {"metrics": {"schedule", "workflow_dispatch", "push"}, "arena": {"issues"}}
+    if (env.get("GITHUB_ACTIONS") != "true" or kind not in allowed_events
+            or env.get("GITHUB_EVENT_NAME") not in allowed_events[kind]
+            or Path(env.get("GITHUB_WORKSPACE", "/")).resolve() != root
+            or not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repository)
+            or not re.fullmatch(r"[0-9a-f]{40}", sha)
+            or not re.fullmatch(r"[1-9][0-9]*", run_id)
+            or not re.fullmatch(r"[1-9][0-9]*", attempt)
+            or (kind == "arena" and (type(issue) is not int or issue <= 0))):
+        raise ValueError("trusted publication context required")
+    branch = f"automation/{kind}/{run_id}-{attempt}"
+    receipt.update(schema_version="laurea.publication.v1", repository=repository,
+                   source_sha=sha, branch=branch, status="preparing",
+                   owner_run=f"https://github.com/{repository}/actions/runs/{run_id}")
+    if kind == "arena":
+        event_path = Path(env.get("GITHUB_EVENT_PATH", ""))
+        if not event_path.is_file() or event_path.stat().st_size > 1_000_000:
+            raise ValueError("arena event unavailable")
+        event = json.loads(event_path.read_text())
+        event_issue = event.get("issue", {})
+        if (event.get("action") != "opened" or event_issue.get("number") != issue
+                or "pull_request" in event_issue
+                or event.get("repository", {}).get("full_name") != repository):
+            raise ValueError("arena issue does not match its source event")
+
+    def run(*argv):
+        return command(list(argv), root=root, env=env)
+
+    def api(path):
+        return json.loads(run("gh", "api", f"repos/{repository}{path}"))
+
+    if run("git", "rev-parse", "HEAD") != sha:
+        raise ValueError("checkout identity mismatch")
+    origin = run("git", "remote", "get-url", "origin").removesuffix(".git")
+    if origin not in {"https://github.com/" + repository, "git@github.com:" + repository}:
+        raise ValueError("push destination does not match the repository")
+    if run("git", "diff", "--cached", "--name-only"):
+        raise ValueError("caller index is not empty")
+    repo = api("")
+    default = repo.get("default_branch")
+    if (repo.get("full_name") != repository or type(repo.get("id")) is not int or repo["id"] <= 0
+            or not isinstance(default, str) or not default or default == branch):
+        raise ValueError("repository identity unavailable")
+    default_sha = api("/commits/" + quote(default, safe=""))["sha"]
+    if not isinstance(default_sha, str) or not re.fullmatch(r"[0-9a-f]{40}", default_sha):
+        raise ValueError("default generation unavailable")
+    if kind == "arena":
+        current_issue = api(f"/issues/{issue}")
+        if (current_issue.get("number") != issue or current_issue.get("state") != "open"
+                or "pull_request" in current_issue or event["repository"].get("id") != repo["id"]):
+            raise ValueError("arena issue is no longer an open source obligation")
+    comparison = api(f"/compare/{sha}...{default_sha}")
+    if comparison.get("status") not in {"ahead", "identical"}:
+        raise ValueError("source is not on the default branch")
+    paths = ["assets"] if kind == "metrics" else ["LEADERBOARD.md"]
+    changed = run("git", "diff", "--name-only", "-z").split("\0")
+    changed += run("git", "ls-files", "--others", "--exclude-standard", "-z").split("\0")
+    if any(p and not (p.startswith("assets/") if kind == "metrics" else p == "LEADERBOARD.md") for p in changed):
+        raise ValueError("unrelated caller files are present")
+    run("git", "add", "--", *paths)
+    staged = run("git", "diff", "--cached", "--name-only", "-z")
+    if not staged:
+        receipt.update(status="unchanged", boundary="No generated diff; no new publication or issue closure.")
+        return receipt
+    modes = run("git", "ls-files", "--stage", "-z", "--", *paths).split("\0")
+    if any(row.startswith("120000 ") for row in modes):
+        raise ValueError("generated symlinks cannot be published")
+    if run("git", "ls-remote", "origin", "refs/heads/" + branch):
+        raise ValueError("publication branch already exists; reconcile its owner run")
+    run("git", "switch", "-c", branch)
+    run("git", "-c", "user.name=laurea[bot]", "-c", "user.email=actions@github.com",
+        "commit", "-m", f"{kind}: generated snapshot from {sha[:12]}")
+    head = run("git", "rev-parse", "HEAD")
+    receipt["head_sha"] = head
+    # No force, rebase, default-ref push, retry, or automatic merge.
+    push_failed = False
+    try:
+        run("git", "push", "origin", f"HEAD:refs/heads/{branch}")
+    except (OSError, RuntimeError, subprocess.TimeoutExpired):
+        push_failed = True
+    remote = run("git", "ls-remote", "origin", "refs/heads/" + branch)
+    if remote.split() != [head, "refs/heads/" + branch]:
+        raise RuntimeError("branch publication is unverified")
+    receipt.update(status="branch_published", push_reconciled=push_failed)
+    body = (f"Generated {kind} snapshot from default-source commit {sha}.\n\n"
+            f"Owner and generation receipt: {receipt['owner_run']}\n\n"
+            "Review the generated diff and merge through the repository rail. "
+            "An open PR is preparation, not publication.\n")
+    if kind == "arena":
+        body += f"\nCloses #{issue} after this snapshot lands on the default branch.\n"
+    fd, body_path = tempfile.mkstemp(prefix="laurea-publication-", suffix=".md")
+    try:
+        with os.fdopen(fd, "w") as stream:
+            stream.write(body)
+        try:
+            run("gh", "pr", "create", "--repo", repository, "--base", default,
+                "--head", branch, "--title", f"{kind}: refresh generated snapshot",
+                "--body-file", body_path)
+        except (OSError, RuntimeError, subprocess.TimeoutExpired):
+            pass  # One readback reconciles an ambiguous create; never send it again.
+        pulls = api("/pulls?state=open&head=" + quote(repository.split("/")[0] + ":" + branch, safe="")
+                    + "&base=" + quote(default, safe="") + "&per_page=100")
+        if not isinstance(pulls, list) or len(pulls) != 1:
+            raise RuntimeError("PR publication is unverified; preserve the remote branch")
+        pr = pulls[0]
+        if (pr.get("head", {}).get("sha") != head
+                or pr.get("state") != "open" or pr.get("head", {}).get("ref") != branch
+                or pr.get("head", {}).get("repo", {}).get("id") != repo["id"]
+                or pr.get("base", {}).get("repo", {}).get("id") != repo["id"]
+                or pr.get("base", {}).get("ref") != default
+                or type(pr.get("number")) is not int or pr["number"] <= 0):
+            raise RuntimeError("PR identity is unverified")
+        receipt.update(status="pr_open", pr_url=f"https://github.com/{repository}/pull/{pr['number']}")
+        return receipt
+    finally:
+        Path(body_path).unlink(missing_ok=True)
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--kind", required=True, choices=("metrics", "arena"))
+    parser.add_argument("--issue", type=int)
+    args = parser.parse_args(argv)
+    receipt = {}
+    try:
+        publish(args.kind, issue=args.issue, receipt=receipt)
+    except (OSError, ValueError, KeyError, TypeError, AttributeError, RuntimeError, subprocess.TimeoutExpired):
+        receipt.update(last_verified_state=receipt.get("status", "none"), status="unverified",
+                       reason="publication requires reconciliation; no retry was attempted")
+        print(json.dumps(receipt, indent=2))
+        return 1
+    print(json.dumps(receipt, indent=2))
+    output = os.environ.get("GITHUB_OUTPUT")
+    if output:
+        with open(output, "a") as stream:
+            stream.write(f"status={receipt['status']}\npr_url={receipt.get('pr_url', '')}\n")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

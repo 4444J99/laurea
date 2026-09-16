@@ -1,0 +1,176 @@
+"""Actual isolated Git pushes prove the default ref and caller files stay intact."""
+import json
+import os
+from pathlib import Path
+import subprocess
+
+import pytest
+
+from laurea import publish as p
+
+
+@pytest.fixture
+def sandbox(tmp_path, monkeypatch):
+    root, remote = tmp_path / "work", tmp_path / "remote.git"
+    root.mkdir()
+    def git(*args, cwd=root):
+        return subprocess.run(["git", *args], cwd=cwd, capture_output=True, text=True,
+                              timeout=10, check=True).stdout.strip()
+    git("init", "--bare", str(remote))
+    git("init", "-b", "main")
+    git("config", "user.name", "fixture")
+    git("config", "user.email", "fixture@example.invalid")
+    (root / "assets").mkdir()
+    (root / "assets/metrics.json").write_text('{"old":true}\n')
+    (root / "LEADERBOARD.md").write_text("old table\n")
+    git("add", ".")
+    git("commit", "-m", "fixture")
+    sha = git("rev-parse", "HEAD")
+    git("remote", "add", "origin", str(remote))
+    git("push", "origin", "HEAD:refs/heads/main")
+    env = {**os.environ, "GITHUB_ACTIONS": "true", "GITHUB_WORKSPACE": str(root),
+           "GITHUB_REPOSITORY": "owner/repo", "GITHUB_SHA": sha,
+           "GITHUB_RUN_ID": "12", "GITHUB_RUN_ATTEMPT": "1", "GITHUB_EVENT_NAME": "schedule"}
+    event = tmp_path / "event.json"
+    event.write_text(json.dumps({"action": "opened", "issue": {"number": 4},
+                                 "repository": {"full_name": "owner/repo", "id": 7}}))
+    env["GITHUB_EVENT_PATH"] = str(event)
+    calls, bodies = [], []
+    settings = {"create_fails": False, "created": False, "wrong_pr": False, "wrong_origin": False}
+    real = p.command
+    def command(argv, *, root, env):
+        calls.append(argv)
+        if argv == ["git", "remote", "get-url", "origin"]:
+            return "https://github.com/other/repo" if settings["wrong_origin"] else "https://github.com/owner/repo"
+        if argv[0] != "gh":
+            return real(argv, root=root, env=env)
+        if argv[1:3] == ["pr", "create"]:
+            bodies.append(Path(argv[argv.index("--body-file") + 1]).read_text())
+            if settings["create_fails"]:
+                raise RuntimeError("ambiguous create")
+            settings["created"] = True
+            return "https://github.com/owner/repo/pull/9"
+        assert argv[1] == "api"
+        path = argv[2]
+        if path == "repos/owner/repo":
+            return json.dumps({"id": 7, "full_name": "owner/repo", "default_branch": "main"})
+        if "/commits/" in path:
+            return json.dumps({"sha": sha})
+        if "/compare/" in path:
+            return json.dumps({"status": "identical"})
+        if "/issues/" in path:
+            return json.dumps({"number": 4, "state": "open"})
+        if "/pulls?" in path:
+            branch = git("branch", "--show-current")
+            return json.dumps([{"state": "open", "number": 9,
+                                "head": {"sha": "b" * 40 if settings["wrong_pr"] else git("rev-parse", "HEAD"),
+                                         "ref": branch, "repo": {"id": 7}},
+                                "base": {"ref": "main", "repo": {"id": 7}}}]
+                              if settings["created"] else [])
+        raise AssertionError(path)
+    monkeypatch.setattr(p, "command", command)
+    return root, remote, env, calls, bodies, settings, git, sha
+
+
+def test_metrics_pushes_only_unique_branch_and_reads_back_pr(sandbox):
+    root, remote, env, calls, bodies, _, git, sha = sandbox
+    (root / "assets/metrics.json").write_text('{"new":true}\n')
+    result = p.publish("metrics", root=root, env=env)
+    assert result["status"] == "pr_open"
+    assert git("rev-parse", "refs/heads/main", cwd=remote) == sha
+    assert git("rev-parse", "refs/heads/automation/metrics/12-1", cwd=remote) == result["head_sha"]
+    assert git("diff", "--name-only", sha, result["head_sha"]) == "assets/metrics.json"
+    assert "open PR is preparation" in bodies[0]
+    assert all("--force" not in call and "--rebase" not in call for call in calls)
+
+
+def test_arena_issue_closure_is_bound_to_pr_merge(sandbox):
+    root, _, env, calls, bodies, _, _, _ = sandbox
+    env["GITHUB_EVENT_NAME"] = "issues"
+    (root / "LEADERBOARD.md").write_text("new table\n")
+    assert p.publish("arena", issue=4, root=root, env=env)["status"] == "pr_open"
+    assert "Closes #4 after this snapshot lands" in bodies[0]
+    assert not any(call[0:3] == ["gh", "issue", "close"] for call in calls)
+
+
+def test_unchanged_artifact_does_not_push_or_close_issue(sandbox):
+    root, _, env, calls, _, _, _, _ = sandbox
+    assert p.publish("metrics", root=root, env=env)["status"] == "unchanged"
+    assert not any(call[:2] == ["git", "push"] or call[:3] == ["gh", "pr", "create"] for call in calls)
+
+
+def test_arena_cannot_close_an_issue_other_than_its_source(sandbox):
+    root, _, env, calls, _, _, _, _ = sandbox
+    env["GITHUB_EVENT_NAME"] = "issues"
+    with pytest.raises(ValueError, match="source event"):
+        p.publish("arena", issue=5, root=root, env=env)
+    assert not any(call[:2] == ["git", "push"] for call in calls)
+
+
+def test_unrelated_caller_file_is_preserved(sandbox):
+    root, _, env, _, _, _, _, _ = sandbox
+    (root / "caller.txt").write_text("preserve me")
+    with pytest.raises(ValueError, match="unrelated"):
+        p.publish("metrics", root=root, env=env)
+    assert (root / "caller.txt").read_text() == "preserve me"
+
+
+def test_existing_branch_is_not_updated(sandbox):
+    root, remote, env, _, _, _, git, sha = sandbox
+    git("push", "origin", "HEAD:refs/heads/automation/metrics/12-1")
+    (root / "assets/metrics.json").write_text("changed")
+    with pytest.raises(ValueError, match="already exists"):
+        p.publish("metrics", root=root, env=env)
+    assert git("rev-parse", "refs/heads/automation/metrics/12-1", cwd=remote) == sha
+
+
+@pytest.mark.parametrize("created", [True, False])
+def test_ambiguous_create_is_read_once_without_retry(sandbox, created):
+    root, remote, env, calls, _, settings, git, sha = sandbox
+    settings.update(create_fails=True, created=created)
+    (root / "assets/metrics.json").write_text("changed")
+    receipt = {}
+    if created:
+        assert p.publish("metrics", root=root, env=env, receipt=receipt)["status"] == "pr_open"
+    else:
+        with pytest.raises(RuntimeError, match="PR publication"):
+            p.publish("metrics", root=root, env=env, receipt=receipt)
+        assert receipt["status"] == "branch_published"
+    assert git("rev-parse", "refs/heads/main", cwd=remote) == sha
+    assert sum(call[:3] == ["gh", "pr", "create"] for call in calls) == 1
+
+
+def test_wrong_pr_head_cannot_be_accepted(sandbox):
+    root, _, env, _, _, settings, _, _ = sandbox
+    settings["wrong_pr"] = True
+    (root / "assets/metrics.json").write_text("changed")
+    with pytest.raises(RuntimeError, match="PR identity"):
+        p.publish("metrics", root=root, env=env)
+
+
+@pytest.mark.parametrize("change", ["origin", "sha", "event"])
+def test_untrusted_context_stops_before_push(sandbox, change):
+    root, _, env, calls, _, settings, _, _ = sandbox
+    if change == "origin":
+        settings["wrong_origin"] = True
+    elif change == "sha":
+        env["GITHUB_SHA"] = "b" * 40
+    else:
+        env["GITHUB_EVENT_NAME"] = "pull_request"
+    with pytest.raises(ValueError):
+        p.publish("metrics", root=root, env=env)
+    assert not any(call[:2] == ["git", "push"] for call in calls)
+
+
+def test_failure_receipt_preserves_known_remote_branch_and_redacts_error(monkeypatch, capsys):
+    def fail(kind, *, issue, receipt):
+        receipt.update(status="branch_published", branch="automation/metrics/12-1", head_sha="a" * 40)
+        raise RuntimeError("PRIVATE provider details")
+    monkeypatch.setattr(p, "publish", fail)
+    assert p.main(["--kind", "metrics"]) == 1
+    output = capsys.readouterr().out
+    result = json.loads(output)
+    assert result["status"] == "unverified"
+    assert result["last_verified_state"] == "branch_published"
+    assert result["branch"] == "automation/metrics/12-1"
+    assert "PRIVATE" not in output
