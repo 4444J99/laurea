@@ -176,7 +176,7 @@ def organization_memberships(snapshot: Snapshot) -> Finding:
         unit="organizations",
         status=STATUS_MEASURED,
         evidence=f"GitHub returned {count} organization memberships for this account",
-        source="GitHub GraphQL user.organizations (first 20 visible to the token)",
+        source="GitHub GraphQL user.organizations (paginated, visible to the token)",
         analysis=(
             "Membership does not by itself establish ownership, administrative authority, "
             "or individual responsibility for every repository in an organization."

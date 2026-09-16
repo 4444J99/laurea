@@ -23,7 +23,6 @@ query($login: String!) {
     name
     createdAt
     followers { totalCount }
-    organizations(first: 20) { nodes { login } }
     repositories(ownerAffiliations: OWNER, first: 100) { totalCount }
     contributionsCollection {
       contributionCalendar { totalContributions }
@@ -44,6 +43,10 @@ query($org: String!, $cursor: String) {
       totalCount
       pageInfo { hasNextPage endCursor }
       nodes {
+        id
+        nameWithOwner
+        isPrivate
+        defaultBranchRef { name target { oid } }
         name
         isFork
         isArchived
@@ -63,6 +66,10 @@ query($login: String!, $cursor: String) {
       totalCount
       pageInfo { hasNextPage endCursor }
       nodes {
+        id
+        nameWithOwner
+        isPrivate
+        defaultBranchRef { name target { oid } }
         name
         isFork
         isArchived
@@ -112,25 +119,61 @@ def _gql(query: str, variables: dict[str, Any], token: str) -> dict[str, Any]:
     return payload["data"]
 
 
+class CoverageError(RuntimeError):
+    """A connection could not establish a complete, stable denominator."""
+
+
 def _paginate_repos(
     query: str, key_path: list[str], variables: dict[str, Any], token: str
 ) -> list[dict[str, Any]]:
     nodes: list[dict[str, Any]] = []
     cursor: str | None = None
-    while True:
-        data = _gql(query, {**variables, "cursor": cursor}, token)
-        conn = data
-        for key in key_path:
-            conn = conn[key]
-        nodes.extend(conn["nodes"])
-        page = conn["pageInfo"]
-        if not page["hasNextPage"]:
-            return nodes
-        cursor = page["endCursor"]
+    seen: set[str] = set()
+    total: int | None = None
+    for _ in range(100):
+        conn = _gql(query, {**variables, "cursor": cursor}, token)
+        try:
+            for key in key_path:
+                conn = conn[key]
+            count, batch, page = conn["totalCount"], conn["nodes"], conn["pageInfo"]
+            if type(count) is not int or count < 0 or not isinstance(batch, list):
+                raise CoverageError("malformed connection")
+            if total is not None and total != count:
+                raise CoverageError("connection changed during collection")
+            total = count
+            if any(not isinstance(node, dict) for node in batch):
+                raise CoverageError("malformed node")
+            nodes.extend(batch)
+            if type(page["hasNextPage"]) is not bool:
+                raise CoverageError("malformed page state")
+            if not page["hasNextPage"]:
+                if len(nodes) != total:
+                    raise CoverageError("connection count mismatch")
+                return nodes
+            cursor = page["endCursor"]
+            if not isinstance(cursor, str) or not cursor or cursor in seen:
+                raise CoverageError("pagination did not advance")
+            seen.add(cursor)
+        except (KeyError, TypeError) as exc:
+            raise CoverageError("unreadable connection") from exc
+    raise CoverageError("pagination limit reached")
+
+
+_ORGS_QUERY = """
+query($login: String!, $cursor: String) {
+  user(login: $login) {
+    organizations(first: 100, after: $cursor) {
+      totalCount
+      pageInfo { hasNextPage endCursor }
+      nodes { login }
+    }
+  }
+}
+"""
 
 
 def collect(login: str, token: str | None = None) -> dict[str, Any]:
-    """Collect the full identity snapshot: user, orgs, every owned repo."""
+    """Collect visible sources with explicit incomplete and excluded coverage."""
     token = token or resolve_token()
     user = _gql(_USER_QUERY, {"login": login}, token)["user"]
     if not isinstance(user, dict):
@@ -138,20 +181,53 @@ def collect(login: str, token: str | None = None) -> dict[str, Any]:
             f"GitHub login @{login} is not a user; set LAUREA_LOGIN to a user account"
         )
 
-    repos = _paginate_repos(
-        _USER_REPOS_QUERY, ["user", "repositories"], {"login": login}, token
-    )
-    org_logins = [n["login"] for n in user["organizations"]["nodes"]]
-    for org in org_logins:
+    failures = 0
+    try:
+        org_nodes = _paginate_repos(
+            _ORGS_QUERY, ["user", "organizations"], {"login": login}, token
+        )
+        org_logins = [node["login"] for node in org_nodes]
+        if any(not isinstance(org, str) or not org for org in org_logins):
+            raise CoverageError("malformed organization")
+        if len(set(org_logins)) != len(org_logins):
+            raise CoverageError("duplicate organization")
+        org_scope_complete = True
+    except (RuntimeError, ValueError, KeyError, OSError):
+        org_logins = []
+        org_scope_complete = False
+        failures += 1
+
+    repos = []
+    private_count = 0
+    observed_ids: set[str] = set()
+    sources = [(_USER_REPOS_QUERY, ["user", "repositories"], {"login": login})]
+    sources += [(_ORG_REPOS_QUERY, ["organization", "repositories"], {"org": org})
+                for org in org_logins]
+    for query, path, variables in sources:
         try:
-            repos.extend(
-                _paginate_repos(
-                    _ORG_REPOS_QUERY, ["organization", "repositories"], {"org": org}, token
-                )
-            )
-        except RuntimeError:
-            # Repositories the token cannot read do not enter the visible corpus.
+            batch = _paginate_repos(query, path, variables, token)
+            ids = [repo.get("id") for repo in batch]
+            if (any(not isinstance(identity, str) or not identity for identity in ids)
+                    or len(set(ids)) != len(ids)
+                    or any(type(repo.get("isPrivate")) is not bool for repo in batch)):
+                raise CoverageError("malformed repository identity or visibility")
+        except (RuntimeError, ValueError, KeyError, OSError):
+            failures += 1
             continue
+        for repo in batch:
+            if repo["id"] in observed_ids:
+                continue
+            observed_ids.add(repo["id"])
+            if repo["isPrivate"]:
+                private_count += 1
+                continue
+            # Private repository identities never enter the publishable snapshot.
+            repo["health"] = {
+                "verification": "unmeasured",
+                "security": "unmeasured",
+                "pr_readiness": "unmeasured",
+            }
+            repos.append(repo)
 
     contrib = user["contributionsCollection"]
     return {
@@ -161,6 +237,18 @@ def collect(login: str, token: str | None = None) -> dict[str, Any]:
         "followers": user["followers"]["totalCount"],
         "orgs": org_logins,
         "repos": repos,
+        "coverage": {
+            "status": "complete" if failures == 0 else "unmeasured",
+            "scope": "token-visible personal repositories and organization memberships; not an administered-estate census",
+            "organization_scope_complete": org_scope_complete,
+            "sources_attempted": len(sources),
+            "failed_sources": failures,
+            "observed_repositories": len(observed_ids),
+            "public_repositories": len(repos),
+            "private_repositories_excluded": private_count,
+            "archived_public_repositories": sum(repo.get("isArchived") is True for repo in repos),
+            "health_status": "unmeasured",
+        },
         "contributions": {
             "total": contrib["contributionCalendar"]["totalContributions"],
             "commits": contrib["totalCommitContributions"],

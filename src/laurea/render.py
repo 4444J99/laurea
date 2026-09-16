@@ -184,6 +184,22 @@ def profile_md(report: Report) -> str:
         f"*Source implementation: `{report.source_repository}` at `{report.source_sha}`.*",
         "",
     ]
+    coverage = report.snapshot.get("coverage", {})
+    lines += [
+        "## Source coverage",
+        "",
+        f"Collection: **{coverage.get('status', 'unmeasured')}**. "
+        f"Health: **{coverage.get('health_status', 'unmeasured')}**.",
+        "",
+        f"Observed repositories: {coverage.get('observed_repositories', 'unknown')}; "
+        f"private repositories excluded: {coverage.get('private_repositories_excluded', 'unknown')}; "
+        f"failed sources: {coverage.get('failed_sources', 'unknown')}.",
+        "",
+        "Token-visible membership scope is not an administered-estate census. "
+        "Default SHA identifies a source generation; it does not prove executed "
+        "verification, security coverage or PR readiness.",
+        "",
+    ]
     for finding in report.findings:
         evidence = finding.evidence.rstrip(".")
         lines += [
