@@ -26,8 +26,7 @@ prove that a threshold is the 99th or 99.9th percentile of a defined population.
   repositories connection and the repositories connections for organization
   memberships visible to the token. An organization repository is not thereby
   attributed to the measured account.
-- `organization_memberships` reports the first 20 memberships returned by the
-  current query. Membership is not operation or ownership.
+- `organization_memberships` paginates the memberships visible to the token. Membership is not operation or ownership.
 - `tenure` derives elapsed time from `user.createdAt`; account age is not a
   substitute for continuous professional experience.
 
@@ -61,3 +60,27 @@ A future rank claim requires a versioned population dataset, a defined compariso
 class and time window, reproducible quantile code, uncertainty handling, and a
 review receipt tied to the exact dataset and implementation head. Until all of
 those exist, LAVREA publishes no percentile.
+
+## Coverage and private corpus aggregates
+
+Membership discovery counts as one attempted source alongside each repository
+connection. Incomplete or malformed coverage stops report, arena, and verdict
+publication before replacing existing assets or same-day history. The collector
+can still return an explicitly unmeasured diagnostic snapshot.
+
+Private repository identities are excluded from published rows. Identity-free
+non-fork counts, primary-language counts, and stars retain the token-visible
+corpus definition used by the existing metrics, hero, arena, and verdict series.
+Forks remain excluded from language/non-fork metrics and included in estate star
+totals, matching the previous definitions. Redaction without these aggregate
+receipts cannot be published as the same metric. Legacy unredacted v2 snapshots
+retain their recorded field semantics; they gain no new coverage claim.
+
+The bounded health reader observes PR head/base generations, check counts and
+current-head review decisions for up to five open PRs. It re-reads each PR before
+marking its generation current. Draft and conflict blockers are separate from
+required policy, trusted producer, execution, and acceptance evidence. Check
+success or an approval count cannot establish readiness by itself. GitHub's
+[review API](https://docs.github.com/en/rest/pulls/reviews#list-reviews-for-a-pull-request)
+returns reviews in chronological order; comment-only reviews do not replace a
+reviewer's decision.

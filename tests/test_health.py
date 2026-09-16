@@ -100,3 +100,21 @@ def test_cli_unknown_health_returns_77_even_with_current_generation(monkeypatch,
         "status": "unmeasured", "generation": "current"})
     assert main(["health", "--repo", "owner/repo"]) == 77
     assert json.loads(capsys.readouterr().out)["generation"] == "current"
+
+
+def test_failed_job_observation_keeps_verification_unmeasured():
+    base, _ = reader()
+    def read(path):
+        if "/jobs?" in path:
+            raise OSError("unavailable")
+        return base(path)
+    result = collect_health("owner/repo", "fixture", read=read)
+    assert result["verification"]["status"] == "unmeasured"
+    assert result["verification"]["runs_observed"][0]["execution"] == "unmeasured"
+
+
+def test_malformed_steps_do_not_become_measured_zero_execution():
+    read, _ = reader(steps=["malformed"])
+    result = collect_health("owner/repo", "fixture", read=read)
+    assert result["verification"]["status"] == "unmeasured"
+    assert result["verification"]["runs_observed"][0]["execution"] == "unmeasured"

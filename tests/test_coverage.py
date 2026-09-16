@@ -46,15 +46,17 @@ def test_failed_org_and_private_exclusion_remain_counted(monkeypatch):
             raise RuntimeError("private API details must not be published")
         return {"user": {"repositories": connection([
             {"id": "public-id", "nameWithOwner": "tester/public", "isPrivate": False,
-             "isFork": False, "isArchived": True,
+             "isFork": False, "isArchived": True, "stargazerCount": 2,
              "defaultBranchRef": {"name": "main", "target": {"oid": "abc"}}},
-            {"id": "secret-id", "nameWithOwner": "tester/secret", "isPrivate": True}])}}
+            {"id": "secret-id", "nameWithOwner": "tester/secret", "isPrivate": True, "isFork": False, "stargazerCount": 3}])}}
     monkeypatch.setattr("laurea.github._gql", gql)
     snapshot = collect("tester", "token")
     assert snapshot["coverage"]["status"] == "unmeasured"
     assert snapshot["coverage"]["failed_sources"] == 1
     assert snapshot["coverage"]["observed_repositories"] == 2
     assert snapshot["coverage"]["private_repositories_excluded"] == 1
+    assert snapshot["repository_aggregates"]["nonfork_repositories"] == 2
+    assert snapshot["repository_aggregates"]["stars"] == 5
     assert snapshot["repos"][0]["defaultBranchRef"]["target"]["oid"] == "abc"
     assert snapshot["repos"][0]["health"]["verification"] == "unmeasured"
     assert "secret" not in json.dumps(snapshot)
@@ -78,3 +80,19 @@ def test_changed_denominator_is_unmeasured(monkeypatch):
     monkeypatch.setattr("laurea.github._gql", lambda *args: {"repos": next(pages)})
     with pytest.raises(CoverageError, match="changed"):
         _paginate_repos("query", ["repos"], {}, "token")
+
+
+def test_membership_and_repository_failures_have_both_attempts(monkeypatch):
+    user = {"login": "tester", "name": "Tester", "createdAt": "2020-01-01Z",
+            "followers": {"totalCount": 0}, "contributionsCollection": {
+                "contributionCalendar": {"totalContributions": 0},
+                "totalCommitContributions": 0, "totalPullRequestContributions": 0,
+                "totalPullRequestReviewContributions": 0,
+                "totalIssueContributions": 0, "restrictedContributionsCount": 0}}
+    def gql(query, *args):
+        if "contributionsCollection" in query:
+            return {"user": user}
+        raise OSError("unavailable")
+    monkeypatch.setattr("laurea.github._gql", gql)
+    coverage = collect("tester", "fixture")["coverage"]
+    assert coverage["failed_sources"] == coverage["sources_attempted"] == 2

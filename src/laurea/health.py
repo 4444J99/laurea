@@ -13,6 +13,8 @@ from datetime import datetime, timezone
 from typing import Any, Callable
 from urllib.parse import quote
 
+from .pulls import collect_pulls
+
 
 class Unmeasured(RuntimeError):
     """A bounded observation could not establish the requested fact."""
@@ -70,7 +72,10 @@ def _verification(read: Callable, prefix: str, sha: str) -> dict[str, Any]:
             jobs = _connection(read(prefix + f"/actions/runs/{run['id']}/jobs?filter=latest&per_page=100"), "jobs")
             executed = 0
             for job in jobs:
-                if job.get("head_sha") != sha or not isinstance(job.get("steps"), list):
+                if (job.get("head_sha") != sha or not isinstance(job.get("steps"), list)
+                        or any(not isinstance(step, dict)
+                               or step.get("status") not in {"queued", "in_progress", "completed", "pending", "waiting"}
+                               for step in job["steps"])):
                     raise Unmeasured("job generation or steps unavailable")
                 executed += sum(isinstance(step, dict)
                                 and step.get("status") == "completed"
@@ -82,7 +87,7 @@ def _verification(read: Callable, prefix: str, sha: str) -> dict[str, Any]:
         except (OSError, ValueError, KeyError, TypeError, Unmeasured):
             pass
         observations.append(row)
-    return {"status": "measured" if len(runs) <= 10 else "unmeasured",
+    return {"status": "measured" if len(runs) <= 10 and all(row["execution"] != "unmeasured" for row in observations) else "unmeasured",
             "runs_total": len(runs), "runs_observed": observations,
             "runs_unmeasured": max(0, len(runs) - 10),
             "acceptance": "unmeasured",
@@ -104,15 +109,6 @@ def _security(read: Callable, prefix: str) -> dict[str, Any]:
             result[name] = _unknown()
     return result
 
-
-def _pulls(read: Callable, prefix: str) -> dict[str, Any]:
-    rows = read(prefix + "/pulls?state=open&per_page=100")
-    if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
-        raise Unmeasured("malformed pull requests")
-    return {"status": "measured" if len(rows) < 100 else "unmeasured",
-            "open_observed": len(rows),
-            "readiness": "unmeasured",
-            "boundary": "Open count does not establish review, required checks, mergeability or exact-head acceptance."}
 
 
 def collect_health(repository: str, token: str, *, read: Callable | None = None) -> dict[str, Any]:  # allow-secret: runtime parameter or synthetic rejection fixture; no credential literal
@@ -139,7 +135,7 @@ def collect_health(repository: str, token: str, *, read: Callable | None = None)
         result.update(repository=repo["full_name"], repository_id=repo["id"], default_sha=sha)
         for key, probe in (("verification", lambda: _verification(read, prefix, sha)),
                            ("security", lambda: _security(read, prefix)),
-                           ("pr_readiness", lambda: _pulls(read, prefix))):
+                           ("pr_readiness", lambda: collect_pulls(read, prefix, repo["id"]))):
             try:
                 result[key] = probe()
             except (OSError, ValueError, KeyError, TypeError, Unmeasured):

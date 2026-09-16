@@ -79,3 +79,10 @@ unmeasured. Current generation, an empty alert list, or an open PR count does
 not establish the owning acceptance predicate, enabled security coverage or PR
 readiness. Until those obligations have their own evidence, health is unmeasured
 and the command returns 77. This command does not dispatch workflows or merge PRs.
+
+PR observations inspect at most five open PRs within the same request budget.
+Each row binds its head and base before and after checks/reviews; omitted PRs
+remain counted. Known draft/conflict blockers are reported separately from
+unmeasured acceptance and required policy. Public reports preserve aggregate
+metrics for token-visible private repositories without publishing their names.
+Incomplete collection stops publication before replacing valid assets/history.

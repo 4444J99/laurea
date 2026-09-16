@@ -8,6 +8,7 @@ from pathlib import Path
 
 from .baselines import STATUS_MEASURED
 from .models import Report
+from .corpus import require_complete
 
 _MARK_START = "<!-- arena:rows:start -->"
 _MARK_END = "<!-- arena:rows:end -->"
@@ -28,6 +29,8 @@ TABLE_HEAD = (
 
 def build_row(report: Report) -> dict:
     """Build one leaderboard row from a report without adding rank claims."""
+
+    require_complete(report.snapshot)
 
     def value(axis: str) -> int:
         finding = report.by_axis(axis)

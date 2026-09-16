@@ -8,6 +8,8 @@ every axis; a user-scoped token additionally counts private
 
 from __future__ import annotations
 
+from .corpus import aggregate_repositories
+
 import json
 import os
 import subprocess
@@ -198,6 +200,7 @@ def collect(login: str, token: str | None = None) -> dict[str, Any]:
         failures += 1
 
     repos = []
+    visible_repos = []
     private_count = 0
     observed_ids: set[str] = set()
     sources = [(_USER_REPOS_QUERY, ["user", "repositories"], {"login": login})]
@@ -206,6 +209,7 @@ def collect(login: str, token: str | None = None) -> dict[str, Any]:
     for query, path, variables in sources:
         try:
             batch = _paginate_repos(query, path, variables, token)
+            aggregate_repositories(batch)  # Validate before consuming any partial source.
             ids = [repo.get("id") for repo in batch]
             if (any(not isinstance(identity, str) or not identity for identity in ids)
                     or len(set(ids)) != len(ids)
@@ -218,6 +222,7 @@ def collect(login: str, token: str | None = None) -> dict[str, Any]:
             if repo["id"] in observed_ids:
                 continue
             observed_ids.add(repo["id"])
+            visible_repos.append(repo)
             if repo["isPrivate"]:
                 private_count += 1
                 continue
@@ -237,11 +242,13 @@ def collect(login: str, token: str | None = None) -> dict[str, Any]:
         "followers": user["followers"]["totalCount"],
         "orgs": org_logins,
         "repos": repos,
+        "repository_aggregates": aggregate_repositories(visible_repos),
         "coverage": {
             "status": "complete" if failures == 0 else "unmeasured",
             "scope": "token-visible personal repositories and organization memberships; not an administered-estate census",
             "organization_scope_complete": org_scope_complete,
-            "sources_attempted": len(sources),
+            "sources_attempted": len(sources) + 1,
+            "source_count_scope": "membership discovery and repository connections",
             "failed_sources": failures,
             "observed_repositories": len(observed_ids),
             "public_repositories": len(repos),
