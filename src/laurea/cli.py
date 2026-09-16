@@ -15,7 +15,7 @@ from .detectors import REGISTRY, run_all
 from .github import collect, resolve_token
 from .models import Finding, Report
 from .health import collect_health, collect_health_batch
-from .arena import build_row, update_leaderboard, write_entry
+from .arena import build_row, update_leaderboard, write_entry, materialize_entries
 from .render import render_all
 from .verdict import append_entry, collect_verdict, load_history, verdict_card
 
@@ -111,7 +111,15 @@ def main(argv: list[str] | None = None) -> int:
     arena.add_argument("--issue", type=int)
     arena.add_argument("--entries", default="arena/entries", type=Path)
 
+    table = sub.add_parser("arena-table")
+    table.add_argument("--entries", default="arena/entries", type=Path)
+    table.add_argument("--leaderboard", default="LEADERBOARD.md", type=Path)
+
     args = parser.parse_args(argv)
+    if args.cmd == "arena-table":
+        materialize_entries(args.entries, args.leaderboard)
+        print(f"arena: materialized accepted records -> {args.leaderboard}")
+        return 0
     if args.cmd == "health-batch":
         try:
             if args.inventory.stat().st_size > 2_000_000:

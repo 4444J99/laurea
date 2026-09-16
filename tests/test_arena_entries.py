@@ -57,3 +57,28 @@ def test_cli_rejects_invalid_issue_before_collection(monkeypatch):
     monkeypatch.setattr(cli, "collect", lambda *a: pytest.fail("must not collect"))
     with pytest.raises(SystemExit):
         cli.main(["arena", "--login", "alice", "--issue", "0"])
+
+
+def test_materialization_preserves_entrants_and_selects_latest_observation(tmp_path):
+    from laurea.arena import materialize_entries
+    entries = tmp_path / "entries"
+    write_entry(entries, issue=2, row=row("bob"), observed_at=STAMP)
+    write_entry(entries, issue=1, row=row("alice"), observed_at=STAMP)
+    newer = row("alice"); newer["contributions"] = 9
+    write_entry(entries, issue=3, row=newer, observed_at="2026-09-17T00:00:00Z")
+    table = tmp_path / "table.md"
+    text = materialize_entries(entries, table)
+    assert text.count("@alice") == text.count("@bob") == 1
+    assert "`@alice` | 9" in text
+    assert materialize_entries(entries, table) == text
+
+
+def test_malformed_record_preserves_previous_table(tmp_path):
+    from laurea.arena import materialize_entries
+    entries = tmp_path / "entries"
+    write_entry(entries, issue=1, row=row("alice"), observed_at=STAMP)
+    (entries / "2.json").write_text("{}")
+    table = tmp_path / "table.md"; table.write_text("preserve")
+    with pytest.raises(ValueError):
+        materialize_entries(entries, table)
+    assert table.read_text() == "preserve"

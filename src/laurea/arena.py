@@ -94,6 +94,12 @@ def update_leaderboard(path: Path, row: dict) -> str:
         if candidate["login"].lower() != row["login"].lower()
     ]
     rows.append(row)
+    text = _render_rows(rows)
+    path.write_text(text)
+    return text
+
+
+def _render_rows(rows: list[dict]) -> str:
     rows.sort(key=lambda candidate: -candidate["contributions"])
     body = "".join(
         f"| {index + 1} | `@{candidate['login']}` | {candidate['contributions']:,} "
@@ -102,7 +108,6 @@ def update_leaderboard(path: Path, row: dict) -> str:
         for index, candidate in enumerate(rows)
     )
     text = f"{HEADER}{_MARK_START}\n{TABLE_HEAD}{body}{_MARK_END}\n"
-    path.write_text(text)
     return text
 
 
@@ -142,3 +147,42 @@ def write_entry(directory: Path, *, issue: int, row: dict, observed_at: str) -> 
     finally:
         Path(temporary).unlink(missing_ok=True)
     return target
+
+
+def materialize_entries(directory: Path, leaderboard: Path) -> str:
+    """Render accepted records deterministically; validate all before writing."""
+    if directory.is_symlink() or not directory.is_dir():
+        raise ValueError("entry directory unavailable")
+    paths = sorted(directory.iterdir())
+    if not paths or len(paths) > 10000:
+        raise ValueError("entry inventory empty or exceeds bound")
+    records = []
+    with tempfile.TemporaryDirectory() as scratch:
+        validation = Path(scratch) / "validate"
+        for path in paths:
+            if path.is_symlink() or not path.is_file() or path.stat().st_size > 10000:
+                raise ValueError("invalid entry file")
+            record = json.loads(path.read_text())
+            if (not isinstance(record, dict) or set(record) != {"schema_version", "issue", "observed_at", "row"}
+                    or type(record["schema_version"]) is not int or record["schema_version"] != 1
+                    or path.name != str(record["issue"]) + ".json"):
+                raise ValueError("invalid entry schema or filename")
+            write_entry(validation, issue=record["issue"], row=record["row"], observed_at=record["observed_at"])
+            records.append(record)
+        # Newest observation wins for one login; issue ID resolves timestamp ties.
+        records.sort(key=lambda r: (datetime.fromisoformat(r["observed_at"]), r["issue"]))
+        latest = {r["row"]["login"].lower(): r["row"] for r in records}
+        text = _render_rows([latest[login] for login in sorted(latest)])
+    if leaderboard.is_symlink():
+        raise ValueError("leaderboard must not be a symlink")
+    leaderboard.parent.mkdir(parents=True, exist_ok=True)
+    fd, temporary = tempfile.mkstemp(prefix=".leaderboard-", dir=leaderboard.parent)
+    try:
+        with os.fdopen(fd, "w") as stream:
+            stream.write(text)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, leaderboard)
+    finally:
+        Path(temporary).unlink(missing_ok=True)
+    return text
