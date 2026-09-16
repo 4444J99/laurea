@@ -65,3 +65,10 @@ jobs:
           PR_URL: ${{ steps.publication.outputs.pr_url }}
         run: |
           gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Snapshot prepared for review: $PR_URL. This entry closes when that PR lands on the default branch. The table compares bounded activity fields and does not rank engineering quality."
+      - name: Report an unchanged table
+        if: steps.publication.outputs.status == 'unchanged'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Your row already matches the generated table, so no snapshot PR was prepared. This issue stays open for manual disposition. The table compares bounded activity fields and does not rank engineering quality."
