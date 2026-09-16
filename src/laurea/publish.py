@@ -108,6 +108,31 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None):
         check_materialized_entries(root / "arena/entries", root / "LEADERBOARD.md", baseline=root / "arena/baseline.json")
         if api("/commits/" + quote(default, safe=""))["sha"] != sha:
             raise ValueError("default moved during table validation")
+        pulls = api("/pulls?state=open&base=" + quote(default, safe="") + "&per_page=100")
+        if not isinstance(pulls, list) or len(pulls) >= 100:
+            raise ValueError("open table ownership inventory incomplete")
+        pending = []
+        for pr in pulls:
+            if not isinstance(pr, dict) or not isinstance(pr.get("head"), dict):
+                raise ValueError("malformed open PR inventory")
+            head = pr["head"]
+            if not isinstance(head.get("ref"), str):
+                raise ValueError("open PR branch identity unavailable")
+            if not head["ref"].startswith("automation/arena-table/"):
+                continue
+            if (pr.get("state") != "open" or type(pr.get("number")) is not int or pr["number"] <= 0
+                    or head.get("repo", {}).get("id") != repo["id"]
+                    or pr.get("base", {}).get("repo", {}).get("id") != repo["id"]
+                    or pr.get("base", {}).get("ref") != default
+                    or not isinstance(head.get("sha"), str) or not re.fullmatch(r"[0-9a-f]{40}", head["sha"])):
+                raise ValueError("pending table PR identity unavailable")
+            pending.append({"pr_url": f"https://github.com/{repository}/pull/{pr['number']}",
+                            "head_sha": head["sha"], "branch": head["ref"]})
+        if pending:
+            receipt.update(status="pending_predecessor", pending=pending,
+                           boundary="Existing table proposals retain ownership; no new branch or PR was created.",
+                           next_action="Reconcile the named table PR through the merge rail; rerun from the current default after disposition.")
+            return receipt
     run("git", "add", "--", *paths)
     staged = run("git", "diff", "--cached", "--name-only", "-z")
     if not staged:

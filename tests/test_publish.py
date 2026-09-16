@@ -62,6 +62,8 @@ def sandbox(tmp_path, monkeypatch):
             return json.dumps({"status": "identical"})
         if "/issues/" in path:
             return json.dumps({"number": 4, "state": "open"})
+        if "/pulls?state=open&base=" in path:
+            return json.dumps(settings.get("pending", []))
         if "/pulls?" in path:
             branch = git("branch", "--show-current")
             return json.dumps([{"state": "open", "number": 9,
@@ -246,3 +248,57 @@ def test_table_publication_rejects_incomplete_render(sandbox):
     with pytest.raises(ValueError, match="stale"):
         p.publish("arena-table", root=root, env=env)
     assert not any(call[:2] == ["git", "push"] for call in calls)
+
+
+@pytest.mark.parametrize("count", [1, 2])
+def test_pending_table_prs_retain_ownership_without_mutation(sandbox, count):
+    from laurea.arena import materialize_entries
+    root, _, env, calls, _, settings, git, sha = sandbox
+    env["GITHUB_EVENT_NAME"] = "push"
+    settings["pending"] = [{"number": n, "state": "open",
+        "head": {"ref": f"automation/arena-table/{n}-1", "sha": "a" * 40, "repo": {"id": 7}},
+        "base": {"ref": "main", "repo": {"id": 7}}} for n in range(1, count + 1)]
+    materialize_entries(root / "arena/entries", root / "LEADERBOARD.md", baseline=root / "arena/baseline.json")
+    result = p.publish("arena-table", root=root, env=env)
+    assert result["status"] == "pending_predecessor"
+    assert len(result["pending"]) == count
+    assert git("rev-parse", "HEAD") == sha
+    assert git("diff", "--cached", "--name-only") == ""
+    assert not any(call[:2] == ["git", "push"] or call[:3] == ["gh", "pr", "create"] for call in calls)
+
+
+def test_saturated_table_owner_inventory_fails_closed(sandbox):
+    from laurea.arena import materialize_entries
+    root, _, env, calls, _, settings, _, _ = sandbox
+    env["GITHUB_EVENT_NAME"] = "push"
+    settings["pending"] = [{}] * 100
+    materialize_entries(root / "arena/entries", root / "LEADERBOARD.md", baseline=root / "arena/baseline.json")
+    with pytest.raises(ValueError, match="inventory incomplete"):
+        p.publish("arena-table", root=root, env=env)
+    assert not any(call[:2] == ["git", "push"] for call in calls)
+
+
+def test_independently_merged_entrants_both_reach_table_pr(sandbox):
+    from laurea.arena import write_entry, materialize_entries
+    root, remote, env, _, _, settings, git, original = sandbox
+    for issue, login in [(1, "alice"), (2, "bob")]:
+        git("switch", "-c", f"entrant-{issue}", original)
+        write_entry(root / "arena/entries", issue=issue,
+                    row=dict(login=login, contributions=issue, prs=1, repos=1,
+                             languages=1, measured_axes=1, verified="2026-09-16"),
+                    observed_at="2026-09-16T00:00:00Z")
+        git("add", f"arena/entries/{issue}.json")
+        git("commit", "-m", f"accepted {login}")
+    git("switch", "main")
+    git("merge", "--no-edit", "entrant-1")
+    git("merge", "--no-edit", "entrant-2")
+    accepted = git("rev-parse", "HEAD")
+    git("push", "origin", "main")
+    env.update(GITHUB_EVENT_NAME="push", GITHUB_SHA=accepted)
+    settings["default_sha"] = accepted
+    materialize_entries(root / "arena/entries", root / "LEADERBOARD.md", baseline=root / "arena/baseline.json")
+    result = p.publish("arena-table", root=root, env=env)
+    rendered = git("show", result["head_sha"] + ":LEADERBOARD.md", cwd=remote)
+    assert all("@" + login in rendered for login in ("alice", "bob", "4444J99"))
+    assert git("rev-parse", "main", cwd=remote) == accepted
+    assert git("diff", "--name-only", accepted, result["head_sha"]) == "LEADERBOARD.md"
