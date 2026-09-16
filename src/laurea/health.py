@@ -6,6 +6,7 @@ Permission failures and truncated pages stay unmeasured; alert details stay priv
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 import re
 import time
 import urllib.request
@@ -124,6 +125,9 @@ def collect_health(repository: str, token: str, *, read: Callable | None = None)
                         "archive_status": "unmeasured",
                         "boundary": "One requested repository; not an administered-estate inventory or health percentage."}}
     prefix = "/repos/" + repository
+    redacted = deepcopy(result)
+    public_readback = False
+    after = None
     try:
         repo = read(prefix)
         if not isinstance(repo, dict) or repo.get("private") is not False:
@@ -150,12 +154,19 @@ def collect_health(repository: str, token: str, *, read: Callable | None = None)
                 result[key] = probe()
             except (OSError, ValueError, KeyError, TypeError, Unmeasured):
                 result[key] = _unknown()
-        after = read(prefix)
         current = read(prefix + "/commits/" + quote(branch, safe=""))
+        after = read(prefix)
+        public_readback = (isinstance(after, dict) and after.get("private") is False
+                           and type(after.get("id")) is int and after["id"] == repo["id"])
         result["generation"] = "current" if (after.get("id") == repo["id"]
             and after.get("default_branch") == branch and after.get("private") is False
             and after.get("full_name") == repo["full_name"]
             and current.get("sha") == sha) else "not_current"
     except (OSError, ValueError, KeyError, TypeError, AttributeError, Unmeasured):
         pass
+    if not public_readback:
+        redacted["excluded_private_or_unknown"] = True
+        if isinstance(after, dict) and after.get("private") is True:
+            redacted["scope"].update(private_repositories_excluded=1, repositories_unmeasured=0)
+        return redacted
     return result

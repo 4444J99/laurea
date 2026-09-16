@@ -75,6 +75,33 @@ def test_unknown_visibility_stays_in_the_unmeasured_denominator():
     assert len(calls) == 1
 
 
+@pytest.mark.parametrize("final", [True, None, "denied", "malformed", "changed_identity"])
+def test_failed_public_readback_scrubs_identity_and_all_findings(final):
+    base, calls = reader()
+    def read(path):
+        value = base(path)
+        if path == "/repos/owner/repo" and calls.count(path) == 2:
+            if final == "denied":
+                raise OSError("PRIVATE_ERROR_DETAIL")
+            if final == "malformed":
+                return []
+            if final == "changed_identity":
+                return {**value, "id": 8}
+            value["private"] = final
+        return value
+    result = collect_health("owner/repo", "fixture", read=read)
+    rendered = json.dumps(result)
+    assert "owner/repo" not in rendered
+    assert SHA not in rendered
+    assert "repository_id" not in result
+    assert "PRIVATE_ERROR_DETAIL" not in rendered
+    assert result["verification"] == {"status": "unmeasured"}
+    assert result["security"] == {"status": "unmeasured"}
+    assert result["pr_readiness"] == {"status": "unmeasured"}
+    assert result["scope"]["public_repositories_observed"] == 0
+    assert result["scope"]["private_repositories_excluded"] == (1 if final is True else 0)
+
+
 def test_archived_public_repository_remains_included():
     base, _ = reader()
     def read(path):
