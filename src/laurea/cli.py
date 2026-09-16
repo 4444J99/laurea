@@ -14,6 +14,7 @@ from .baselines import STATUS_DERIVED, STATUS_MEASURED
 from .detectors import REGISTRY, run_all
 from .github import collect, resolve_token
 from .models import Finding, Report
+from .health import collect_health
 from .arena import build_row, update_leaderboard
 from .render import render_all
 from .verdict import append_entry, collect_verdict, load_history, verdict_card
@@ -98,11 +99,18 @@ def main(argv: list[str] | None = None) -> int:
         p.add_argument("--login", required=(name != "render"))
         p.add_argument("--assets", default="assets", type=Path)
     sub.add_parser("axes")
+    health = sub.add_parser("health")
+    health.add_argument("--repo", required=True)
     arena = sub.add_parser("arena")
     arena.add_argument("--login", required=True)
     arena.add_argument("--leaderboard", default="LEADERBOARD.md", type=Path)
 
     args = parser.parse_args(argv)
+    if args.cmd == "health":
+        result = collect_health(args.repo, resolve_token())
+        print(json.dumps(result, indent=2))
+        return 77 if result["status"] == "unmeasured" else 0
+
     if args.cmd == "arena":
         snapshot = collect(args.login, resolve_token())
         report = Report(

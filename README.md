@@ -65,3 +65,17 @@ field or deterministic transformation and state its interpretive boundary.
 ## License
 
 MIT.
+
+## Bounded repository health observations
+
+`laurea health --repo OWNER/NAME` reads one public repository with a 60-second,
+40-request budget. It binds observations to the immutable repository ID and
+checks the default SHA again after collection. The command publishes alert
+counts only and excludes private repository identities.
+
+Run conclusions and executed steps are separate fields. Zero-step failures do
+not establish executed code failures. Truncated or inaccessible sources remain
+unmeasured. Current generation, an empty alert list, or an open PR count does
+not establish the owning acceptance predicate, enabled security coverage or PR
+readiness. Until those obligations have their own evidence, health is unmeasured
+and the command returns 77. This command does not dispatch workflows or merge PRs.
