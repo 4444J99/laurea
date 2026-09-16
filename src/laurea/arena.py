@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import re
+import json
+import os
+import tempfile
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -101,3 +104,41 @@ def update_leaderboard(path: Path, row: dict) -> str:
     text = f"{HEADER}{_MARK_START}\n{TABLE_HEAD}{body}{_MARK_END}\n"
     path.write_text(text)
     return text
+
+
+def write_entry(directory: Path, *, issue: int, row: dict, observed_at: str) -> Path:
+    """Preserve one issue observation without rewriting another entrant's file."""
+    if type(issue) is not int or issue <= 0:
+        raise ValueError("positive issue identity required")
+    login = row.get("login")
+    if not isinstance(login, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9-]{0,38}", login):
+        raise ValueError("invalid entrant identity")
+    fields = {"login", "contributions", "prs", "repos", "languages", "measured_axes", "verified"}
+    if set(row) != fields or any(type(row[k]) is not int or row[k] < 0 for k in fields - {"login", "verified"}):
+        raise ValueError("invalid activity row")
+    stamp = datetime.fromisoformat(observed_at)
+    if stamp.tzinfo is None:
+        raise ValueError("observation requires a timezone")
+    datetime.strptime(row["verified"], "%Y-%m-%d")
+    record = {"schema_version": 1, "issue": issue, "observed_at": observed_at, "row": row}
+    payload = json.dumps(record, sort_keys=True, indent=2) + "\n"
+    directory.mkdir(parents=True, exist_ok=True)
+    if directory.is_symlink():
+        raise ValueError("entry directory must not be a symlink")
+    target = directory / f"{issue}.json"
+    if target.is_symlink():
+        raise ValueError("entry must not be a symlink")
+    fd, temporary = tempfile.mkstemp(prefix=".entry-", dir=directory)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as stream:
+            stream.write(payload)
+            stream.flush()
+            os.fsync(stream.fileno())
+        try:
+            os.link(temporary, target)
+        except FileExistsError:
+            if target.is_symlink() or target.read_text(encoding="utf-8") != payload:
+                raise ValueError("issue observation already exists with different evidence") from None
+    finally:
+        Path(temporary).unlink(missing_ok=True)
+    return target
