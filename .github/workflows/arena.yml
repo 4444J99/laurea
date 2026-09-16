@@ -65,7 +65,7 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           PR_URL: ${{ steps.publication.outputs.pr_url }}
         run: |
-          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Observation prepared for review: $PR_URL. This entry closes when that PR lands on the default branch. The table compares bounded activity fields and does not rank engineering quality."
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Observation prepared for review: $PR_URL. This issue remains open until the accepted observation appears in the default-branch table. The table compares bounded activity fields and does not rank engineering quality."
       - name: Report an unchanged table
         if: steps.publication.outputs.status == 'unchanged'
         env:

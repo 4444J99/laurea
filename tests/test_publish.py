@@ -88,7 +88,7 @@ def test_metrics_pushes_only_unique_branch_and_reads_back_pr(sandbox):
     assert all("--force" not in call and "--rebase" not in call for call in calls)
 
 
-def test_arena_issue_closure_is_bound_to_pr_merge(sandbox):
+def test_arena_record_pr_preserves_issue_until_table_acceptance(sandbox):
     root, _, env, calls, bodies, _, _, _ = sandbox
     env["GITHUB_EVENT_NAME"] = "issues"
     from laurea.arena import write_entry
@@ -96,7 +96,8 @@ def test_arena_issue_closure_is_bound_to_pr_merge(sandbox):
                 row=dict(login="alice", contributions=1, prs=1, repos=1, languages=1, measured_axes=1, verified="2026-09-16"),
                 observed_at="2026-09-16T00:00:00+00:00")
     assert p.publish("arena", issue=4, root=root, env=env)["status"] == "pr_open"
-    assert "Closes #4 after this observation lands" in bodies[0]
+    assert "Records evidence for #4" in bodies[0]
+    assert "Closes #" not in bodies[0]
     assert not any(call[0:3] == ["gh", "issue", "close"] for call in calls)
 
 
@@ -304,8 +305,9 @@ def test_independently_merged_entrants_both_reach_table_pr(sandbox):
     assert git("diff", "--name-only", accepted, result["head_sha"]) == "LEADERBOARD.md"
 
 
-@pytest.mark.parametrize("foreign_change", [False, True])
-def test_refresh_existing_table_fast_forwards_or_rejects_foreign_work(sandbox, foreign_change):
+@pytest.mark.parametrize("foreign_change,outcome", [(False, "normal"), (True, "normal"),
+    (False, "timeout_after"), (False, "timeout_before"), (False, "concurrent")])
+def test_refresh_existing_table_fast_forwards_or_rejects_foreign_work(sandbox, monkeypatch, foreign_change, outcome):
     from laurea.arena import materialize_entries, write_entry
     root, remote, env, calls, _, settings, git, original = sandbox
     branch = "automation/arena-table/9-1"
@@ -337,7 +339,39 @@ def test_refresh_existing_table_fast_forwards_or_rejects_foreign_work(sandbox, f
             p.publish("arena-table", root=root, env=env, refresh_table=True)
         assert git("rev-parse", branch, cwd=remote) == previous
         return
+    underlying = p.command
+    attempts = []
+    rival = None
+    if outcome == "concurrent":
+        # Independent fast-forward update of the same predecessor.
+        tree = git("rev-parse", previous + "^{tree}")
+        rival = git("commit-tree", tree, "-p", previous, "-m", "concurrent owner update")
+    def racing_command(argv, *, root, env):
+        if argv[:3] == ["git", "push", "origin"]:
+            attempts.append(argv)
+            if outcome == "timeout_before":
+                raise subprocess.TimeoutExpired(argv, 30)
+            if outcome == "concurrent":
+                git("push", "origin", rival + ":refs/heads/" + branch)
+            result = underlying(argv, root=root, env=env)
+            if outcome == "timeout_after":
+                raise subprocess.TimeoutExpired(argv, 30)
+            return result
+        return underlying(argv, root=root, env=env)
+    monkeypatch.setattr(p, "command", racing_command)
+    receipt = {}
+    if outcome in {"timeout_before", "concurrent"}:
+        with pytest.raises(RuntimeError, match="refresh unverified"):
+            p.publish("arena-table", root=root, env=env, refresh_table=True, receipt=receipt)
+        assert len(attempts) == 1
+        assert git("rev-parse", branch, cwd=remote) == (rival or previous)
+        assert receipt["predecessor_sha"] == previous
+        assert receipt["head_sha"] != previous
+        assert receipt["pr_url"].endswith("/pull/9")
+        assert git("rev-parse", "main", cwd=remote) == accepted
+        return
     result = p.publish("arena-table", root=root, env=env, refresh_table=True)
+    assert len(attempts) == 1
     assert result["status"] == "table_branch_refreshed"
     new = git("rev-parse", branch, cwd=remote)
     assert git("show", "-s", "--format=%P", new).split() == [previous, accepted]

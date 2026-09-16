@@ -171,7 +171,7 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_tabl
             "Review the generated diff and merge through the repository rail. "
             "An open PR is preparation, not publication.\n")
     if kind == "arena":
-        body += f"\nCloses #{issue} after this observation lands on the default branch.\n"
+        body += f"\nRecords evidence for #{issue}. Keep the issue open until its row is materialized and accepted on the default branch.\n"
     fd, body_path = tempfile.mkstemp(prefix="laurea-publication-", suffix=".md")
     try:
         with os.fdopen(fd, "w") as stream:
