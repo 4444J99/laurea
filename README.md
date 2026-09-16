@@ -104,8 +104,10 @@ is reconciled by a readback, never a blind retry. Failed PR creation leaves the
 remote branch and owning workflow receipt available for recovery.
 
 Arena PRs link their source issue for closure when the snapshot lands. An unchanged
-snapshot does not create a PR or close an issue. GitHub may require approval to run
-checks on PRs created with `GITHUB_TOKEN`; see the official
+snapshot does not create a PR or close an issue. GitHub documents that the
+`opened`, `synchronize`, and `reopened` events for PRs created or updated with
+`GITHUB_TOKEN` create approval-required workflow runs. A repository writer can
+start those runs using **Approve workflows to run** in the PR merge box; see the official
 [workflow-trigger contract](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow).
 Opening a PR, receiving workflow approval, passing checks, and merging remain
 distinct events. Repository/account admission and publication permission failures
