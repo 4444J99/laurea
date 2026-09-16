@@ -18,7 +18,7 @@ def command(argv, *, root, env):
     return result.stdout.rstrip("\n")
 
 
-def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_table=False):
+def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_table=False, refresh_pending=False):
     root = Path(root or Path.cwd()).resolve()
     env = dict(os.environ if env is None else env)
     receipt = {} if receipt is None else receipt
@@ -71,7 +71,7 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_tabl
     default_sha = api("/commits/" + quote(default, safe=""))["sha"]
     if not isinstance(default_sha, str) or not re.fullmatch(r"[0-9a-f]{40}", default_sha):
         raise ValueError("default generation unavailable")
-    if kind == "arena-table" and default_sha != sha:
+    if kind in {"arena-table", "metrics"} and default_sha != sha:
         raise ValueError("table source is not the current default generation")
     if kind == "arena":
         current_issue = api(f"/issues/{issue}")
@@ -108,9 +108,10 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_tabl
         check_materialized_entries(root / "arena/entries", root / "LEADERBOARD.md", baseline=root / "arena/baseline.json")
         if api("/commits/" + quote(default, safe=""))["sha"] != sha:
             raise ValueError("default moved during table validation")
+    if kind in {"arena-table", "metrics"}:
         pulls = api("/pulls?state=open&base=" + quote(default, safe="") + "&per_page=100")
         if not isinstance(pulls, list) or len(pulls) >= 100:
-            raise ValueError("open table ownership inventory incomplete")
+            raise ValueError("publication ownership inventory incomplete")
         pending = []
         for pr in pulls:
             if not isinstance(pr, dict) or not isinstance(pr.get("head"), dict):
@@ -118,28 +119,28 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_tabl
             head = pr["head"]
             if not isinstance(head.get("ref"), str):
                 raise ValueError("open PR branch identity unavailable")
-            if not head["ref"].startswith("automation/arena-table/"):
+            if not head["ref"].startswith(f"automation/{kind}/"):
                 continue
             if (pr.get("state") != "open" or type(pr.get("number")) is not int or pr["number"] <= 0
                     or head.get("repo", {}).get("id") != repo["id"]
                     or pr.get("base", {}).get("repo", {}).get("id") != repo["id"]
                     or pr.get("base", {}).get("ref") != default
                     or not isinstance(head.get("sha"), str) or not re.fullmatch(r"[0-9a-f]{40}", head["sha"])):
-                raise ValueError("pending table PR identity unavailable")
+                raise ValueError("pending publication PR identity unavailable")
             pending.append({"pr_url": f"https://github.com/{repository}/pull/{pr['number']}",
                             "head_sha": head["sha"], "branch": head["ref"]})
-        if len(pending) == 1 and refresh_table:
+        if len(pending) == 1 and (refresh_pending or (kind == "arena-table" and refresh_table)):
             owner = pending[0]
             receipt.update(status="pending_predecessor", pending=pending, branch=owner["branch"], pr_url=owner["pr_url"])
-            head = refresh_table_branch(run, owner, sha, receipt)
-            receipt.update(status="table_branch_refreshed", pending=pending, head_sha=head,
+            head = refresh_pending_branch(run, owner, sha, receipt, kind=kind)
+            receipt.update(status="table_branch_refreshed" if kind == "arena-table" else "metrics_branch_refreshed", pending=pending, head_sha=head,
                            pr_url=owner["pr_url"], branch=owner["branch"],
                            boundary="Existing proposal advanced without force; merge and current-tree verification remain required.")
             return receipt
         if pending:
             receipt.update(status="pending_predecessor", pending=pending,
-                           boundary="Existing table proposals retain ownership; no new branch or PR was created.",
-                           next_action="Reconcile the named table PR through the merge rail; rerun from the current default after disposition.")
+                           boundary="Existing proposals retain ownership; no new branch or PR was created.",
+                           next_action="Reconcile the named PR through the merge rail; rerun from the current default after disposition.")
             return receipt
     run("git", "add", "--", *paths)
     staged = run("git", "diff", "--cached", "--name-only", "-z")
@@ -201,25 +202,30 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_tabl
 
 
 
-def refresh_table_branch(run, owner, source_sha, receipt):
-    """Advance a table-only proposal from a validated current-source checkout."""
+def refresh_pending_branch(run, owner, source_sha, receipt, *, kind="arena-table"):
+    """Advance an owned generated proposal from the validated source checkout."""
     branch, old = owner["branch"], owner["head_sha"]
-    if not re.fullmatch(r"automation/arena-table/[1-9][0-9]*-[1-9][0-9]*", branch):
+    if not re.fullmatch(r"automation/" + re.escape(kind) + r"/[1-9][0-9]*-[1-9][0-9]*", branch):
         raise ValueError("unrecognized table branch")
     if run("git", "ls-remote", "origin", "refs/heads/" + branch).split() != [old, "refs/heads/" + branch]:
         raise ValueError("table predecessor moved")
     run("git", "fetch", "--no-tags", "origin", old)
     base = run("git", "merge-base", source_sha, old)
-    if run("git", "diff", "--name-only", base, old).splitlines() != ["LEADERBOARD.md"]:
-        raise ValueError("predecessor contains changes outside generated table")
-    run("git", "add", "--", "LEADERBOARD.md")
+    changes = run("git", "diff", "--name-only", base, old).splitlines()
+    if (not changes or any(not (path.startswith("assets/") if kind == "metrics" else path == "LEADERBOARD.md") for path in changes)):
+        raise ValueError("predecessor contains changes outside generated scope")
+    scope = "assets" if kind == "metrics" else "LEADERBOARD.md"
+    run("git", "add", "--", scope)
+    modes = run("git", "ls-files", "--stage", "-z", "--", scope).split("\0")
+    if any(row.startswith("120000 ") for row in modes):
+        raise ValueError("generated symlinks cannot be published")
     tree = run("git", "write-tree")
     if run("git", "rev-parse", old + "^{tree}") == tree:
         return old
     # Two parents preserve the predecessor and bind all accepted default changes.
     head = run("git", "-c", "user.name=laurea[bot]", "-c", "user.email=actions@github.com",
                "commit-tree", tree, "-p", old, "-p", source_sha,
-               "-m", "arena-table: refresh from " + source_sha)
+               "-m", kind + ": refresh from " + source_sha)
     receipt.update(status="table_refresh_prepared", head_sha=head, predecessor_sha=old)
     try:
         run("git", "push", "origin", head + ":refs/heads/" + branch)
@@ -235,10 +241,11 @@ def main(argv=None):
     parser.add_argument("--kind", required=True, choices=("metrics", "arena", "arena-table"))
     parser.add_argument("--issue", type=int)
     parser.add_argument("--refresh-table", action="store_true")
+    parser.add_argument("--refresh-pending", action="store_true")
     args = parser.parse_args(argv)
     receipt = {}
     try:
-        publish(args.kind, issue=args.issue, receipt=receipt, refresh_table=args.refresh_table)
+        publish(args.kind, issue=args.issue, receipt=receipt, refresh_table=args.refresh_table, refresh_pending=args.refresh_pending)
     except (OSError, ValueError, KeyError, TypeError, AttributeError, RuntimeError, subprocess.TimeoutExpired):
         receipt.update(last_verified_state=receipt.get("status", "none"), status="unverified",
                        reason="publication requires reconciliation; no retry was attempted")

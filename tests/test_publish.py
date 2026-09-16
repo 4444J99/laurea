@@ -171,7 +171,7 @@ def test_untrusted_context_stops_before_push(sandbox, change):
 
 
 def test_failure_receipt_preserves_known_remote_branch_and_redacts_error(monkeypatch, capsys):
-    def fail(kind, *, issue, receipt, refresh_table):
+    def fail(kind, *, issue, receipt, refresh_table, refresh_pending):
         receipt.update(status="branch_published", branch="automation/metrics/12-1", head_sha="a" * 40)
         raise RuntimeError("PRIVATE provider details")
     monkeypatch.setattr(p, "publish", fail)
@@ -335,7 +335,7 @@ def test_refresh_existing_table_fast_forwards_or_rejects_foreign_work(sandbox, m
         "base": {"ref": "main", "repo": {"id": 7}}}]
     materialize_entries(root / "arena/entries", root / "LEADERBOARD.md", baseline=root / "arena/baseline.json")
     if foreign_change:
-        with pytest.raises(ValueError, match="outside generated table"):
+        with pytest.raises(ValueError, match="outside generated scope"):
             p.publish("arena-table", root=root, env=env, refresh_table=True)
         assert git("rev-parse", branch, cwd=remote) == previous
         return
@@ -376,5 +376,36 @@ def test_refresh_existing_table_fast_forwards_or_rejects_foreign_work(sandbox, m
     new = git("rev-parse", branch, cwd=remote)
     assert git("show", "-s", "--format=%P", new).split() == [previous, accepted]
     assert "@alice" in git("show", new + ":LEADERBOARD.md", cwd=remote)
+    assert git("rev-parse", "main", cwd=remote) == accepted
+    assert not any(call[:3] == ["gh", "pr", "create"] or "--force" in call for call in calls)
+
+
+def test_metrics_refresh_reuses_existing_pr_and_preserves_new_default(sandbox):
+    root, remote, env, calls, _, settings, git, original = sandbox
+    branch = "automation/metrics/9-1"
+    git("switch", "-c", branch)
+    (root / "assets/metrics.json").write_text('{"previous":true}')
+    git("add", "assets")
+    git("commit", "-m", "previous metrics proposal")
+    previous = git("rev-parse", "HEAD")
+    git("push", "origin", branch)
+    git("switch", "main")
+    (root / "accepted.txt").write_text("accepted default change")
+    git("add", "accepted.txt")
+    git("commit", "-m", "advance default")
+    accepted = git("rev-parse", "HEAD")
+    git("push", "origin", "main")
+    env["GITHUB_SHA"] = accepted
+    settings["default_sha"] = accepted
+    settings["pending"] = [{"number": 9, "state": "open",
+        "head": {"ref": branch, "sha": previous, "repo": {"id": 7}},
+        "base": {"ref": "main", "repo": {"id": 7}}}]
+    (root / "assets/metrics.json").write_text('{"current":true}')
+    result = p.publish("metrics", root=root, env=env, refresh_pending=True)
+    assert result["status"] == "metrics_branch_refreshed"
+    new = git("rev-parse", branch, cwd=remote)
+    assert git("show", new + ":accepted.txt", cwd=remote) == "accepted default change"
+    assert git("show", new + ":assets/metrics.json", cwd=remote) == '{"current":true}'
+    assert git("show", "-s", "--format=%P", new).split() == [previous, accepted]
     assert git("rev-parse", "main", cwd=remote) == accepted
     assert not any(call[:3] == ["gh", "pr", "create"] or "--force" in call for call in calls)
