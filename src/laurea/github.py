@@ -202,6 +202,7 @@ def collect(login: str, token: str | None = None) -> dict[str, Any]:
     repos = []
     visible_repos = []
     private_count = 0
+    visibility_unmeasured = 0
     observed_ids: set[str] = set()
     sources = [(_USER_REPOS_QUERY, ["user", "repositories"], {"login": login})]
     sources += [(_ORG_REPOS_QUERY, ["organization", "repositories"], {"org": org})
@@ -226,7 +227,20 @@ def collect(login: str, token: str | None = None) -> dict[str, Any]:
             if repo["isPrivate"]:
                 private_count += 1
                 continue
-            # Private repository identities never enter the publishable snapshot.
+            try:
+                current = _gql(
+                    "query($id: ID!) { node(id: $id) { ... on Repository { id isPrivate } } }",
+                    {"id": repo["id"]}, token,
+                ).get("node")
+            except (RuntimeError, ValueError, KeyError, OSError, AttributeError, TypeError):
+                current = None
+            if not isinstance(current, dict) or current.get("id") != repo["id"] or type(current.get("isPrivate")) is not bool:
+                visibility_unmeasured += 1
+                continue
+            if current["isPrivate"]:
+                private_count += 1
+                continue
+            # Reconfirm visibility at the immutable ID before retaining identity.
             repo["health"] = {
                 "verification": "unmeasured",
                 "security": "unmeasured",
@@ -244,7 +258,7 @@ def collect(login: str, token: str | None = None) -> dict[str, Any]:
         "repos": repos,
         "repository_aggregates": aggregate_repositories(visible_repos),
         "coverage": {
-            "status": "complete" if failures == 0 else "unmeasured",
+            "status": "complete" if failures == 0 and visibility_unmeasured == 0 else "unmeasured",
             "scope": "token-visible personal repositories and organization memberships; not an administered-estate census",
             "organization_scope_complete": org_scope_complete,
             "sources_attempted": len(sources) + 1,
@@ -253,6 +267,7 @@ def collect(login: str, token: str | None = None) -> dict[str, Any]:
             "observed_repositories": len(observed_ids),
             "public_repositories": len(repos),
             "private_repositories_excluded": private_count,
+            "visibility_unmeasured": visibility_unmeasured,
             "archived_public_repositories": sum(repo.get("isArchived") is True for repo in repos),
             "health_status": "unmeasured",
         },

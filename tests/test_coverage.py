@@ -30,7 +30,8 @@ def test_repeated_cursor_is_bounded(monkeypatch):
     assert len(calls) == 2
 
 
-def test_failed_org_and_private_exclusion_remain_counted(monkeypatch):
+@pytest.mark.parametrize("visibility", ["public", "private", "unknown", "different-id", "malformed"])
+def test_failed_org_and_private_exclusion_remain_counted(monkeypatch, visibility):
     user = {"login": "tester", "name": "Tester", "createdAt": "2020-01-01Z",
             "followers": {"totalCount": 0}, "contributionsCollection": {
                 "contributionCalendar": {"totalContributions": 0},
@@ -38,6 +39,12 @@ def test_failed_org_and_private_exclusion_remain_counted(monkeypatch):
                 "totalPullRequestReviewContributions": 0,
                 "totalIssueContributions": 0, "restrictedContributionsCount": 0}}
     def gql(query, variables, token):
+        if "node(id:" in query:
+            if visibility == "malformed":
+                return None
+            if visibility == "unknown":
+                raise OSError("private API details")
+            return {"node": {"id": "other" if visibility == "different-id" else variables["id"], "isPrivate": visibility == "private"}}
         if "contributionsCollection" in query:
             return {"user": user}
         if "organizations(first" in query:
@@ -54,11 +61,16 @@ def test_failed_org_and_private_exclusion_remain_counted(monkeypatch):
     assert snapshot["coverage"]["status"] == "unmeasured"
     assert snapshot["coverage"]["failed_sources"] == 1
     assert snapshot["coverage"]["observed_repositories"] == 2
-    assert snapshot["coverage"]["private_repositories_excluded"] == 1
+    assert snapshot["coverage"]["private_repositories_excluded"] == (2 if visibility == "private" else 1)
     assert snapshot["repository_aggregates"]["nonfork_repositories"] == 2
     assert snapshot["repository_aggregates"]["stars"] == 5
-    assert snapshot["repos"][0]["defaultBranchRef"]["target"]["oid"] == "abc"
-    assert snapshot["repos"][0]["health"]["verification"] == "unmeasured"
+    if visibility == "public":
+        assert snapshot["repos"][0]["defaultBranchRef"]["target"]["oid"] == "abc"
+        assert snapshot["repos"][0]["health"]["verification"] == "unmeasured"
+    else:
+        assert snapshot["repos"] == []
+        assert "tester/public" not in json.dumps(snapshot)
+        assert snapshot["coverage"]["visibility_unmeasured"] == int(visibility in {"unknown", "different-id", "malformed"})
     assert "secret" not in json.dumps(snapshot)
     assert "private API details" not in json.dumps(snapshot)
 

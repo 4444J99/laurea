@@ -380,7 +380,8 @@ def test_refresh_existing_table_fast_forwards_or_rejects_foreign_work(sandbox, m
     assert not any(call[:3] == ["gh", "pr", "create"] or "--force" in call for call in calls)
 
 
-def test_metrics_refresh_reuses_existing_pr_and_preserves_new_default(sandbox):
+@pytest.mark.parametrize("empty_advance", [False, True])
+def test_metrics_refresh_reuses_existing_pr_and_preserves_new_default(sandbox, empty_advance):
     root, remote, env, calls, _, settings, git, original = sandbox
     branch = "automation/metrics/9-1"
     git("switch", "-c", branch)
@@ -390,9 +391,10 @@ def test_metrics_refresh_reuses_existing_pr_and_preserves_new_default(sandbox):
     previous = git("rev-parse", "HEAD")
     git("push", "origin", branch)
     git("switch", "main")
-    (root / "accepted.txt").write_text("accepted default change")
-    git("add", "accepted.txt")
-    git("commit", "-m", "advance default")
+    if not empty_advance:
+        (root / "accepted.txt").write_text("accepted default change")
+        git("add", "accepted.txt")
+    git("commit", "--allow-empty", "-m", "advance default")
     accepted = git("rev-parse", "HEAD")
     git("push", "origin", "main")
     env["GITHUB_SHA"] = accepted
@@ -400,12 +402,14 @@ def test_metrics_refresh_reuses_existing_pr_and_preserves_new_default(sandbox):
     settings["pending"] = [{"number": 9, "state": "open",
         "head": {"ref": branch, "sha": previous, "repo": {"id": 7}},
         "base": {"ref": "main", "repo": {"id": 7}}}]
-    (root / "assets/metrics.json").write_text('{"current":true}')
+    content = '{"previous":true}' if empty_advance else '{"current":true}'
+    (root / "assets/metrics.json").write_text(content)
     result = p.publish("metrics", root=root, env=env, refresh_pending=True)
     assert result["status"] == "metrics_branch_refreshed"
     new = git("rev-parse", branch, cwd=remote)
-    assert git("show", new + ":accepted.txt", cwd=remote) == "accepted default change"
-    assert git("show", new + ":assets/metrics.json", cwd=remote) == '{"current":true}'
+    if not empty_advance:
+        assert git("show", new + ":accepted.txt", cwd=remote) == "accepted default change"
+    assert git("show", new + ":assets/metrics.json", cwd=remote) == content
     assert git("show", "-s", "--format=%P", new).split() == [previous, accepted]
     assert git("rev-parse", "main", cwd=remote) == accepted
     assert not any(call[:3] == ["gh", "pr", "create"] or "--force" in call for call in calls)

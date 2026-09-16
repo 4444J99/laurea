@@ -220,7 +220,7 @@ def refresh_pending_branch(run, owner, source_sha, receipt, *, kind="arena-table
     if any(row.startswith("120000 ") for row in modes):
         raise ValueError("generated symlinks cannot be published")
     tree = run("git", "write-tree")
-    if run("git", "rev-parse", old + "^{tree}") == tree:
+    if run("git", "rev-parse", old + "^{tree}") == tree and base == source_sha:
         return old
     # Two parents preserve the predecessor and bind all accepted default changes.
     head = run("git", "-c", "user.name=laurea[bot]", "-c", "user.email=actions@github.com",
