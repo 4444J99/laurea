@@ -14,7 +14,7 @@ from .baselines import STATUS_DERIVED, STATUS_MEASURED
 from .detectors import REGISTRY, run_all
 from .github import collect, resolve_token
 from .models import Finding, Report
-from .health import collect_health
+from .health import collect_health, collect_health_batch
 from .arena import build_row, update_leaderboard
 from .render import render_all
 from .verdict import append_entry, collect_verdict, load_history, verdict_card
@@ -101,11 +101,25 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("axes")
     health = sub.add_parser("health")
     health.add_argument("--repo", required=True)
+    batch = sub.add_parser("health-batch")
+    batch.add_argument("--inventory", type=Path, required=True)
+    batch.add_argument("--limit", type=int, default=5)
     arena = sub.add_parser("arena")
     arena.add_argument("--login", required=True)
     arena.add_argument("--leaderboard", default="LEADERBOARD.md", type=Path)
 
     args = parser.parse_args(argv)
+    if args.cmd == "health-batch":
+        try:
+            if args.inventory.stat().st_size > 2_000_000:
+                raise ValueError("inventory exceeds size bound")
+            entries = json.loads(args.inventory.read_text())
+            result = collect_health_batch(entries, resolve_token(), limit=args.limit)
+        except (OSError, ValueError):
+            print("Health inventory unavailable or malformed", file=sys.stderr)
+            return 77
+        print(json.dumps(result, indent=2))
+        return 77
     if args.cmd == "health":
         result = collect_health(args.repo, resolve_token())
         print(json.dumps(result, indent=2))

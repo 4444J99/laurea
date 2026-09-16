@@ -94,6 +94,17 @@ unknown severities, and separate credential-alert counts. These are repository-w
 alert observations, not scans bound to the current default SHA. No alert contents,
 locations, secret values, or account metadata are published.
 
+## Bounded inventory health
+
+For bounded health inspection across a declared inventory, use
+`laurea health-batch --inventory inventory.json --limit 5`. The input is a JSON
+array of unique `OWNER/NAME` strings. One batch shares the existing 40-request,
+60-second read budget; the limit accepts 1–20 entries. The output retains the full
+input denominator, unattempted entries, private exclusions, and unknown results.
+It does not establish that the supplied inventory is complete or that repositories
+are healthy. Exit 77 preserves that unmeasured acceptance state. Private and
+uninspected repository names are omitted from the output.
+
 ## Generated-content publication
 
 The scheduled metrics and issue-driven arena workflows prepare generated-content

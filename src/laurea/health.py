@@ -113,6 +113,38 @@ def _security(read: Callable, prefix: str) -> dict[str, Any]:
 
 
 
+def collect_health_batch(repositories, token, *, limit=5, read=None):
+    """Inspect a bounded subset while retaining the supplied inventory denominator.
+
+    One Reader shares the existing request/time budget across the whole batch.
+    The caller's inventory is a scope declaration, not proof of estate coverage.
+    """
+    if (not isinstance(repositories, list) or not repositories or len(repositories) > 10000
+            or any(not isinstance(r, str) or not re.fullmatch(
+                r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", r) for r in repositories)
+            or len({r.lower() for r in repositories}) != len(repositories)):
+        raise ValueError("inventory must contain unique OWNER/NAME entries")
+    if type(limit) is not int or not 1 <= limit <= 20:
+        raise ValueError("inspection limit must be an integer from 1 to 20")
+    shared = read or Reader(token)
+    observations = [collect_health(repo, token, read=shared) for repo in repositories[:limit]]
+    public_ids = [r["repository_id"] for r in observations if "repository_id" in r]
+    private = sum(r["scope"]["private_repositories_excluded"] for r in observations)
+    unknown = sum(r["scope"]["repositories_unmeasured"] for r in observations)
+    return {
+        "schema_version": "laurea.health-batch.v1", "status": "unmeasured",
+        "scope": {
+            "inventory_entries": len(repositories), "entries_attempted": len(observations),
+            "entries_not_attempted": len(repositories) - len(observations),
+            "private_entries_excluded": private, "attempted_entries_unmeasured": unknown,
+            "public_repository_identities_observed": len(set(public_ids)),
+            "duplicate_identity_observations": len(public_ids) - len(set(public_ids)),
+            "inventory_completeness": "unmeasured", "health_acceptance": "unmeasured",
+        },
+        "observations": observations,
+    }
+
+
 def collect_health(repository: str, token: str, *, read: Callable | None = None) -> dict[str, Any]:  # allow-secret: runtime parameter or synthetic rejection fixture; no credential literal
     if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repository):
         raise ValueError("repository must be OWNER/NAME")
