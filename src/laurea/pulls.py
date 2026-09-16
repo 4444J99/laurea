@@ -119,6 +119,7 @@ def collect_pulls(read: Callable, prefix: str, repository_id: int) -> dict:
         except (OSError, ValueError, KeyError, TypeError, RuntimeError):
             pass
     complete = sum(row.get("generation") == "current"
+                   and row.get("status") == "measured"
                    and row.get("checks", {}).get("status") == "measured"
                    and row.get("reviews", {}).get("status") == "measured"
                    for row in observations)

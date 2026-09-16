@@ -71,25 +71,28 @@ def _verification(read: Callable, prefix: str, sha: str) -> dict[str, Any]:
         try:
             jobs = _connection(read(prefix + f"/actions/runs/{run['id']}/jobs?filter=latest&per_page=100"), "jobs")
             executed = 0
+            active = 0
             for job in jobs:
                 if (job.get("head_sha") != sha or not isinstance(job.get("steps"), list)
                         or any(not isinstance(step, dict)
                                or step.get("status") not in {"queued", "in_progress", "completed", "pending", "waiting"}
                                for step in job["steps"])):
                     raise Unmeasured("job generation or steps unavailable")
+                active += sum(step.get("status") == "in_progress" for step in job["steps"])
                 executed += sum(isinstance(step, dict)
                                 and step.get("status") == "completed"
                                 and step.get("conclusion") in {"success", "failure", "cancelled", "timed_out"}
                                 for step in job["steps"])
-            row["executed_steps"] = executed
+            row["executed_steps"] = executed + active
+            row["active_steps"] = active
             row["jobs_observed"] = len(jobs)
-            row["execution"] = "executed" if executed else "no_executed_steps"
+            row["execution"] = "in_progress" if active else ("executed" if executed else "no_executed_steps")
         except (OSError, ValueError, KeyError, TypeError, Unmeasured):
             pass
         observations.append(row)
     return {"status": "measured" if len(runs) <= 10 and all(row["execution"] != "unmeasured" for row in observations) else "unmeasured",
             "runs_total": len(runs), "runs_observed": observations,
-            "runs_unmeasured": max(0, len(runs) - 10),
+            "runs_unmeasured": max(0, len(runs) - 10) + sum(row["execution"] == "unmeasured" for row in observations),
             "acceptance": "unmeasured",
             "boundary": "Executed steps do not establish the owning verification predicate or required workflow coverage."}
 

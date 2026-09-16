@@ -123,3 +123,17 @@ def test_failed_optional_check_is_observed_without_inventing_merge_policy():
     row = collect_pulls(read, PREFIX, 7)["pulls_observed"][0]
     assert row["checks"]["failing"] == 1
     assert row["readiness"] == "unmeasured"
+
+
+def test_closed_detail_cannot_complete_open_listing_coverage():
+    base, _ = fixture()
+    def read(path):
+        result = base(path)
+        if path == PREFIX + "/pulls/1":
+            result["state"] = "closed"
+        return result
+    result = collect_pulls(read, PREFIX, 7)
+    assert result["pulls_observed"][0]["generation"] == "current"
+    assert result["pulls_observed"][0]["checks"]["status"] == "measured"
+    assert result["status"] == "unmeasured"
+    assert result["pulls_unmeasured"] == 1

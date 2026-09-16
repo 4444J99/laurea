@@ -118,3 +118,30 @@ def test_malformed_steps_do_not_become_measured_zero_execution():
     result = collect_health("owner/repo", "fixture", read=read)
     assert result["verification"]["status"] == "unmeasured"
     assert result["verification"]["runs_observed"][0]["execution"] == "unmeasured"
+
+
+def test_active_step_is_positive_execution_evidence():
+    read, _ = reader(steps=[{"status": "in_progress", "conclusion": None}])
+    result = collect_health("owner/repo", "fixture", read=read)["verification"]
+    row = result["runs_observed"][0]
+    assert row["execution"] == "in_progress"
+    assert row["active_steps"] == 1
+    assert row["executed_steps"] == 1
+    assert result["acceptance"] == "unmeasured"
+
+
+def test_unknown_children_and_omitted_runs_share_denominator():
+    base, _ = reader()
+    def read(path):
+        if "/actions/runs?" in path:
+            return {"total_count": 12, "workflow_runs": [
+                {"id": number, "head_sha": SHA, "conclusion": "failure"}
+                for number in range(12)]}
+        if "/runs/0/jobs?" in path:
+            raise OSError("unavailable")
+        return base(path)
+    result = collect_health("owner/repo", "fixture", read=read)["verification"]
+    assert result["runs_total"] == 12
+    assert len(result["runs_observed"]) == 10
+    assert result["runs_unmeasured"] == 3
+    assert result["status"] == "unmeasured"
