@@ -36,3 +36,24 @@ def test_symlink_destination_is_rejected(tmp_path):
     with pytest.raises(ValueError):
         write_entry(tmp_path, issue=1, row=row("alice"), observed_at=STAMP)
     assert outside.read_text() == "preserve"
+
+
+def test_cli_issue_mode_preserves_existing_table(tmp_path, monkeypatch):
+    from laurea import cli
+    monkeypatch.setattr(cli, "resolve_token", lambda: "fixture")
+    monkeypatch.setattr(cli, "collect", lambda *a: {})
+    monkeypatch.setattr(cli, "run_all", lambda *a: [])
+    monkeypatch.setattr(cli, "build_row", lambda report: row(report.login))
+    table = tmp_path / "LEADERBOARD.md"
+    table.write_text("existing table")
+    entries = tmp_path / "entries"
+    assert cli.main(["arena", "--login", "alice", "--issue", "12", "--entries", str(entries), "--leaderboard", str(table)]) == 0
+    assert table.read_text() == "existing table"
+    assert json.loads((entries / "12.json").read_text())["row"]["login"] == "alice"
+
+
+def test_cli_rejects_invalid_issue_before_collection(monkeypatch):
+    from laurea import cli
+    monkeypatch.setattr(cli, "collect", lambda *a: pytest.fail("must not collect"))
+    with pytest.raises(SystemExit):
+        cli.main(["arena", "--login", "alice", "--issue", "0"])

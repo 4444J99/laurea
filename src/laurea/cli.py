@@ -15,7 +15,7 @@ from .detectors import REGISTRY, run_all
 from .github import collect, resolve_token
 from .models import Finding, Report
 from .health import collect_health, collect_health_batch
-from .arena import build_row, update_leaderboard
+from .arena import build_row, update_leaderboard, write_entry
 from .render import render_all
 from .verdict import append_entry, collect_verdict, load_history, verdict_card
 
@@ -108,6 +108,8 @@ def main(argv: list[str] | None = None) -> int:
     arena = sub.add_parser("arena")
     arena.add_argument("--login", required=True)
     arena.add_argument("--leaderboard", default="LEADERBOARD.md", type=Path)
+    arena.add_argument("--issue", type=int)
+    arena.add_argument("--entries", default="arena/entries", type=Path)
 
     args = parser.parse_args(argv)
     if args.cmd == "health-batch":
@@ -127,6 +129,8 @@ def main(argv: list[str] | None = None) -> int:
         return 77 if result["status"] == "unmeasured" else 0
 
     if args.cmd == "arena":
+        if args.issue is not None and args.issue <= 0:
+            parser.error("--issue must be positive")
         snapshot = collect(args.login, resolve_token())
         report = Report(
             login=args.login,
@@ -134,8 +138,12 @@ def main(argv: list[str] | None = None) -> int:
             snapshot=snapshot,
             findings=run_all(snapshot),
         )
-        update_leaderboard(args.leaderboard, build_row(report))
-        print(f"arena: verified @{args.login} -> {args.leaderboard}")
+        if args.issue is not None:
+            destination = write_entry(args.entries, issue=args.issue, row=build_row(report), observed_at=report.generated_at)
+        else:
+            update_leaderboard(args.leaderboard, build_row(report))
+            destination = args.leaderboard
+        print(f"arena: verified @{args.login} -> {destination}")
         return 0
 
     if args.cmd == "axes":
