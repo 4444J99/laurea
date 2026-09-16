@@ -86,3 +86,10 @@ remain counted. Known draft/conflict blockers are reported separately from
 unmeasured acceptance and required policy. Public reports preserve aggregate
 metrics for token-visible private repositories without publishing their names.
 Incomplete collection stops publication before replacing valid assets/history.
+
+Health scope accounts for the one requested repository as public-observed,
+private-excluded, or unmeasured; archived public repositories remain included.
+Security summaries include observed critical/high/medium/low vulnerability counts,
+unknown severities, and separate credential-alert counts. These are repository-wide
+alert observations, not scans bound to the current default SHA. No alert contents,
+locations, secret values, or account metadata are published.

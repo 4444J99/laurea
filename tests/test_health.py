@@ -62,6 +62,44 @@ def test_private_identity_is_excluded_before_other_reads():
     result = collect_health("owner/repo", "token", read=read)
     assert "owner/repo" not in json.dumps(result)
     assert len(calls) == 1
+    assert result["scope"]["repositories_requested"] == 1
+    assert result["scope"]["private_repositories_excluded"] == 1
+    assert result["scope"]["repositories_unmeasured"] == 0
+
+
+def test_unknown_visibility_stays_in_the_unmeasured_denominator():
+    read, calls = reader(private=None)
+    result = collect_health("owner/repo", "token", read=read)
+    assert result["scope"]["repositories_unmeasured"] == 1
+    assert result["scope"]["private_repositories_excluded"] == 0
+    assert len(calls) == 1
+
+
+def test_archived_public_repository_remains_included():
+    base, _ = reader()
+    def read(path):
+        value = base(path)
+        if path == "/repos/owner/repo":
+            value["archived"] = True
+        return value
+    result = collect_health("owner/repo", "token", read=read)
+    assert result["scope"]["archive_status"] == "archived"
+    assert result["scope"]["public_repositories_observed"] == 1
+    assert result["scope"]["repositories_unmeasured"] == 0
+    assert result["status"] == "unmeasured"
+
+
+def test_security_counts_flow_into_health_without_alert_details():
+    base, _ = reader()
+    def read(path):
+        if "/dependabot/alerts?" in path:
+            return [{"number": 1, "state": "open", "html_url": "PRIVATE",
+                     "security_vulnerability": {"severity": "critical"}}]
+        return base(path)
+    result = collect_health("owner/repo", "token", read=read)
+    assert result["security"]["dependabot"]["severity_counts_observed"]["critical"] == 1
+    assert "PRIVATE" not in json.dumps(result)
+    assert result["status"] == "unmeasured"
 
 
 def test_truncated_runs_remain_unmeasured():

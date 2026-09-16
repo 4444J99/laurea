@@ -14,6 +14,7 @@ from typing import Any, Callable
 from urllib.parse import quote
 
 from .pulls import collect_pulls
+from .security import summarize_alerts
 
 
 class Unmeasured(RuntimeError):
@@ -104,10 +105,7 @@ def _security(read: Callable, prefix: str) -> dict[str, Any]:
                            ("secret_scanning", "secret-scanning/alerts")):
         try:
             rows = read(prefix + "/" + endpoint + "?state=open&per_page=100")
-            if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
-                raise Unmeasured("malformed alerts")
-            result[name] = {"status": "measured" if len(rows) < 100 else "unmeasured",
-                            "open_alerts_observed": len(rows), "complete": len(rows) < 100}
+            result[name] = summarize_alerts(rows, name)
         except (OSError, ValueError, KeyError, TypeError, Unmeasured):
             result[name] = _unknown()
     return result
@@ -120,17 +118,26 @@ def collect_health(repository: str, token: str, *, read: Callable | None = None)
     read = read or Reader(token)
     result = {"schema_version": "laurea.health.v1", "status": "unmeasured", "observed_at": datetime.now(timezone.utc).isoformat(),
               "generation": "unmeasured", "verification": _unknown(),
-              "security": _unknown(), "pr_readiness": _unknown()}
+              "security": _unknown(), "pr_readiness": _unknown(),
+              "scope": {"repositories_requested": 1, "public_repositories_observed": 0,
+                        "private_repositories_excluded": 0, "repositories_unmeasured": 1,
+                        "archive_status": "unmeasured",
+                        "boundary": "One requested repository; not an administered-estate inventory or health percentage."}}
     prefix = "/repos/" + repository
     try:
         repo = read(prefix)
         if not isinstance(repo, dict) or repo.get("private") is not False:
             result["excluded_private_or_unknown"] = True
+            if isinstance(repo, dict) and repo.get("private") is True:
+                result["scope"].update(private_repositories_excluded=1, repositories_unmeasured=0)
             return result
         branch = repo["default_branch"]
         if (type(repo.get("id")) is not int or not isinstance(branch, str)
                 or not isinstance(repo.get("full_name"), str)):
             raise Unmeasured("repository identity unavailable")
+        result["scope"].update(public_repositories_observed=1, repositories_unmeasured=0,
+                               archive_status=("archived" if repo["archived"] else "active")
+                               if type(repo.get("archived")) is bool else "unmeasured")
         ref = read(prefix + "/commits/" + quote(branch, safe=""))
         sha = ref["sha"]
         if not isinstance(sha, str) or not re.fullmatch(r"[0-9a-f]{40}", sha):
@@ -147,6 +154,7 @@ def collect_health(repository: str, token: str, *, read: Callable | None = None)
         current = read(prefix + "/commits/" + quote(branch, safe=""))
         result["generation"] = "current" if (after.get("id") == repo["id"]
             and after.get("default_branch") == branch and after.get("private") is False
+            and after.get("full_name") == repo["full_name"]
             and current.get("sha") == sha) else "not_current"
     except (OSError, ValueError, KeyError, TypeError, AttributeError, Unmeasured):
         pass

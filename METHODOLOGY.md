@@ -84,3 +84,20 @@ success or an approval count cannot establish readiness by itself. GitHub's
 [review API](https://docs.github.com/en/rest/pulls/reviews#list-reviews-for-a-pull-request)
 returns reviews in chronological order; comment-only reviews do not replace a
 reviewer's decision.
+
+Security observations use the documented
+[Dependabot vulnerability severity](https://docs.github.com/en/rest/dependabot/alerts#list-dependabot-alerts-for-a-repository)
+and [code-scanning security severity](https://docs.github.com/en/rest/code-scanning/code-scanning#list-code-scanning-alerts-for-a-repository)
+fields. A code-quality `error` or `warning` does not supply security severity.
+Missing or malformed severities stay in an explicit unmeasured bucket. A full
+100-alert page retains observed counts but cannot establish complete coverage.
+[Secret-scanning alerts](https://docs.github.com/en/rest/secret-scanning/secret-scanning#list-secret-scanning-alerts-for-a-repository)
+contribute credential-obligation counts only; their contents and locations are
+never serialized. Scanner enablement, recent scan coverage, and required policy
+remain unmeasured even when an alert endpoint returns an empty list.
+
+The health command's repository denominator is exactly one requested repository.
+Known private repositories count as excluded without revealing their identity;
+unknown visibility remains unmeasured. Archived public repositories count as
+included and carry their archive status. This scope does not imply coverage of
+the administered estate or establish a health percentage.
