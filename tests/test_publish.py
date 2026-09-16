@@ -87,9 +87,12 @@ def test_metrics_pushes_only_unique_branch_and_reads_back_pr(sandbox):
 def test_arena_issue_closure_is_bound_to_pr_merge(sandbox):
     root, _, env, calls, bodies, _, _, _ = sandbox
     env["GITHUB_EVENT_NAME"] = "issues"
-    (root / "LEADERBOARD.md").write_text("new table\n")
+    from laurea.arena import write_entry
+    write_entry(root / "arena/entries", issue=4,
+                row=dict(login="alice", contributions=1, prs=1, repos=1, languages=1, measured_axes=1, verified="2026-09-16"),
+                observed_at="2026-09-16T00:00:00+00:00")
     assert p.publish("arena", issue=4, root=root, env=env)["status"] == "pr_open"
-    assert "Closes #4 after this snapshot lands" in bodies[0]
+    assert "Closes #4 after this observation lands" in bodies[0]
     assert not any(call[0:3] == ["gh", "issue", "close"] for call in calls)
 
 
@@ -174,3 +177,15 @@ def test_failure_receipt_preserves_known_remote_branch_and_redacts_error(monkeyp
     assert result["last_verified_state"] == "branch_published"
     assert result["branch"] == "automation/metrics/12-1"
     assert "PRIVATE" not in output
+
+
+@pytest.mark.parametrize("path", ["LEADERBOARD.md", "arena/entries/5.json"])
+def test_arena_rejects_other_issue_or_whole_table_changes(sandbox, path):
+    root, _, env, calls, _, _, _, _ = sandbox
+    env["GITHUB_EVENT_NAME"] = "issues"
+    target = root / path
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text("unrelated")
+    with pytest.raises(ValueError, match="unrelated"):
+        p.publish("arena", issue=4, root=root, env=env)
+    assert not any(call[:2] == ["git", "push"] for call in calls)

@@ -47,9 +47,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
           ENTRANT: ${{ steps.entrant.outputs.login }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
           pip install -q -e .
-          laurea arena --login "$ENTRANT"
+          laurea arena --login "$ENTRANT" --issue "$ISSUE_NUMBER"
       - name: Prepare the verified row PR
         id: publication
         if: steps.entrant.outputs.login != ''
@@ -64,11 +65,11 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           PR_URL: ${{ steps.publication.outputs.pr_url }}
         run: |
-          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Snapshot prepared for review: $PR_URL. This entry closes when that PR lands on the default branch. The table compares bounded activity fields and does not rank engineering quality."
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Observation prepared for review: $PR_URL. This entry closes when that PR lands on the default branch. The table compares bounded activity fields and does not rank engineering quality."
       - name: Report an unchanged table
         if: steps.publication.outputs.status == 'unchanged'
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
-          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Your row already matches the generated table, so no snapshot PR was prepared. This issue stays open for manual disposition. The table compares bounded activity fields and does not rank engineering quality."
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "The generated observation has no diff, so no new observation PR was prepared. This issue stays open for manual disposition. The table compares bounded activity fields and does not rank engineering quality."

@@ -79,11 +79,25 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None):
     comparison = api(f"/compare/{sha}...{default_sha}")
     if comparison.get("status") not in {"ahead", "identical"}:
         raise ValueError("source is not on the default branch")
-    paths = ["assets"] if kind == "metrics" else ["LEADERBOARD.md"]
+    entry_path = f"arena/entries/{issue}.json"
+    paths = ["assets"] if kind == "metrics" else [entry_path]
     changed = run("git", "diff", "--name-only", "-z").split("\0")
     changed += run("git", "ls-files", "--others", "--exclude-standard", "-z").split("\0")
-    if any(p and not (p.startswith("assets/") if kind == "metrics" else p == "LEADERBOARD.md") for p in changed):
+    if any(p and not (p.startswith("assets/") if kind == "metrics" else p == entry_path) for p in changed):
         raise ValueError("unrelated caller files are present")
+    if kind == "arena":
+        entry = root / entry_path
+        if any(parent.is_symlink() for parent in (root / "arena", root / "arena/entries", entry)):
+            raise ValueError("arena record symlinks cannot be published")
+        if not entry.is_file() or entry.stat().st_size > 10000:
+            raise ValueError("bounded arena record required")
+        record = json.loads(entry.read_text())
+        if record.get("schema_version") != 1 or type(record.get("issue")) is not int or record["issue"] != issue:
+            raise ValueError("arena record does not match source issue")
+        # Reuse the writer's validation without changing the caller record.
+        from .arena import write_entry
+        with tempfile.TemporaryDirectory() as validation:
+            write_entry(Path(validation), issue=issue, row=record["row"], observed_at=record["observed_at"])
     run("git", "add", "--", *paths)
     staged = run("git", "diff", "--cached", "--name-only", "-z")
     if not staged:
@@ -114,7 +128,7 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None):
             "Review the generated diff and merge through the repository rail. "
             "An open PR is preparation, not publication.\n")
     if kind == "arena":
-        body += f"\nCloses #{issue} after this snapshot lands on the default branch.\n"
+        body += f"\nCloses #{issue} after this observation lands on the default branch.\n"
     fd, body_path = tempfile.mkstemp(prefix="laurea-publication-", suffix=".md")
     try:
         with os.fdopen(fd, "w") as stream:
