@@ -23,6 +23,8 @@ def sandbox(tmp_path, monkeypatch):
     (root / "assets").mkdir()
     (root / "assets/metrics.json").write_text('{"old":true}\n')
     (root / "LEADERBOARD.md").write_text("old table\n")
+    (root / "arena/entries").mkdir(parents=True)
+    (root / "arena/baseline.json").write_bytes((Path(__file__).resolve().parents[1] / "arena/baseline.json").read_bytes())
     git("add", ".")
     git("commit", "-m", "fixture")
     sha = git("rev-parse", "HEAD")
@@ -55,7 +57,7 @@ def sandbox(tmp_path, monkeypatch):
         if path == "repos/owner/repo":
             return json.dumps({"id": 7, "full_name": "owner/repo", "default_branch": "main"})
         if "/commits/" in path:
-            return json.dumps({"sha": sha})
+            return json.dumps({"sha": settings.get("default_sha", sha)})
         if "/compare/" in path:
             return json.dumps({"status": "identical"})
         if "/issues/" in path:
@@ -206,10 +208,41 @@ def test_arena_rejects_noncanonical_record_before_push(sandbox, mutation):
     else:
         record = []
     path = root / "arena/entries/4.json"
-    path.parent.mkdir(parents=True)
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(record))
     before = path.read_bytes()
     with pytest.raises(ValueError, match="source issue"):
         p.publish("arena", issue=4, root=root, env=env)
     assert path.read_bytes() == before
+    assert not any(call[:2] == ["git", "push"] for call in calls)
+
+
+def test_table_publication_uses_complete_baseline_and_unique_pr(sandbox):
+    from laurea.arena import materialize_entries
+    root, remote, env, calls, bodies, _, git, sha = sandbox
+    env["GITHUB_EVENT_NAME"] = "push"
+    materialize_entries(root / "arena/entries", root / "LEADERBOARD.md", baseline=root / "arena/baseline.json")
+    result = p.publish("arena-table", root=root, env=env)
+    assert result["status"] == "pr_open"
+    assert git("rev-parse", "refs/heads/main", cwd=remote) == sha
+    assert git("diff", "--name-only", sha, result["head_sha"]) == "LEADERBOARD.md"
+    assert not any("--force" in call for call in calls)
+    assert "Closes #" not in bodies[0]
+
+
+def test_table_publication_rejects_moved_default_before_push(sandbox):
+    root, _, env, calls, _, settings, _, _ = sandbox
+    env["GITHUB_EVENT_NAME"] = "push"
+    settings["default_sha"] = "b" * 40
+    with pytest.raises(ValueError, match="current default generation"):
+        p.publish("arena-table", root=root, env=env)
+    assert not any(call[:2] == ["git", "push"] for call in calls)
+
+
+def test_table_publication_rejects_incomplete_render(sandbox):
+    root, _, env, calls, _, _, _, _ = sandbox
+    env["GITHUB_EVENT_NAME"] = "push"
+    (root / "LEADERBOARD.md").write_text("missing accepted historical row")
+    with pytest.raises(ValueError, match="stale"):
+        p.publish("arena-table", root=root, env=env)
     assert not any(call[:2] == ["git", "push"] for call in calls)

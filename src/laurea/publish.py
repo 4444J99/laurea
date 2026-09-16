@@ -25,7 +25,7 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None):
     repository = env.get("GITHUB_REPOSITORY", "")
     sha = env.get("GITHUB_SHA", "")
     run_id, attempt = env.get("GITHUB_RUN_ID", ""), env.get("GITHUB_RUN_ATTEMPT", "")
-    allowed_events = {"metrics": {"schedule", "workflow_dispatch", "push"}, "arena": {"issues"}}
+    allowed_events = {"metrics": {"schedule", "workflow_dispatch", "push"}, "arena": {"issues"}, "arena-table": {"push", "workflow_dispatch"}}
     if (env.get("GITHUB_ACTIONS") != "true" or kind not in allowed_events
             or env.get("GITHUB_EVENT_NAME") not in allowed_events[kind]
             or Path(env.get("GITHUB_WORKSPACE", "/")).resolve() != root
@@ -71,6 +71,8 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None):
     default_sha = api("/commits/" + quote(default, safe=""))["sha"]
     if not isinstance(default_sha, str) or not re.fullmatch(r"[0-9a-f]{40}", default_sha):
         raise ValueError("default generation unavailable")
+    if kind == "arena-table" and default_sha != sha:
+        raise ValueError("table source is not the current default generation")
     if kind == "arena":
         current_issue = api(f"/issues/{issue}")
         if (current_issue.get("number") != issue or current_issue.get("state") != "open"
@@ -80,10 +82,10 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None):
     if comparison.get("status") not in {"ahead", "identical"}:
         raise ValueError("source is not on the default branch")
     entry_path = f"arena/entries/{issue}.json"
-    paths = ["assets"] if kind == "metrics" else [entry_path]
+    paths = ["assets"] if kind == "metrics" else (["LEADERBOARD.md"] if kind == "arena-table" else [entry_path])
     changed = run("git", "diff", "--name-only", "-z").split("\0")
     changed += run("git", "ls-files", "--others", "--exclude-standard", "-z").split("\0")
-    if any(p and not (p.startswith("assets/") if kind == "metrics" else p == entry_path) for p in changed):
+    if any(p and not (p.startswith("assets/") if kind == "metrics" else p in paths) for p in changed):
         raise ValueError("unrelated caller files are present")
     if kind == "arena":
         entry = root / entry_path
@@ -101,6 +103,11 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None):
         from .arena import write_entry
         with tempfile.TemporaryDirectory() as validation:
             write_entry(Path(validation), issue=issue, row=record["row"], observed_at=record["observed_at"])
+    if kind == "arena-table":
+        from .arena import check_materialized_entries
+        check_materialized_entries(root / "arena/entries", root / "LEADERBOARD.md", baseline=root / "arena/baseline.json")
+        if api("/commits/" + quote(default, safe=""))["sha"] != sha:
+            raise ValueError("default moved during table validation")
     run("git", "add", "--", *paths)
     staged = run("git", "diff", "--cached", "--name-only", "-z")
     if not staged:
@@ -162,7 +169,7 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--kind", required=True, choices=("metrics", "arena"))
+    parser.add_argument("--kind", required=True, choices=("metrics", "arena", "arena-table"))
     parser.add_argument("--issue", type=int)
     args = parser.parse_args(argv)
     receipt = {}
