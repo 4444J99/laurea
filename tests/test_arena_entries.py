@@ -82,3 +82,32 @@ def test_malformed_record_preserves_previous_table(tmp_path):
     with pytest.raises(ValueError):
         materialize_entries(entries, table)
     assert table.read_text() == "preserve"
+
+
+def test_historical_baseline_matches_committed_source():
+    import hashlib
+    from pathlib import Path
+    from laurea.arena import _parse_rows
+    root = Path(__file__).resolve().parents[1]
+    baseline = json.loads((root / "arena/baseline.json").read_text())
+    source = baseline["source"]
+    raw = (root / "arena/baseline-source.md").read_bytes()
+    assert hashlib.sha256(raw).hexdigest() == source["sha256"]
+    assert _parse_rows(raw.decode()) == baseline["rows"]
+    assert source["precision"] == "date-only"
+
+
+def test_baseline_survives_new_entrants_and_older_observations(tmp_path):
+    from pathlib import Path
+    from laurea.arena import materialize_entries
+    baseline = Path(__file__).resolve().parents[1] / "arena/baseline.json"
+    entries = tmp_path / "entries"; entries.mkdir()
+    table = tmp_path / "table.md"
+    assert "`@4444J99` | 33,587" in materialize_entries(entries, table, baseline=baseline)
+    older = row("4444J99"); older["verified"] = "2026-08-20"
+    write_entry(entries, issue=1, row=older, observed_at="2026-08-20T00:00:00Z")
+    write_entry(entries, issue=2, row=row("alice"), observed_at=STAMP)
+    text = materialize_entries(entries, table, baseline=baseline)
+    assert "`@4444J99` | 33,587" in text and "@alice" in text
+    write_entry(entries, issue=3, row=row("4444J99"), observed_at=STAMP)
+    assert "`@4444J99` | 1" in materialize_entries(entries, table, baseline=baseline)

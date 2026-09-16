@@ -111,20 +111,26 @@ def _render_rows(rows: list[dict]) -> str:
     return text
 
 
-def write_entry(directory: Path, *, issue: int, row: dict, observed_at: str) -> Path:
-    """Preserve one issue observation without rewriting another entrant's file."""
-    if type(issue) is not int or issue <= 0:
-        raise ValueError("positive issue identity required")
+def _validate_row(row: dict) -> None:
+    if not isinstance(row, dict):
+        raise ValueError("invalid activity row")
     login = row.get("login")
     if not isinstance(login, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9-]{0,38}", login):
         raise ValueError("invalid entrant identity")
     fields = {"login", "contributions", "prs", "repos", "languages", "measured_axes", "verified"}
     if set(row) != fields or any(type(row[k]) is not int or row[k] < 0 for k in fields - {"login", "verified"}):
         raise ValueError("invalid activity row")
+    datetime.strptime(row["verified"], "%Y-%m-%d")
+
+
+def write_entry(directory: Path, *, issue: int, row: dict, observed_at: str) -> Path:
+    """Preserve one issue observation without rewriting another entrant's file."""
+    if type(issue) is not int or issue <= 0:
+        raise ValueError("positive issue identity required")
+    _validate_row(row)
     stamp = datetime.fromisoformat(observed_at)
     if stamp.tzinfo is None:
         raise ValueError("observation requires a timezone")
-    datetime.strptime(row["verified"], "%Y-%m-%d")
     record = {"schema_version": 1, "issue": issue, "observed_at": observed_at, "row": row}
     payload = json.dumps(record, sort_keys=True, indent=2) + "\n"
     directory.mkdir(parents=True, exist_ok=True)
@@ -149,13 +155,35 @@ def write_entry(directory: Path, *, issue: int, row: dict, observed_at: str) -> 
     return target
 
 
-def materialize_entries(directory: Path, leaderboard: Path) -> str:
+def materialize_entries(directory: Path, leaderboard: Path, *, baseline: Path | None = None) -> str:
     """Render accepted records deterministically; validate all before writing."""
     if directory.is_symlink() or not directory.is_dir():
         raise ValueError("entry directory unavailable")
     paths = sorted(directory.iterdir())
-    if not paths or len(paths) > 10000:
+    if (not paths and baseline is None) or len(paths) > 10000:
         raise ValueError("entry inventory empty or exceeds bound")
+    inherited = {}
+    if baseline is not None:
+        if baseline.is_symlink() or not baseline.is_file() or baseline.stat().st_size > 1000000:
+            raise ValueError("invalid baseline file")
+        data = json.loads(baseline.read_text())
+        if (not isinstance(data, dict) or set(data) != {"schema_version", "source", "rows"}
+                or type(data["schema_version"]) is not int or data["schema_version"] != 1
+                or not isinstance(data["rows"], list) or len(data["rows"]) > 1000):
+            raise ValueError("invalid baseline schema")
+        source = data["source"]
+        if (not isinstance(source, dict) or set(source) != {"repository", "commit", "path", "sha256", "precision"}
+                or source["repository"] != "organvm/laurea" or source["path"] != "LEADERBOARD.md"
+                or source["precision"] != "date-only"
+                or not isinstance(source["commit"], str) or not re.fullmatch(r"[0-9a-f]{40}", source["commit"])
+                or not isinstance(source["sha256"], str) or not re.fullmatch(r"[0-9a-f]{64}", source["sha256"])):
+            raise ValueError("invalid baseline provenance")
+        for row in data["rows"]:
+            _validate_row(row)
+            login = row["login"].lower()
+            if login in inherited:
+                raise ValueError("duplicate baseline login")
+            inherited[login] = row
     records = []
     with tempfile.TemporaryDirectory() as scratch:
         validation = Path(scratch) / "validate"
@@ -171,7 +199,14 @@ def materialize_entries(directory: Path, leaderboard: Path) -> str:
             records.append(record)
         # Newest observation wins for one login; issue ID resolves timestamp ties.
         records.sort(key=lambda r: (datetime.fromisoformat(r["observed_at"]), r["issue"]))
-        latest = {r["row"]["login"].lower(): r["row"] for r in records}
+        latest = dict(inherited)
+        for record in records:
+            row = record["row"]
+            login = row["login"].lower()
+            # Baseline has only a date. Never invent a timestamp or let an older
+            # observation replace it; same-day precise observations supersede it.
+            if login not in latest or row["verified"] >= latest[login]["verified"]:
+                latest[login] = row
         text = _render_rows([latest[login] for login in sorted(latest)])
     if leaderboard.is_symlink():
         raise ValueError("leaderboard must not be a symlink")

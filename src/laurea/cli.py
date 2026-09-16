@@ -113,11 +113,12 @@ def main(argv: list[str] | None = None) -> int:
 
     table = sub.add_parser("arena-table")
     table.add_argument("--entries", default="arena/entries", type=Path)
+    table.add_argument("--baseline", type=Path)
     table.add_argument("--leaderboard", default="LEADERBOARD.md", type=Path)
 
     args = parser.parse_args(argv)
     if args.cmd == "arena-table":
-        materialize_entries(args.entries, args.leaderboard)
+        materialize_entries(args.entries, args.leaderboard, baseline=args.baseline)
         print(f"arena: materialized accepted records -> {args.leaderboard}")
         return 0
     if args.cmd == "health-batch":
