@@ -37,6 +37,27 @@ def test_budget_failure_preserves_unknown_entries():
     assert "PRIVATE_TOKEN_DETAIL" not in json.dumps(report)
 
 
+def test_offset_preserves_inventory_without_repeating_earlier_reads():
+    calls = []
+    def read(path):
+        calls.append(path)
+        return {"private": True}
+    report = collect_health_batch(["owner/one", "owner/two", "owner/three"],
+                                  "fixture", offset=1, limit=1, read=read)
+    assert calls == ["/repos/owner/two"]
+    assert report["scope"]["inventory_entries"] == 3
+    assert report["scope"]["entries_not_attempted"] == 2
+    assert report["scope"]["selection_offset"] == 1
+    assert report["scope"]["selection_end_exclusive"] == 2
+
+
+@pytest.mark.parametrize("offset", [-1, True, 1, "0"])
+def test_invalid_offset_is_rejected_before_reads(offset):
+    with pytest.raises(ValueError):
+        collect_health_batch(["owner/one"], "fixture", offset=offset,
+                             read=lambda path: pytest.fail("unexpected read"))
+
+
 def test_one_reader_budget_is_shared(monkeypatch):
     instances = []
     class Limited:

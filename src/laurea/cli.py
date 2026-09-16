@@ -104,6 +104,7 @@ def main(argv: list[str] | None = None) -> int:
     batch = sub.add_parser("health-batch")
     batch.add_argument("--inventory", type=Path, required=True)
     batch.add_argument("--limit", type=int, default=5)
+    batch.add_argument("--offset", type=int, default=0)
     arena = sub.add_parser("arena")
     arena.add_argument("--login", required=True)
     arena.add_argument("--leaderboard", default="LEADERBOARD.md", type=Path)
@@ -114,7 +115,7 @@ def main(argv: list[str] | None = None) -> int:
             if args.inventory.stat().st_size > 2_000_000:
                 raise ValueError("inventory exceeds size bound")
             entries = json.loads(args.inventory.read_text())
-            result = collect_health_batch(entries, resolve_token(), limit=args.limit)
+            result = collect_health_batch(entries, resolve_token(), limit=args.limit, offset=args.offset)
         except (OSError, ValueError):
             print("Health inventory unavailable or malformed", file=sys.stderr)
             return 77

@@ -113,7 +113,7 @@ def _security(read: Callable, prefix: str) -> dict[str, Any]:
 
 
 
-def collect_health_batch(repositories, token, *, limit=5, read=None):
+def collect_health_batch(repositories, token, *, limit=5, offset=0, read=None):
     """Inspect a bounded subset while retaining the supplied inventory denominator.
 
     One Reader shares the existing request/time budget across the whole batch.
@@ -126,8 +126,11 @@ def collect_health_batch(repositories, token, *, limit=5, read=None):
         raise ValueError("inventory must contain unique OWNER/NAME entries")
     if type(limit) is not int or not 1 <= limit <= 20:
         raise ValueError("inspection limit must be an integer from 1 to 20")
+    if type(offset) is not int or not 0 <= offset < len(repositories):
+        raise ValueError("inspection offset must identify an inventory entry")
     shared = read or Reader(token)
-    observations = [collect_health(repo, token, read=shared) for repo in repositories[:limit]]
+    observations = [collect_health(repo, token, read=shared)
+                    for repo in repositories[offset:offset + limit]]
     public_ids = [r["repository_id"] for r in observations if "repository_id" in r]
     private = sum(r["scope"]["private_repositories_excluded"] for r in observations)
     unknown = sum(r["scope"]["repositories_unmeasured"] for r in observations)
@@ -135,6 +138,7 @@ def collect_health_batch(repositories, token, *, limit=5, read=None):
         "schema_version": "laurea.health-batch.v1", "status": "unmeasured",
         "scope": {
             "inventory_entries": len(repositories), "entries_attempted": len(observations),
+            "selection_offset": offset, "selection_end_exclusive": offset + len(observations),
             "entries_not_attempted": len(repositories) - len(observations),
             "private_entries_excluded": private, "attempted_entries_unmeasured": unknown,
             "public_repository_identities_observed": len(set(public_ids)),

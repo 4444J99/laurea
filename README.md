@@ -101,6 +101,9 @@ For bounded health inspection across a declared inventory, use
 array of unique `OWNER/NAME` strings. One batch shares the existing 40-request,
 60-second read budget; the limit accepts 1–20 entries. The output retains the full
 input denominator, unattempted entries, private exclusions, and unknown results.
+Use `--offset N` to inspect a later slice without repeating earlier reads; the
+reported selection offsets refer to the same supplied inventory. Separate batches
+retain their own observations and do not establish one simultaneous healthy estate.
 It does not establish that the supplied inventory is complete or that repositories
 are healthy. Exit 77 preserves that unmeasured acceptance state. Private and
 uninspected repository names are omitted from the output.
