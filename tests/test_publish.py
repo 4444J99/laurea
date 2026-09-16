@@ -189,3 +189,27 @@ def test_arena_rejects_other_issue_or_whole_table_changes(sandbox, path):
     with pytest.raises(ValueError, match="unrelated"):
         p.publish("arena", issue=4, root=root, env=env)
     assert not any(call[:2] == ["git", "push"] for call in calls)
+
+
+@pytest.mark.parametrize("mutation", ["boolean_schema", "extra_field", "list"])
+def test_arena_rejects_noncanonical_record_before_push(sandbox, mutation):
+    root, _, env, calls, _, _, _, _ = sandbox
+    env["GITHUB_EVENT_NAME"] = "issues"
+    record = {"schema_version": 1, "issue": 4,
+              "observed_at": "2026-09-16T00:00:00+00:00",
+              "row": dict(login="alice", contributions=1, prs=1, repos=1,
+                          languages=1, measured_axes=1, verified="2026-09-16")}
+    if mutation == "boolean_schema":
+        record["schema_version"] = True
+    elif mutation == "extra_field":
+        record["unvalidated"] = "data"
+    else:
+        record = []
+    path = root / "arena/entries/4.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps(record))
+    before = path.read_bytes()
+    with pytest.raises(ValueError, match="source issue"):
+        p.publish("arena", issue=4, root=root, env=env)
+    assert path.read_bytes() == before
+    assert not any(call[:2] == ["git", "push"] for call in calls)

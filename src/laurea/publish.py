@@ -92,7 +92,10 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None):
         if not entry.is_file() or entry.stat().st_size > 10000:
             raise ValueError("bounded arena record required")
         record = json.loads(entry.read_text())
-        if record.get("schema_version") != 1 or type(record.get("issue")) is not int or record["issue"] != issue:
+        if (not isinstance(record, dict)
+                or set(record) != {"schema_version", "issue", "observed_at", "row"}
+                or type(record["schema_version"]) is not int or record["schema_version"] != 1
+                or type(record["issue"]) is not int or record["issue"] != issue):
             raise ValueError("arena record does not match source issue")
         # Reuse the writer's validation without changing the caller record.
         from .arena import write_entry
