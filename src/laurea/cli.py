@@ -15,7 +15,7 @@ from .detectors import REGISTRY, run_all
 from .github import collect, resolve_token
 from .models import Finding, Report
 from .health import collect_health, collect_health_batch
-from .arena import build_row, update_leaderboard, write_entry, materialize_entries, check_materialized_entries
+from .arena import build_row, update_leaderboard, write_entry, materialize_entries, check_materialized_entries, settlement_report
 from .render import render_all
 from .verdict import append_entry, collect_verdict, load_history, verdict_card
 
@@ -115,10 +115,14 @@ def main(argv: list[str] | None = None) -> int:
     table.add_argument("--entries", default="arena/entries", type=Path)
     table.add_argument("--baseline", type=Path)
     table.add_argument("--check", action="store_true")
+    table.add_argument("--settlement-report", action="store_true")
     table.add_argument("--leaderboard", default="LEADERBOARD.md", type=Path)
 
     args = parser.parse_args(argv)
     if args.cmd == "arena-table":
+        if args.settlement_report:
+            print(json.dumps(settlement_report(args.entries, args.leaderboard, baseline=args.baseline), indent=2))
+            return 0
         operation = check_materialized_entries if args.check else materialize_entries
         operation(args.entries, args.leaderboard, baseline=args.baseline)
         print(f"arena: {'checked' if args.check else 'materialized'} accepted records -> {args.leaderboard}")

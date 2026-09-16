@@ -231,3 +231,49 @@ def check_materialized_entries(directory: Path, leaderboard: Path, *, baseline: 
         expected = materialize_entries(directory, Path(scratch) / "expected.md", baseline=baseline)
     if leaderboard.read_bytes() != expected.encode("utf-8"):
         raise ValueError("leaderboard is stale relative to accepted records")
+
+
+def settlement_report(directory: Path, leaderboard: Path, *, baseline: Path | None = None) -> dict:
+    """Report local row evidence; never infer default acceptance or close issues."""
+    import hashlib
+    # Freeze bounded inputs before validation so classification uses the same bytes.
+    if directory.is_symlink() or not directory.is_dir():
+        raise ValueError("entry directory unavailable")
+    paths = sorted(directory.iterdir())
+    if len(paths) > 10000:
+        raise ValueError("entry inventory exceeds bound")
+    with tempfile.TemporaryDirectory() as scratch:
+        root = Path(scratch)
+        entries = root / "entries"; entries.mkdir()
+        digests = {}
+        for path in paths:
+            if path.is_symlink() or not path.is_file() or path.stat().st_size > 10000:
+                raise ValueError("invalid entry file")
+            payload = path.read_bytes()
+            if len(payload) > 10000:
+                raise ValueError("entry exceeds bound")
+            (entries / path.name).write_bytes(payload)
+            digests[path.name] = hashlib.sha256(payload).hexdigest()
+        copies = {}
+        for name, path, limit in [("table.md", leaderboard, 10000000), ("baseline.json", baseline, 1000000)]:
+            if path is None:
+                continue
+            if path.is_symlink() or not path.is_file() or path.stat().st_size > limit:
+                raise ValueError("invalid settlement input")
+            payload = path.read_bytes()
+            if len(payload) > limit:
+                raise ValueError("settlement input exceeds bound")
+            copies[name] = root / name
+            copies[name].write_bytes(payload)
+            digests[name] = hashlib.sha256(payload).hexdigest()
+        check_materialized_entries(entries, copies["table.md"], baseline=copies.get("baseline.json"))
+        rows = {row["login"].lower(): row for row in _parse_rows(copies["table.md"].read_text())}
+        observations = []
+        for path in sorted(entries.iterdir()):
+            record = json.loads(path.read_text())
+            row = record["row"]
+            observations.append({"issue": record["issue"], "login": row["login"],
+                                 "local_disposition": "represented" if rows[row["login"].lower()] == row else "superseded_in_table"})
+        return {"schema_version": 1, "scope": "local_snapshot", "default_acceptance": "unmeasured",
+                "issue_closure": "human_owned", "input_sha256": digests,
+                "observations": observations}

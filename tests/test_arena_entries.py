@@ -140,3 +140,36 @@ def test_cli_check_is_read_only(tmp_path):
     before = table.stat().st_mtime_ns
     assert cli.main(["arena-table", "--entries", str(entries), "--leaderboard", str(table), "--check"]) == 0
     assert table.stat().st_mtime_ns == before
+
+
+def test_settlement_report_preserves_obligations_and_binds_snapshot(tmp_path):
+    from laurea.arena import materialize_entries, settlement_report
+    entries = tmp_path / "entries"
+    write_entry(entries, issue=1, row=row("alice"), observed_at=STAMP)
+    newer = row("alice"); newer["contributions"] = 9
+    write_entry(entries, issue=2, row=newer, observed_at="2026-09-17T00:00:00Z")
+    table = tmp_path / "table.md"
+    materialize_entries(entries, table)
+    before = table.read_bytes()
+    report = settlement_report(entries, table)
+    assert report["default_acceptance"] == "unmeasured"
+    assert report["issue_closure"] == "human_owned"
+    assert [item["local_disposition"] for item in report["observations"]] == ["superseded_in_table", "represented"]
+    assert set(report["input_sha256"]) == {"1.json", "2.json", "table.md"}
+    assert table.read_bytes() == before
+    table.write_text("stale")
+    with pytest.raises(ValueError, match="stale"):
+        settlement_report(entries, table)
+
+
+def test_cli_settlement_report_is_json_without_publication_claim(tmp_path, capsys):
+    from laurea import cli
+    from laurea.arena import materialize_entries
+    entries = tmp_path / "entries"
+    write_entry(entries, issue=1, row=row("alice"), observed_at=STAMP)
+    table = tmp_path / "table.md"
+    materialize_entries(entries, table)
+    assert cli.main(["arena-table", "--entries", str(entries), "--leaderboard", str(table), "--settlement-report"]) == 0
+    report = json.loads(capsys.readouterr().out)
+    assert report["scope"] == "local_snapshot"
+    assert report["observations"][0]["issue"] == 1
