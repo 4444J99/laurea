@@ -205,4 +205,8 @@ def collect_health(repository: str, token: str, *, read: Callable | None = None)
         if isinstance(after, dict) and after.get("private") is True:
             redacted["scope"].update(private_repositories_excluded=1, repositories_unmeasured=0)
         return redacted
+    result["scope"]["archive_status"] = (
+        ("archived" if after["archived"] else "active")
+        if type(after.get("archived")) is bool else "unmeasured"
+    )
     return result

@@ -116,6 +116,25 @@ def test_archived_public_repository_remains_included():
     assert result["status"] == "unmeasured"
 
 
+@pytest.mark.parametrize("initial,final,expected", [
+    (False, True, "archived"),
+    (True, False, "active"),
+    (False, None, "unmeasured"),
+    (True, "false", "unmeasured"),
+])
+def test_archive_status_uses_final_public_readback(initial, final, expected):
+    base, calls = reader()
+    def read(path):
+        value = base(path)
+        if path == "/repos/owner/repo":
+            value["archived"] = initial if calls.count(path) == 1 else final
+        return value
+    result = collect_health("owner/repo", "fixture", read=read)
+    assert result["scope"]["archive_status"] == expected
+    assert result["generation"] == "current"
+    assert result["status"] == "unmeasured"
+
+
 def test_security_counts_flow_into_health_without_alert_details():
     base, _ = reader()
     def read(path):
