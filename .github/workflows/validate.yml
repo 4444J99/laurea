@@ -28,6 +28,12 @@ jobs:
         run: python -m pip install -e '.[test]'
       - name: Run repository tests
         run: python -m pytest tests -q
+      - name: Validate arena entry inventory
+        run: |
+          mkdir -p arena/entries
+          SCRATCH=$(mktemp -d)
+          trap 'rm -rf "$SCRATCH"' EXIT
+          laurea arena-table --entries arena/entries --baseline arena/baseline.json --leaderboard "$SCRATCH/LEADERBOARD.md"
       - name: Reject stale leaderboard replacements
         if: github.event_name == 'pull_request'
         env:
