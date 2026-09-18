@@ -113,6 +113,37 @@ def test_baseline_survives_new_entrants_and_older_observations(tmp_path):
     assert "`@4444J99` | 1" in materialize_entries(entries, table, baseline=baseline)
 
 
+def test_newest_observation_wins_after_crossing_date_only_baseline(tmp_path):
+    from laurea.arena import materialize_entries
+
+    baseline_row = row("alice")
+    baseline = tmp_path / "baseline.json"
+    baseline.write_text(json.dumps({
+        "schema_version": 1,
+        "source": {
+            "repository": "organvm/laurea",
+            "commit": "a" * 40,
+            "path": "LEADERBOARD.md",
+            "sha256": "b" * 64,
+            "precision": "date-only",
+        },
+        "rows": [baseline_row],
+    }))
+    entries = tmp_path / "entries"
+    first = row("alice")
+    first["contributions"] = 9
+    first["verified"] = "2026-09-17"
+    newest = row("alice")
+    newest["contributions"] = 12
+    newest["verified"] = "2026-09-15"
+    write_entry(entries, issue=1, row=first, observed_at="2026-09-17T00:00:00Z")
+    write_entry(entries, issue=2, row=newest, observed_at="2026-09-18T00:00:00Z")
+
+    text = materialize_entries(entries, tmp_path / "table.md", baseline=baseline)
+    assert "`@alice` | 12" in text
+    assert "`@alice` | 9" not in text
+
+
 def test_newly_accepted_entrant_invalidates_old_table_without_mutation(tmp_path):
     from laurea.arena import materialize_entries, check_materialized_entries
     entries = tmp_path / "entries"

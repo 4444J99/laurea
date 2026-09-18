@@ -200,13 +200,22 @@ def materialize_entries(directory: Path, leaderboard: Path, *, baseline: Path | 
         # Newest observation wins for one login; issue ID resolves timestamp ties.
         records.sort(key=lambda r: (datetime.fromisoformat(r["observed_at"]), r["issue"]))
         latest = dict(inherited)
+        observed_logins = set()
         for record in records:
             row = record["row"]
             login = row["login"].lower()
             # Baseline has only a date. Never invent a timestamp or let an older
             # observation replace it; same-day precise observations supersede it.
-            if login not in latest or row["verified"] >= latest[login]["verified"]:
-                latest[login] = row
+            # Once an observation crosses that date-only boundary, its precise
+            # observed_at order—not the row's date field—selects newer evidence.
+            if (
+                login in inherited
+                and login not in observed_logins
+                and row["verified"] < inherited[login]["verified"]
+            ):
+                continue
+            latest[login] = row
+            observed_logins.add(login)
         text = _render_rows([latest[login] for login in sorted(latest)])
     if leaderboard.is_symlink():
         raise ValueError("leaderboard must not be a symlink")
