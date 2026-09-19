@@ -132,7 +132,7 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_tabl
         if len(pending) == 1 and (refresh_pending or (kind == "arena-table" and refresh_table)):
             owner = pending[0]
             receipt.update(status="pending_predecessor", pending=pending, branch=owner["branch"], pr_url=owner["pr_url"])
-            head = refresh_pending_branch(run, owner, sha, receipt, kind=kind)
+            head = refresh_pending_branch(run, owner, sha, receipt, kind=kind, root=root)
             receipt.update(status="table_branch_refreshed" if kind == "arena-table" else "metrics_branch_refreshed", pending=pending, head_sha=head,
                            pr_url=owner["pr_url"], branch=owner["branch"],
                            boundary="Existing proposal advanced without force; merge and current-tree verification remain required.")
@@ -202,7 +202,7 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_tabl
 
 
 
-def refresh_pending_branch(run, owner, source_sha, receipt, *, kind="arena-table"):
+def refresh_pending_branch(run, owner, source_sha, receipt, *, kind="arena-table", root=None):
     """Advance an owned generated proposal from the validated source checkout."""
     branch, old = owner["branch"], owner["head_sha"]
     if not re.fullmatch(r"automation/" + re.escape(kind) + r"/[1-9][0-9]*-[1-9][0-9]*", branch):
@@ -214,6 +214,8 @@ def refresh_pending_branch(run, owner, source_sha, receipt, *, kind="arena-table
     changes = run("git", "diff", "--name-only", base, old).splitlines()
     if (not changes or any(not (path.startswith("assets/") if kind == "metrics" else path == "LEADERBOARD.md") for path in changes)):
         raise ValueError("predecessor contains changes outside generated scope")
+    if kind == "metrics":
+        merge_pending_metrics_history(run, root=Path(root or Path.cwd()), predecessor=old)
     scope = "assets" if kind == "metrics" else "LEADERBOARD.md"
     run("git", "add", "--", scope)
     modes = run("git", "ls-files", "--stage", "-z", "--", scope).split("\0")
@@ -234,6 +236,38 @@ def refresh_pending_branch(run, owner, source_sha, receipt, *, kind="arena-table
     if run("git", "ls-remote", "origin", "refs/heads/" + branch).split() != [head, "refs/heads/" + branch]:
         raise RuntimeError("table refresh unverified; reconcile existing proposal")
     return head
+
+
+def merge_pending_metrics_history(run, *, root, predecessor):
+    """Retain unmerged daily verdict observations when refreshing a metrics PR."""
+    relative = "assets/verdict.jsonl"
+    history = root / relative
+    if history.is_symlink():
+        raise ValueError("metrics history symlinks cannot be published")
+    if run("git", "ls-tree", "--name-only", predecessor, "--", relative) != relative:
+        return
+
+    def parse(value, source):
+        rows, dates = [], set()
+        for line in value.splitlines():
+            if not line.strip():
+                continue
+            row = json.loads(line)
+            date = row.get("date") if isinstance(row, dict) else None
+            if not isinstance(date, str) or not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", date) or date in dates:
+                raise ValueError(f"{source} metrics history is malformed")
+            dates.add(date)
+            rows.append(row)
+        return rows
+
+    previous = parse(run("git", "show", predecessor + ":" + relative), "pending")
+    current = parse(history.read_text() if history.is_file() else "", "current")
+    # Current generation wins for a same-day rerun; distinct predecessor dates
+    # remain part of the refreshed proposal even before the predecessor merges.
+    merged = {row["date"]: row for row in previous}
+    merged.update({row["date"]: row for row in current})
+    history.parent.mkdir(parents=True, exist_ok=True)
+    history.write_text("".join(json.dumps(merged[date]) + "\n" for date in sorted(merged)))
 
 
 def main(argv=None):

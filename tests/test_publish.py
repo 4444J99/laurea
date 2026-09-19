@@ -413,3 +413,40 @@ def test_metrics_refresh_reuses_existing_pr_and_preserves_new_default(sandbox, e
     assert git("show", "-s", "--format=%P", new).split() == [previous, accepted]
     assert git("rev-parse", "main", cwd=remote) == accepted
     assert not any(call[:3] == ["gh", "pr", "create"] or "--force" in call for call in calls)
+
+
+@pytest.mark.parametrize("current_date,expected", [
+    ("2026-09-19", [("2026-09-18", 1), ("2026-09-19", 2)]),
+    ("2026-09-18", [("2026-09-18", 2)]),
+])
+def test_metrics_refresh_preserves_pending_history_by_date(sandbox, current_date, expected):
+    root, remote, env, _, _, settings, git, original = sandbox
+    branch = "automation/metrics/9-1"
+    git("switch", "-c", branch)
+    (root / "assets/verdict.jsonl").write_text(
+        json.dumps({"date": "2026-09-18", "followers": 1}) + "\n"
+    )
+    git("add", "assets")
+    git("commit", "-m", "previous metrics proposal")
+    previous = git("rev-parse", "HEAD")
+    git("push", "origin", branch)
+    git("switch", "main")
+    git("commit", "--allow-empty", "-m", "advance default")
+    accepted = git("rev-parse", "HEAD")
+    git("push", "origin", "main")
+    env["GITHUB_SHA"] = accepted
+    settings["default_sha"] = accepted
+    settings["pending"] = [{"number": 9, "state": "open",
+        "head": {"ref": branch, "sha": previous, "repo": {"id": 7}},
+        "base": {"ref": "main", "repo": {"id": 7}}}]
+    (root / "assets/verdict.jsonl").write_text(
+        json.dumps({"date": current_date, "followers": 2}) + "\n"
+    )
+
+    result = p.publish("metrics", root=root, env=env, refresh_pending=True)
+
+    rows = [json.loads(line) for line in git(
+        "show", result["head_sha"] + ":assets/verdict.jsonl", cwd=remote
+    ).splitlines()]
+    assert [(row["date"], row["followers"]) for row in rows] == expected
+    assert git("show", "-s", "--format=%P", result["head_sha"], cwd=remote).split() == [previous, accepted]
