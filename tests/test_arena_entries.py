@@ -114,34 +114,39 @@ def test_baseline_survives_new_entrants_and_older_observations(tmp_path):
 
 
 def test_newest_observation_wins_after_crossing_date_only_baseline(tmp_path):
+    from pathlib import Path
     from laurea.arena import materialize_entries
 
-    baseline_row = row("alice")
-    baseline = tmp_path / "baseline.json"
-    baseline.write_text(json.dumps({
-        "schema_version": 1,
-        "source": {
-            "repository": "organvm/laurea",
-            "commit": "a" * 40,
-            "path": "LEADERBOARD.md",
-            "sha256": "b" * 64,
-            "precision": "date-only",
-        },
-        "rows": [baseline_row],
-    }))
+    baseline = Path(__file__).resolve().parents[1] / "arena/baseline.json"
     entries = tmp_path / "entries"
-    first = row("alice")
+    first = row("4444J99")
     first["contributions"] = 9
     first["verified"] = "2026-09-17"
-    newest = row("alice")
+    newest = row("4444J99")
     newest["contributions"] = 12
     newest["verified"] = "2026-09-15"
     write_entry(entries, issue=1, row=first, observed_at="2026-09-17T00:00:00Z")
     write_entry(entries, issue=2, row=newest, observed_at="2026-09-18T00:00:00Z")
 
     text = materialize_entries(entries, tmp_path / "table.md", baseline=baseline)
-    assert "`@alice` | 12" in text
-    assert "`@alice` | 9" not in text
+    assert "`@4444J99` | 12" in text
+    assert "`@4444J99` | 9" not in text
+
+
+def test_baseline_rows_cannot_be_rewritten_with_mutable_provenance(tmp_path):
+    from pathlib import Path
+    from laurea.arena import materialize_entries
+
+    root = Path(__file__).resolve().parents[1]
+    baseline = json.loads((root / "arena/baseline.json").read_text())
+    baseline["rows"][0]["contributions"] += 1
+    forged = tmp_path / "baseline.json"
+    forged.write_text(json.dumps(baseline))
+    entries = tmp_path / "entries"
+    entries.mkdir()
+
+    with pytest.raises(ValueError, match="pinned source"):
+        materialize_entries(entries, tmp_path / "table.md", baseline=forged)
 
 
 def test_newly_accepted_entrant_invalidates_old_table_without_mutation(tmp_path):

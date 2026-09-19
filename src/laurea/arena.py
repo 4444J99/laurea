@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import re
+import hashlib
 import json
 import os
+import re
 import tempfile
 from datetime import UTC, datetime
 from pathlib import Path
@@ -15,6 +16,17 @@ from .corpus import require_complete
 
 _MARK_START = "<!-- arena:rows:start -->"
 _MARK_END = "<!-- arena:rows:end -->"
+
+_BASELINE_SOURCE = {
+    "repository": "organvm/laurea",
+    "commit": "90299a31cc77eccd0a5f2a33323f653683929e2b",
+    "path": "LEADERBOARD.md",
+    "sha256": "c7f60ffaff49478cc3430d36ae8ca93a566c655de3832d582a0d282a7b3a441e",
+    "precision": "date-only",
+}
+_BASELINE_ROWS_SHA256 = (
+    "cd8f38f91c9a97b57460ca54f5cc0d35475ed2f8c50971f73844a94da90786ee"
+)
 
 HEADER = """# THE ARENA — GitHub activity snapshots
 
@@ -172,12 +184,11 @@ def materialize_entries(directory: Path, leaderboard: Path, *, baseline: Path | 
                 or not isinstance(data["rows"], list) or len(data["rows"]) > 1000):
             raise ValueError("invalid baseline schema")
         source = data["source"]
-        if (not isinstance(source, dict) or set(source) != {"repository", "commit", "path", "sha256", "precision"}
-                or source["repository"] != "organvm/laurea" or source["path"] != "LEADERBOARD.md"
-                or source["precision"] != "date-only"
-                or not isinstance(source["commit"], str) or not re.fullmatch(r"[0-9a-f]{40}", source["commit"])
-                or not isinstance(source["sha256"], str) or not re.fullmatch(r"[0-9a-f]{64}", source["sha256"])):
+        if source != _BASELINE_SOURCE:
             raise ValueError("invalid baseline provenance")
+        rows_payload = json.dumps(data["rows"], sort_keys=True, separators=(",", ":")).encode()
+        if hashlib.sha256(rows_payload).hexdigest() != _BASELINE_ROWS_SHA256:
+            raise ValueError("historical baseline rows do not match pinned source")
         for row in data["rows"]:
             _validate_row(row)
             login = row["login"].lower()
