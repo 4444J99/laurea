@@ -239,11 +239,14 @@ def refresh_pending_branch(run, owner, source_sha, receipt, *, kind="arena-table
 
 
 def merge_pending_metrics_history(run, *, root, predecessor):
-    """Retain unmerged daily verdict observations when refreshing a metrics PR."""
+    """Retain pending observations and render their matching verdict card."""
+    from .verdict import verdict_card
+
     relative = "assets/verdict.jsonl"
     history = root / relative
-    if history.is_symlink():
-        raise ValueError("metrics history symlinks cannot be published")
+    card = root / "assets/cards/verdict.svg"
+    if any(path.is_symlink() for path in (history.parent, history, card.parent, card)):
+        raise ValueError("metrics history/card symlinks cannot be published")
     if run("git", "ls-tree", "--name-only", predecessor, "--", relative) != relative:
         return
 
@@ -266,8 +269,14 @@ def merge_pending_metrics_history(run, *, root, predecessor):
     # remain part of the refreshed proposal even before the predecessor merges.
     merged = {row["date"]: row for row in previous}
     merged.update({row["date"]: row for row in current})
+    rows = [merged[date] for date in sorted(merged)]
+    # Render before replacing either output so malformed retained observations
+    # cannot leave a new history paired with the old card. No new collection.
+    rendered = verdict_card(rows)
     history.parent.mkdir(parents=True, exist_ok=True)
-    history.write_text("".join(json.dumps(merged[date]) + "\n" for date in sorted(merged)))
+    card.parent.mkdir(parents=True, exist_ok=True)
+    history.write_text("".join(json.dumps(row) + "\n" for row in rows))
+    card.write_text(rendered)
 
 
 def main(argv=None):
