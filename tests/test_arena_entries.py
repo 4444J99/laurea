@@ -43,7 +43,9 @@ def test_cli_issue_mode_preserves_existing_table(tmp_path, monkeypatch):
     monkeypatch.setattr(cli, "resolve_token", lambda: "fixture")
     monkeypatch.setattr(cli, "collect", lambda *a: {})
     monkeypatch.setattr(cli, "run_all", lambda *a: [])
-    monkeypatch.setattr(cli, "build_row", lambda report: row(report.login))
+    monkeypatch.setattr(cli, "build_row", lambda report: {
+        **row(report.login), "verified": report.generated_at.split("T")[0]
+    })
     table = tmp_path / "LEADERBOARD.md"
     table.write_text("existing table")
     entries = tmp_path / "entries"
@@ -65,6 +67,7 @@ def test_materialization_preserves_entrants_and_selects_latest_observation(tmp_p
     write_entry(entries, issue=2, row=row("bob"), observed_at=STAMP)
     write_entry(entries, issue=1, row=row("alice"), observed_at=STAMP)
     newer = row("alice"); newer["contributions"] = 9
+    newer["verified"] = "2026-09-17"
     write_entry(entries, issue=3, row=newer, observed_at="2026-09-17T00:00:00Z")
     table = tmp_path / "table.md"
     text = materialize_entries(entries, table)
@@ -126,6 +129,12 @@ def test_newest_observation_wins_after_crossing_date_only_baseline(tmp_path):
     newest["contributions"] = 12
     newest["verified"] = "2026-09-15"
     write_entry(entries, issue=1, row=first, observed_at="2026-09-17T00:00:00Z")
+    # The historical mismatched-date case is now inadmissible, not silently
+    # reordered. A corrected newer observation still supersedes the baseline.
+    with pytest.raises(ValueError, match="UTC date"):
+        write_entry(entries, issue=2, row=newest, observed_at="2026-09-18T00:00:00Z")
+    assert not (entries / "2.json").exists()
+    newest["verified"] = "2026-09-18"
     write_entry(entries, issue=2, row=newest, observed_at="2026-09-18T00:00:00Z")
 
     text = materialize_entries(entries, tmp_path / "table.md", baseline=baseline)
@@ -183,6 +192,7 @@ def test_settlement_report_preserves_obligations_and_binds_snapshot(tmp_path):
     entries = tmp_path / "entries"
     write_entry(entries, issue=1, row=row("alice"), observed_at=STAMP)
     newer = row("alice"); newer["contributions"] = 9
+    newer["verified"] = "2026-09-17"
     write_entry(entries, issue=2, row=newer, observed_at="2026-09-17T00:00:00Z")
     table = tmp_path / "table.md"
     materialize_entries(entries, table)
