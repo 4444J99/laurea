@@ -73,3 +73,11 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
           gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "The generated observation has no diff, so no new observation PR was prepared. This issue stays open for manual disposition. The table compares bounded activity fields and does not rank engineering quality."
+      - name: Link the retained observation proposal
+        if: steps.publication.outputs.status == 'pending_predecessor'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          PR_URL: ${{ steps.publication.outputs.pr_url }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Existing observation proposal retained: $PR_URL. This rerun created no competing PR. The issue stays open until default-branch table acceptance is verified."

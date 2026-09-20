@@ -103,6 +103,22 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_tabl
         from .arena import write_entry
         with tempfile.TemporaryDirectory() as validation:
             write_entry(Path(validation), issue=issue, row=record["row"], observed_at=record["observed_at"])
+        # A stale source checkout must not replace a record already accepted on
+        # the observed default. A changed record requires separate adjudication.
+        run("git", "fetch", "--no-tags", "origin", default_sha)
+        if run("git", "ls-tree", "--name-only", default_sha, "--", entry_path):
+            raise ValueError("source issue observation is already accepted on default")
+        pending = pending_arena_proposals(api, repository=repository, repository_id=repo["id"],
+                                          default=default, entry_path=entry_path)
+        if api("/commits/" + quote(default, safe=""))["sha"] != default_sha:
+            raise ValueError("default moved during arena ownership validation")
+        if pending:
+            receipt.update(status="pending_predecessor", pending=pending)
+            if len(pending) != 1:
+                raise ValueError("multiple arena proposals require source-issue reconciliation")
+            receipt.update(**pending[0],
+                           boundary="Existing source-issue proposal retains ownership; no new branch, PR or issue closure.")
+            return receipt
     if kind == "arena-table":
         from .arena import check_materialized_entries
         check_materialized_entries(root / "arena/entries", root / "LEADERBOARD.md", baseline=root / "arena/baseline.json")
@@ -201,6 +217,64 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_tabl
         Path(body_path).unlink(missing_ok=True)
 
 
+
+
+def pending_arena_proposals(api, *, repository, repository_id, default, entry_path):
+    """Find exact-head proposals for one immutable issue record, not title matches."""
+    pulls = api("/pulls?state=open&base=" + quote(default, safe="") + "&per_page=100")
+    if not isinstance(pulls, list) or len(pulls) >= 100:
+        raise ValueError("arena publication ownership inventory incomplete")
+
+    def generation(pr):
+        if not isinstance(pr, dict):
+            raise ValueError("arena proposal identity unavailable")
+        head, base = pr.get("head"), pr.get("base")
+        if (type(pr.get("number")) is not int or pr["number"] <= 0 or pr.get("state") != "open"
+                or not isinstance(head, dict) or not isinstance(base, dict)
+                or not isinstance(head.get("ref"), str)
+                or not re.fullmatch(r"automation/arena/[1-9][0-9]*-[1-9][0-9]*", head["ref"])
+                or base.get("ref") != default):
+            raise ValueError("arena proposal identity unavailable")
+        for side in (head, base):
+            if (not isinstance(side.get("repo"), dict)
+                    or type(side["repo"].get("id")) is not int
+                    or side["repo"]["id"] != repository_id
+                    or not isinstance(side.get("sha"), str)
+                    or not re.fullmatch(r"[0-9a-f]{40}", side["sha"])):
+                raise ValueError("arena proposal repository or generation unavailable")
+        return pr["number"], head["ref"], head["sha"], base["sha"]
+
+    pending, seen = [], set()
+    for listed in pulls:
+        if (not isinstance(listed, dict) or not isinstance(listed.get("head"), dict)
+                or not isinstance(listed["head"].get("ref"), str)):
+            raise ValueError("malformed arena ownership inventory")
+        if not listed["head"]["ref"].startswith("automation/arena/"):
+            continue
+        before = generation(listed)
+        number, branch, sha, _ = before
+        if number in seen:
+            raise ValueError("duplicate arena proposal identity")
+        seen.add(number)
+        files = api(f"/pulls/{number}/files?per_page=100")
+        if (not isinstance(files, list) or len(files) >= 100
+                or any(not isinstance(f, dict) or not isinstance(f.get("filename"), str)
+                       or not f["filename"] for f in files)
+                or len({f["filename"] for f in files}) != len(files)):
+            raise ValueError("arena proposal file inventory incomplete")
+        # The files endpoint is mutable: freeze its decision by reading the
+        # same PR generation again before treating another issue as independent.
+        if generation(api(f"/pulls/{number}")) != before:
+            raise ValueError("arena proposal moved during ownership validation")
+        matching = [f for f in files if entry_path in (f["filename"], f.get("previous_filename"))]
+        if not matching:
+            continue
+        if (len(files) != 1 or matching[0]["filename"] != entry_path
+                or matching[0].get("status") != "added"):
+            raise ValueError("source-issue proposal contains replacement or unrelated work")
+        pending.append({"pr_url": f"https://github.com/{repository}/pull/{number}",
+                        "head_sha": sha, "branch": branch})
+    return pending
 
 def refresh_pending_branch(run, owner, source_sha, receipt, *, kind="arena-table", root=None):
     """Advance an owned generated proposal from the validated source checkout."""
