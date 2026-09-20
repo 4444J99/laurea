@@ -143,6 +143,8 @@ def write_entry(directory: Path, *, issue: int, row: dict, observed_at: str) -> 
     stamp = datetime.fromisoformat(observed_at)
     if stamp.tzinfo is None:
         raise ValueError("observation requires a timezone")
+    if stamp.astimezone(UTC).date().isoformat() != row["verified"]:
+        raise ValueError("observation UTC date must match verified date")
     record = {"schema_version": 1, "issue": issue, "observed_at": observed_at, "row": row}
     payload = json.dumps(record, sort_keys=True, indent=2) + "\n"
     directory.mkdir(parents=True, exist_ok=True)

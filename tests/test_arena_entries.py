@@ -43,7 +43,7 @@ def test_cli_issue_mode_preserves_existing_table(tmp_path, monkeypatch):
     monkeypatch.setattr(cli, "resolve_token", lambda: "fixture")
     monkeypatch.setattr(cli, "collect", lambda *a: {})
     monkeypatch.setattr(cli, "run_all", lambda *a: [])
-    monkeypatch.setattr(cli, "build_row", lambda report: row(report.login))
+    monkeypatch.setattr(cli, "build_row", lambda report: {**row(report.login), "verified": report.generated_at[:10]})
     table = tmp_path / "LEADERBOARD.md"
     table.write_text("existing table")
     entries = tmp_path / "entries"
@@ -65,6 +65,7 @@ def test_materialization_preserves_entrants_and_selects_latest_observation(tmp_p
     write_entry(entries, issue=2, row=row("bob"), observed_at=STAMP)
     write_entry(entries, issue=1, row=row("alice"), observed_at=STAMP)
     newer = row("alice"); newer["contributions"] = 9
+    newer["verified"] = "2026-09-17"
     write_entry(entries, issue=3, row=newer, observed_at="2026-09-17T00:00:00Z")
     table = tmp_path / "table.md"
     text = materialize_entries(entries, table)
@@ -124,7 +125,7 @@ def test_newest_observation_wins_after_crossing_date_only_baseline(tmp_path):
     first["verified"] = "2026-09-17"
     newest = row("4444J99")
     newest["contributions"] = 12
-    newest["verified"] = "2026-09-15"
+    newest["verified"] = "2026-09-18"
     write_entry(entries, issue=1, row=first, observed_at="2026-09-17T00:00:00Z")
     write_entry(entries, issue=2, row=newest, observed_at="2026-09-18T00:00:00Z")
 
@@ -183,6 +184,7 @@ def test_settlement_report_preserves_obligations_and_binds_snapshot(tmp_path):
     entries = tmp_path / "entries"
     write_entry(entries, issue=1, row=row("alice"), observed_at=STAMP)
     newer = row("alice"); newer["contributions"] = 9
+    newer["verified"] = "2026-09-17"
     write_entry(entries, issue=2, row=newer, observed_at="2026-09-17T00:00:00Z")
     table = tmp_path / "table.md"
     materialize_entries(entries, table)
@@ -209,3 +211,56 @@ def test_cli_settlement_report_is_json_without_publication_claim(tmp_path, capsy
     report = json.loads(capsys.readouterr().out)
     assert report["scope"] == "local_snapshot"
     assert report["observations"][0]["issue"] == 1
+
+
+@pytest.mark.parametrize("observed_at", [
+    "2099-09-16T07:00:00Z",
+    "2026-09-15T23:59:59Z",
+    "2026-09-16T23:30:00-02:00",
+    "2026-09-16T00:30:00+02:00",
+])
+def test_observation_date_mismatch_cannot_create_storage(tmp_path, observed_at):
+    entries = tmp_path / "uncreated" / "entries"
+    with pytest.raises(ValueError, match="UTC date.*verified"):
+        write_entry(entries, issue=1, row=row("alice"), observed_at=observed_at)
+    assert not entries.parent.exists()
+
+
+@pytest.mark.parametrize("observed_at", [
+    "2026-09-16T07:00:00Z",
+    "2026-09-17T00:30:00+02:00",
+    "2026-09-15T23:30:00-02:00",
+])
+def test_observation_date_uses_utc_not_local_calendar(tmp_path, observed_at):
+    path = write_entry(tmp_path, issue=1, row=row("alice"), observed_at=observed_at)
+    assert json.loads(path.read_text())["observed_at"] == observed_at
+
+
+def test_imported_inconsistent_timestamp_preserves_table_and_record(tmp_path):
+    from laurea.arena import materialize_entries
+
+    entries = tmp_path / "entries"
+    path = write_entry(entries, issue=1, row=row("alice"), observed_at=STAMP)
+    record = json.loads(path.read_text())
+    record["observed_at"] = "2099-09-16T07:00:00Z"
+    path.write_text(json.dumps(record))
+    original = path.read_bytes()
+    table = tmp_path / "LEADERBOARD.md"
+    table.write_text("previously accepted table")
+    with pytest.raises(ValueError, match="UTC date.*verified"):
+        materialize_entries(entries, table)
+    assert table.read_text() == "previously accepted table"
+    assert path.read_bytes() == original
+
+
+def test_consistent_same_day_observations_keep_precise_timestamp_order(tmp_path):
+    from laurea.arena import materialize_entries
+
+    entries = tmp_path / "entries"
+    earlier = row("alice")
+    later = {**row("alice"), "contributions": 9}
+    write_entry(entries, issue=2, row=earlier, observed_at="2026-09-16T20:00:00Z")
+    write_entry(entries, issue=1, row=later, observed_at="2026-09-17T00:30:00+02:00")
+    text = materialize_entries(entries, tmp_path / "table.md")
+    assert "`@alice` | 9" in text
+    assert text.count("@alice") == 1
