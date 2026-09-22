@@ -12,6 +12,10 @@ from urllib.parse import quote
 
 
 def command(argv, *, root, env):
+    """Execute a bounded publication command in the supplied checkout and environment.
+
+    Reject nonzero exits or oversized output; remove trailing newlines only from successful stdout.
+    """
     result = subprocess.run(argv, cwd=root, env=env, capture_output=True, text=True, timeout=30)
     if result.returncode or len(result.stdout) + len(result.stderr) > 2_000_000:
         raise RuntimeError("publication command did not complete")
@@ -19,6 +23,11 @@ def command(argv, *, root, env):
 
 
 def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_table=False, refresh_pending=False):
+    """Prepare or reconcile a scoped generated-content proposal from a validated Actions context.
+
+    Bind the source, repository, branch ownership, and remote readback; retain known progress in the supplied receipt.
+    Never treat a prepared branch or open proposal as accepted default-branch publication.
+    """
     root = Path(root or Path.cwd()).resolve()
     env = dict(os.environ if env is None else env)
     receipt = {} if receipt is None else receipt
@@ -51,9 +60,11 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_tabl
             raise ValueError("arena issue does not match its source event")
 
     def run(*argv):
+        """Execute an argument-vector command using the validated publication checkout and environment."""
         return command(list(argv), root=root, env=env)
 
     def api(path):
+        """Decode one repository-scoped GitHub CLI response for the current publication operation."""
         return json.loads(run("gh", "api", f"repos/{repository}{path}"))
 
     if run("git", "rev-parse", "HEAD") != sha:
@@ -226,6 +237,7 @@ def pending_arena_proposals(api, *, repository, repository_id, default, entry_pa
         raise ValueError("arena publication ownership inventory incomplete")
 
     def generation(pr):
+        """Validate a same-repository Arena proposal and return its number, branch, and exact head/base pair."""
         if not isinstance(pr, dict):
             raise ValueError("arena proposal identity unavailable")
         head, base = pr.get("head"), pr.get("base")
@@ -325,6 +337,7 @@ def merge_pending_metrics_history(run, *, root, predecessor):
         return
 
     def parse(value, source):
+        """Parse dated JSONL observations and reject malformed records or duplicate date keys."""
         rows, dates = [], set()
         for line in value.splitlines():
             if not line.strip():
@@ -354,6 +367,10 @@ def merge_pending_metrics_history(run, *, root, predecessor):
 
 
 def main(argv=None):
+    """Emit a publication receipt and optional Actions outputs, returning failure for unreconciled execution.
+
+    Preserve the last verified state without disclosing the raw exception or retrying an ambiguous write.
+    """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--kind", required=True, choices=("metrics", "arena", "arena-table"))
     parser.add_argument("--issue", type=int)

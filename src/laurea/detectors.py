@@ -45,6 +45,7 @@ def detector(fn: Detector) -> Detector:
 
 
 def _validate_snapshot(snapshot: Snapshot) -> None:
+    """Reject incomplete coverage, malformed repository/org inventories, or non-integer activity counts."""
     require_complete(snapshot)
     repos = snapshot.get("repos")
     if not isinstance(repos, list) or any(
@@ -65,15 +66,18 @@ def _validate_snapshot(snapshot: Snapshot) -> None:
 
 
 def _active_repos(snapshot: Snapshot) -> list[dict[str, Any]]:
+    """Select repositories whose validated isFork value is false; this is not an archive-status filter."""
     return [repo for repo in snapshot["repos"] if repo["isFork"] is False]
 
 
 def _langs(snapshot: Snapshot) -> dict[str, int]:
+    """Return validated primary-language counts from the identity-free non-fork corpus."""
     return corpus_totals(snapshot)["primary_languages"]
 
 
 @detector
 def contributions_year(snapshot: Snapshot) -> Finding:
+    """Report the trailing-year contribution-calendar count, not shipped work or an additive field sum."""
     contributions = snapshot["contributions"]
     total = contributions["total"]
     return Finding(
@@ -99,6 +103,7 @@ def contributions_year(snapshot: Snapshot) -> Finding:
 
 @detector
 def repos_visible(snapshot: Snapshot) -> Finding:
+    """Report the token-visible non-fork corpus size without attributing individual ownership or authorship."""
     count = corpus_totals(snapshot)["nonfork_repositories"]
     return Finding(
         axis="repos_visible",
@@ -120,6 +125,7 @@ def repos_visible(snapshot: Snapshot) -> Finding:
 
 @detector
 def language_breadth(snapshot: Snapshot) -> Finding:
+    """Count distinct primary-language labels and describe corpus breadth, not personal proficiency."""
     languages = _langs(snapshot)
     leaders = ", ".join(
         f"{name} ({count})" for name, count in sorted(languages.items(), key=lambda item: -item[1])[:5]
@@ -144,6 +150,7 @@ def language_breadth(snapshot: Snapshot) -> Finding:
 
 @detector
 def pull_requests_year(snapshot: Snapshot) -> Finding:
+    """Report trailing-year opened pull requests without inferring review, merge, or acceptance."""
     pull_requests = snapshot["contributions"]["pull_requests"]
     return Finding(
         axis="pull_requests_year",
@@ -164,6 +171,7 @@ def pull_requests_year(snapshot: Snapshot) -> Finding:
 
 @detector
 def organization_memberships(snapshot: Snapshot) -> Finding:
+    """Count visible organization memberships without treating membership as administrative authority."""
     count = len(snapshot["orgs"])
     return Finding(
         axis="organization_memberships",
@@ -182,6 +190,7 @@ def organization_memberships(snapshot: Snapshot) -> Finding:
 
 @detector
 def language_layer_coverage(snapshot: Snapshot) -> Finding:
+    """Map observed primary languages to distinct configured layers, not independently verified skills."""
     layers = sorted({_LAYERS[language] for language in _langs(snapshot) if language in _LAYERS})
     return Finding(
         axis="language_layer_coverage",
@@ -203,6 +212,7 @@ def language_layer_coverage(snapshot: Snapshot) -> Finding:
 
 @detector
 def tenure(snapshot: Snapshot) -> Finding:
+    """Derive account age from created_at and the current UTC date, not continuous professional experience."""
     created = datetime.fromisoformat(snapshot["created_at"].replace("Z", "+00:00"))
     years = (datetime.now(timezone.utc) - created).days / 365.25
     return Finding(

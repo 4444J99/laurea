@@ -5,9 +5,11 @@ from laurea.arena import write_entry
 
 STAMP = "2026-09-16T07:00:00+00:00"
 def row(login):
+    """Build a synthetic Arena row with explicit activity counts and a verified date."""
     return dict(login=login, contributions=1, prs=2, repos=3, languages=1, measured_axes=4, verified="2026-09-16")
 
 def test_concurrent_entrants_preserve_both_observations(tmp_path):
+    """Verify that concurrent entrants preserve both observations."""
     with ThreadPoolExecutor(max_workers=2) as pool:
         futures = [pool.submit(write_entry, tmp_path, issue=i, row=row(login), observed_at=STAMP)
                    for i, login in [(1, "alice"), (2, "bob")]]
@@ -16,6 +18,7 @@ def test_concurrent_entrants_preserve_both_observations(tmp_path):
     assert sorted(p.name for p in tmp_path.iterdir()) == ["1.json", "2.json"]
 
 def test_replay_is_idempotent_but_changed_evidence_cannot_overwrite(tmp_path):
+    """An identical issue replay is idempotent, but changed evidence cannot overwrite its immutable record."""
     path = write_entry(tmp_path, issue=1, row=row("alice"), observed_at=STAMP)
     original = path.read_bytes()
     assert write_entry(tmp_path, issue=1, row=row("alice"), observed_at=STAMP) == path
@@ -25,11 +28,13 @@ def test_replay_is_idempotent_but_changed_evidence_cannot_overwrite(tmp_path):
 
 @pytest.mark.parametrize("issue,login", [(0,"alice"),(True,"alice"),(1,"../outside"),(1,"")])
 def test_invalid_identity_cannot_create_entry(tmp_path, issue, login):
+    """Verify that invalid identity cannot create entry."""
     with pytest.raises(ValueError):
         write_entry(tmp_path, issue=issue, row=row(login), observed_at=STAMP)
     assert not list(tmp_path.iterdir())
 
 def test_symlink_destination_is_rejected(tmp_path):
+    """Verify that symlink destination is rejected."""
     outside = tmp_path / "outside"
     outside.write_text("preserve")
     (tmp_path / "1.json").symlink_to(outside)
@@ -39,6 +44,7 @@ def test_symlink_destination_is_rejected(tmp_path):
 
 
 def test_cli_issue_mode_preserves_existing_table(tmp_path, monkeypatch):
+    """Verify that CLI issue mode preserves existing table."""
     from laurea import cli
     monkeypatch.setattr(cli, "resolve_token", lambda: "fixture")
     monkeypatch.setattr(cli, "collect", lambda *a: {})
@@ -53,6 +59,7 @@ def test_cli_issue_mode_preserves_existing_table(tmp_path, monkeypatch):
 
 
 def test_cli_rejects_invalid_issue_before_collection(monkeypatch):
+    """Verify that CLI rejects invalid issue before collection."""
     from laurea import cli
     monkeypatch.setattr(cli, "collect", lambda *a: pytest.fail("must not collect"))
     with pytest.raises(SystemExit):
@@ -60,6 +67,7 @@ def test_cli_rejects_invalid_issue_before_collection(monkeypatch):
 
 
 def test_materialization_preserves_entrants_and_selects_latest_observation(tmp_path):
+    """Verify that materialization preserves entrants and selects latest observation."""
     from laurea.arena import materialize_entries
     entries = tmp_path / "entries"
     write_entry(entries, issue=2, row=row("bob"), observed_at=STAMP)
@@ -75,6 +83,7 @@ def test_materialization_preserves_entrants_and_selects_latest_observation(tmp_p
 
 
 def test_malformed_record_preserves_previous_table(tmp_path):
+    """Verify that malformed record preserves previous table."""
     from laurea.arena import materialize_entries
     entries = tmp_path / "entries"
     write_entry(entries, issue=1, row=row("alice"), observed_at=STAMP)
@@ -86,6 +95,7 @@ def test_malformed_record_preserves_previous_table(tmp_path):
 
 
 def test_historical_baseline_matches_committed_source():
+    """Verify that historical baseline matches committed source."""
     import hashlib
     from pathlib import Path
     from laurea.arena import _parse_rows
@@ -99,6 +109,7 @@ def test_historical_baseline_matches_committed_source():
 
 
 def test_baseline_survives_new_entrants_and_older_observations(tmp_path):
+    """Verify that baseline survives new entrants and older observations."""
     from pathlib import Path
     from laurea.arena import materialize_entries
     baseline = Path(__file__).resolve().parents[1] / "arena/baseline.json"
@@ -115,6 +126,7 @@ def test_baseline_survives_new_entrants_and_older_observations(tmp_path):
 
 
 def test_newest_observation_wins_after_crossing_date_only_baseline(tmp_path):
+    """Verify that newest observation wins after crossing date only baseline."""
     from pathlib import Path
     from laurea.arena import materialize_entries
 
@@ -135,6 +147,7 @@ def test_newest_observation_wins_after_crossing_date_only_baseline(tmp_path):
 
 
 def test_baseline_rows_cannot_be_rewritten_with_mutable_provenance(tmp_path):
+    """Verify that baseline rows cannot be rewritten with mutable provenance."""
     from pathlib import Path
     from laurea.arena import materialize_entries
 
@@ -151,6 +164,7 @@ def test_baseline_rows_cannot_be_rewritten_with_mutable_provenance(tmp_path):
 
 
 def test_newly_accepted_entrant_invalidates_old_table_without_mutation(tmp_path):
+    """Verify that newly accepted entrant invalidates old table without mutation."""
     from laurea.arena import materialize_entries, check_materialized_entries
     entries = tmp_path / "entries"
     write_entry(entries, issue=1, row=row("alice"), observed_at=STAMP)
@@ -168,6 +182,7 @@ def test_newly_accepted_entrant_invalidates_old_table_without_mutation(tmp_path)
 
 
 def test_cli_check_is_read_only(tmp_path):
+    """Verify that CLI check is read only."""
     from laurea import cli
     from laurea.arena import materialize_entries
     entries = tmp_path / "entries"
@@ -180,6 +195,7 @@ def test_cli_check_is_read_only(tmp_path):
 
 
 def test_settlement_report_preserves_obligations_and_binds_snapshot(tmp_path):
+    """Verify that settlement report preserves obligations and binds snapshot."""
     from laurea.arena import materialize_entries, settlement_report
     entries = tmp_path / "entries"
     write_entry(entries, issue=1, row=row("alice"), observed_at=STAMP)
@@ -201,6 +217,7 @@ def test_settlement_report_preserves_obligations_and_binds_snapshot(tmp_path):
 
 
 def test_cli_settlement_report_is_json_without_publication_claim(tmp_path, capsys):
+    """Verify that CLI settlement report is JSON without publication claim."""
     from laurea import cli
     from laurea.arena import materialize_entries
     entries = tmp_path / "entries"
@@ -220,6 +237,7 @@ def test_cli_settlement_report_is_json_without_publication_claim(tmp_path, capsy
     "2026-09-16T00:30:00+02:00",
 ])
 def test_observation_date_mismatch_cannot_create_storage(tmp_path, observed_at):
+    """Verify that observation date mismatch cannot create storage."""
     entries = tmp_path / "uncreated" / "entries"
     with pytest.raises(ValueError, match="UTC date.*verified"):
         write_entry(entries, issue=1, row=row("alice"), observed_at=observed_at)
@@ -232,11 +250,13 @@ def test_observation_date_mismatch_cannot_create_storage(tmp_path, observed_at):
     "2026-09-15T23:30:00-02:00",
 ])
 def test_observation_date_uses_utc_not_local_calendar(tmp_path, observed_at):
+    """Offset timestamps must match their verified UTC day, not their local date."""
     path = write_entry(tmp_path, issue=1, row=row("alice"), observed_at=observed_at)
     assert json.loads(path.read_text())["observed_at"] == observed_at
 
 
 def test_imported_inconsistent_timestamp_preserves_table_and_record(tmp_path):
+    """Verify that imported inconsistent timestamp preserves table and record."""
     from laurea.arena import materialize_entries
 
     entries = tmp_path / "entries"
@@ -254,6 +274,7 @@ def test_imported_inconsistent_timestamp_preserves_table_and_record(tmp_path):
 
 
 def test_consistent_same_day_observations_keep_precise_timestamp_order(tmp_path):
+    """Verify that consistent same day observations keep precise timestamp order."""
     from laurea.arena import materialize_entries
 
     entries = tmp_path / "entries"

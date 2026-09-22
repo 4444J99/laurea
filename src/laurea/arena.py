@@ -48,6 +48,7 @@ def build_row(report: Report) -> dict:
     require_complete(report.snapshot)
 
     def value(axis: str) -> int:
+        """Return the integer value of a report axis, or zero when that axis is absent."""
         finding = report.by_axis(axis)
         return int(finding.value) if finding else 0
 
@@ -74,6 +75,7 @@ def _parse_rows(text: str) -> list[dict]:
     # Version 0.1 stored an unsupported percentile label in column seven and
     # used different repository semantics. Those rows cannot be relabeled as
     # v0.2 measurements; the next arena run safely starts a new table.
+    """Parse the managed current-format table, without relabeling legacy percentile rows."""
     if "| best floor |" in text:
         return []
     rows = []
@@ -112,6 +114,7 @@ def update_leaderboard(path: Path, row: dict) -> str:
 
 
 def _render_rows(rows: list[dict]) -> str:
+    """Sort the supplied rows in place by activity and render the managed Markdown table."""
     rows.sort(key=lambda candidate: -candidate["contributions"])
     body = "".join(
         f"| {index + 1} | `@{candidate['login']}` | {candidate['contributions']:,} "
@@ -124,6 +127,7 @@ def _render_rows(rows: list[dict]) -> str:
 
 
 def _validate_row(row: dict) -> None:
+    """Require an exact activity-row schema, valid login/date, and nonnegative integer counts."""
     if not isinstance(row, dict):
         raise ValueError("invalid activity row")
     login = row.get("login")

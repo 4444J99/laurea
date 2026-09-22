@@ -10,6 +10,7 @@ class InvalidPull(ValueError):
 
 
 def _generation(value: Any, number: int, repository_id: int) -> tuple:
+    """Validate pull identity, base repository, exact revisions, and state before returning its generation."""
     if not isinstance(value, dict) or value.get("number") != number:
         raise InvalidPull("pull identity unavailable")
     head, base = value.get("head"), value.get("base")
@@ -29,6 +30,7 @@ def _generation(value: Any, number: int, repository_id: int) -> tuple:
 
 
 def _checks(read: Callable, prefix: str, sha: str) -> dict:
+    """Summarize a complete exact-head check inventory without inferring required policy or executed tests."""
     value = read(prefix + f"/commits/{sha}/check-runs?filter=latest&per_page=100")
     rows = value.get("check_runs") if isinstance(value, dict) else None
     count = value.get("total_count") if isinstance(value, dict) else None
@@ -51,6 +53,7 @@ def _checks(read: Callable, prefix: str, sha: str) -> dict:
 
 
 def _reviews(read: Callable, prefix: str, number: int, sha: str) -> dict:
+    """Count the latest decision per reviewer on the exact head; comments and drafts do not replace decisions."""
     rows = read(prefix + f"/pulls/{number}/reviews?per_page=100")
     if not isinstance(rows, list) or len(rows) >= 100:
         raise InvalidPull("review coverage unavailable")
@@ -78,6 +81,10 @@ def _reviews(read: Callable, prefix: str, number: int, sha: str) -> dict:
 
 
 def collect_pulls(read: Callable, prefix: str, repository_id: int) -> dict:
+    """Inspect at most five listed pull requests with generation readback and explicit unknown denominators.
+
+    Report only observed draft/conflict blockers, not inferred merge policy or owning acceptance.
+    """
     rows = read(prefix + "/pulls?state=open&per_page=100")
     if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
         raise InvalidPull("malformed pull requests")

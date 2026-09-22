@@ -34,6 +34,7 @@ def inventory_api(pulls, *, files=None, after=None):
     files = [{"filename": ENTRY, "status": "added"}] if files is None else files
 
     def api(path):
+        """Supply the controlled API response inventory for this ownership regression."""
         calls.append(path)
         if path == LIST:
             return deepcopy(pulls)
@@ -54,6 +55,7 @@ def owners(api):
 
 
 def test_existing_owner_is_bound_to_repo_head_base_and_exact_added_path():
+    """Verify that existing owner is bound to repo head base and exact added path."""
     pr = proposal()
     api, calls = inventory_api([pr])
     assert owners(api) == [{
@@ -64,6 +66,7 @@ def test_existing_owner_is_bound_to_repo_head_base_and_exact_added_path():
 
 
 def test_other_issue_is_independent_only_after_generation_readback():
+    """Verify that other issue is independent only after generation readback."""
     api, calls = inventory_api([proposal()], files=[{"filename": "arena/entries/5.json", "status": "added"}])
     assert owners(api) == []
     assert calls[-1] == "/pulls/9"
@@ -71,6 +74,7 @@ def test_other_issue_is_independent_only_after_generation_readback():
 
 @pytest.mark.parametrize("inventory", [None, {}, [None], [proposal()] * 100])
 def test_incomplete_or_malformed_inventory_fails_closed(inventory):
+    """Verify that incomplete or malformed inventory fails closed."""
     api, _ = inventory_api(inventory)
     with pytest.raises(ValueError):
         owners(api)
@@ -84,6 +88,7 @@ def test_incomplete_or_malformed_inventory_fails_closed(inventory):
     (("base", "repo", "id"), 8), (("base", "ref"), "other"),
 ])
 def test_untrusted_proposal_identity_fails_closed(field, value):
+    """Verify that untrusted proposal identity fails closed."""
     pr = proposal()
     target = pr
     for key in field[:-1]:
@@ -103,6 +108,7 @@ def test_untrusted_proposal_identity_fails_closed(field, value):
     [{"filename": ENTRY, "status": "added"}, {"filename": "unrelated.py", "status": "added"}],
 ])
 def test_incomplete_replacing_or_mixed_file_inventory_fails_closed(files):
+    """Verify that incomplete replacing or mixed file inventory fails closed."""
     api, _ = inventory_api([proposal()], files=files)
     with pytest.raises(ValueError):
         owners(api)
@@ -111,6 +117,7 @@ def test_incomplete_replacing_or_mixed_file_inventory_fails_closed(files):
 @pytest.mark.parametrize("mutation", ["head", "base", "closed"])
 @pytest.mark.parametrize("filename", [ENTRY, "arena/entries/5.json"])
 def test_generation_movement_rejects_even_other_issue_decisions(mutation, filename):
+    """Verify that generation movement rejects even other issue decisions."""
     pr, after = proposal(), proposal()
     if mutation == "closed":
         after["state"] = "closed"
@@ -122,13 +129,16 @@ def test_generation_movement_rejects_even_other_issue_decisions(mutation, filena
 
 
 def test_duplicate_pr_identity_is_not_counted_as_multiple_owners():
+    """Verify that duplicate PR identity is not counted as multiple owners."""
     api, _ = inventory_api([proposal(), proposal()])
     with pytest.raises(ValueError, match="duplicate"):
         owners(api)
 
 
 def test_api_failure_is_not_an_empty_ownership_inventory():
+    """Verify that API failure is not an empty ownership inventory."""
     def denied(path):
+        """Raise the synthetic unavailable-source error instead of returning an empty inventory."""
         raise RuntimeError("source unavailable")
     with pytest.raises(RuntimeError, match="unavailable"):
         owners(denied)
@@ -141,6 +151,7 @@ def arena_checkout(tmp_path, monkeypatch):
     root.mkdir()
 
     def git(*args, cwd=root):
+        """Run a checked Git command against an isolated local fixture repository and return its stdout."""
         return subprocess.run(
             ["git", *args], cwd=cwd, check=True, capture_output=True, text=True, timeout=10,
         ).stdout.strip()
@@ -166,6 +177,7 @@ def arena_checkout(tmp_path, monkeypatch):
     calls, real = [], p.command
 
     def command(argv, *, root, env):
+        """Intercept provider calls and delegate the fixture's permitted local Git commands."""
         calls.append(argv)
         if argv == ["git", "remote", "get-url", "origin"]:
             return "https://github.com/owner/repo"
@@ -221,6 +233,7 @@ def assert_no_publication(calls):
 
 
 def test_rerun_keeps_existing_pr_branch_default_and_caller_bytes(arena_checkout):
+    """Verify that rerun keeps existing PR branch default and caller bytes."""
     root, remote, env, settings, calls, git, source = arena_checkout
     previous = (root / ENTRY).read_bytes()
     git("add", ENTRY)
@@ -247,6 +260,7 @@ def test_rerun_keeps_existing_pr_branch_default_and_caller_bytes(arena_checkout)
 
 
 def test_multiple_prior_owners_stay_in_receipt_without_new_publication(arena_checkout):
+    """Verify that multiple prior owners stay in receipt without new publication."""
     root, remote, env, settings, calls, git, source = arena_checkout
     settings["pulls"] = [proposal(9, head=source, base=source), proposal(10, head=source, base=source)]
     receipt = {}
@@ -259,6 +273,7 @@ def test_multiple_prior_owners_stay_in_receipt_without_new_publication(arena_che
 
 
 def test_stale_rerun_cannot_replace_record_already_on_current_default(arena_checkout):
+    """Verify that stale rerun cannot replace record already on current default."""
     root, remote, env, settings, calls, git, source = arena_checkout
     original = (root / ENTRY).read_bytes()
     git("add", ENTRY)
@@ -279,6 +294,7 @@ def test_stale_rerun_cannot_replace_record_already_on_current_default(arena_chec
 
 
 def test_default_movement_during_inventory_stops_before_publication(arena_checkout):
+    """Verify that default movement during inventory stops before publication."""
     root, remote, env, settings, calls, git, source = arena_checkout
     settings["moved_default"] = "c" * 40
     with pytest.raises(ValueError, match="default moved"):
@@ -288,6 +304,7 @@ def test_default_movement_during_inventory_stops_before_publication(arena_checko
 
 
 def test_other_issue_proposal_does_not_block_a_new_independent_record(arena_checkout):
+    """Verify that other issue proposal does not block a new independent record."""
     root, remote, env, settings, calls, git, source = arena_checkout
     settings["pulls"] = [proposal(head=source, base=source)]
     settings["pending_path"] = "arena/entries/5.json"

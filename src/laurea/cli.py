@@ -30,6 +30,7 @@ _LEGACY_GENERATED_PATHS = (
 
 
 def _compute(login: str, assets: Path) -> Report:
+    """Collect and validate an account snapshot, then write metrics and dated reception history."""
     token = resolve_token()
     snapshot = collect(login, token)
     now = datetime.now(timezone.utc)
@@ -50,6 +51,7 @@ def _compute(login: str, assets: Path) -> Report:
 
 
 def _load(assets: Path) -> Report:
+    """Load the supported metrics schema and reject findings with unsupported evidence statuses."""
     data = json.loads((assets / "metrics.json").read_text())
     schema_version = data.get("schema_version")
     if schema_version != _REPORT_SCHEMA:
@@ -73,6 +75,7 @@ def _load(assets: Path) -> Report:
 
 
 def _render(report: Report, assets: Path) -> list[str]:
+    """Write report cards and optional verdict history, then remove superseded generated paths."""
     out = render_all(report)
     history = load_history(assets / "verdict.jsonl")
     if history:
@@ -91,6 +94,7 @@ def _render(report: Report, assets: Path) -> list[str]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """Dispatch collection, rendering, and Arena commands; return 77 for unmeasured health coverage."""
     parser = argparse.ArgumentParser(prog="laurea", description=__doc__)
     parser.add_argument("--version", action="version", version=__version__)
     sub = parser.add_subparsers(dest="cmd", required=True)

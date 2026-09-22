@@ -19,6 +19,10 @@ def require_complete(snapshot: dict[str, Any]) -> None:
 
 
 def aggregate_repositories(repos: list[dict[str, Any]]) -> dict[str, Any]:
+    """Count non-fork repositories and languages, and stars across all supplied repositories.
+
+    Reject missing aggregate fields rather than inferring zero; return no repository identities.
+    """
     languages: dict[str, int] = {}
     nonfork = 0
     stars = 0
@@ -41,6 +45,10 @@ def aggregate_repositories(repos: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def corpus_totals(snapshot: dict[str, Any]) -> dict[str, Any]:
+    """Validate complete corpus evidence and return identity-free totals.
+
+    Reuse validated redacted aggregates when present; derive totals from legacy repository rows otherwise.
+    """
     require_complete(snapshot)
     value = snapshot.get("repository_aggregates")
     if value is None:

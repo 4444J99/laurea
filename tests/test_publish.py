@@ -11,9 +11,11 @@ from laurea import publish as p
 
 @pytest.fixture
 def sandbox(tmp_path, monkeypatch):
+    """Create isolated working/bare Git repositories and controlled GitHub publication responses."""
     root, remote = tmp_path / "work", tmp_path / "remote.git"
     root.mkdir()
     def git(*args, cwd=root):
+        """Run a checked Git command against an isolated local fixture repository and return its stdout."""
         return subprocess.run(["git", *args], cwd=cwd, capture_output=True, text=True,
                               timeout=10, check=True).stdout.strip()
     git("init", "--bare", str(remote))
@@ -41,6 +43,7 @@ def sandbox(tmp_path, monkeypatch):
     settings = {"create_fails": False, "created": False, "wrong_pr": False, "wrong_origin": False}
     real = p.command
     def command(argv, *, root, env):
+        """Intercept provider calls and delegate the fixture's permitted local Git commands."""
         calls.append(argv)
         if argv == ["git", "remote", "get-url", "origin"]:
             return "https://github.com/other/repo" if settings["wrong_origin"] else "https://github.com/owner/repo"
@@ -77,6 +80,7 @@ def sandbox(tmp_path, monkeypatch):
 
 
 def test_metrics_pushes_only_unique_branch_and_reads_back_pr(sandbox):
+    """Verify that metrics pushes only unique branch and reads back PR."""
     root, remote, env, calls, bodies, _, git, sha = sandbox
     (root / "assets/metrics.json").write_text('{"new":true}\n')
     result = p.publish("metrics", root=root, env=env)
@@ -89,6 +93,7 @@ def test_metrics_pushes_only_unique_branch_and_reads_back_pr(sandbox):
 
 
 def test_arena_record_pr_preserves_issue_until_table_acceptance(sandbox):
+    """Verify that arena record PR preserves issue until table acceptance."""
     root, _, env, calls, bodies, _, _, _ = sandbox
     env["GITHUB_EVENT_NAME"] = "issues"
     from laurea.arena import write_entry
@@ -102,12 +107,14 @@ def test_arena_record_pr_preserves_issue_until_table_acceptance(sandbox):
 
 
 def test_unchanged_artifact_does_not_push_or_close_issue(sandbox):
+    """Verify that unchanged artifact does not push or close issue."""
     root, _, env, calls, _, _, _, _ = sandbox
     assert p.publish("metrics", root=root, env=env)["status"] == "unchanged"
     assert not any(call[:2] == ["git", "push"] or call[:3] == ["gh", "pr", "create"] for call in calls)
 
 
 def test_arena_cannot_close_an_issue_other_than_its_source(sandbox):
+    """Verify that arena cannot close an issue other than its source."""
     root, _, env, calls, _, _, _, _ = sandbox
     env["GITHUB_EVENT_NAME"] = "issues"
     with pytest.raises(ValueError, match="source event"):
@@ -116,6 +123,7 @@ def test_arena_cannot_close_an_issue_other_than_its_source(sandbox):
 
 
 def test_unrelated_caller_file_is_preserved(sandbox):
+    """Verify that unrelated caller file is preserved."""
     root, _, env, _, _, _, _, _ = sandbox
     (root / "caller.txt").write_text("preserve me")
     with pytest.raises(ValueError, match="unrelated"):
@@ -124,6 +132,7 @@ def test_unrelated_caller_file_is_preserved(sandbox):
 
 
 def test_existing_branch_is_not_updated(sandbox):
+    """Verify that existing branch is not updated."""
     root, remote, env, _, _, _, git, sha = sandbox
     git("push", "origin", "HEAD:refs/heads/automation/metrics/12-1")
     (root / "assets/metrics.json").write_text("changed")
@@ -134,6 +143,7 @@ def test_existing_branch_is_not_updated(sandbox):
 
 @pytest.mark.parametrize("created", [True, False])
 def test_ambiguous_create_is_read_once_without_retry(sandbox, created):
+    """Verify that ambiguous create is read once without retry."""
     root, remote, env, calls, _, settings, git, sha = sandbox
     settings.update(create_fails=True, created=created)
     (root / "assets/metrics.json").write_text("changed")
@@ -149,6 +159,7 @@ def test_ambiguous_create_is_read_once_without_retry(sandbox, created):
 
 
 def test_wrong_pr_head_cannot_be_accepted(sandbox):
+    """Verify that wrong PR head cannot be accepted."""
     root, _, env, _, _, settings, _, _ = sandbox
     settings["wrong_pr"] = True
     (root / "assets/metrics.json").write_text("changed")
@@ -158,6 +169,7 @@ def test_wrong_pr_head_cannot_be_accepted(sandbox):
 
 @pytest.mark.parametrize("change", ["origin", "sha", "event"])
 def test_untrusted_context_stops_before_push(sandbox, change):
+    """Verify that untrusted context stops before push."""
     root, _, env, calls, _, settings, _, _ = sandbox
     if change == "origin":
         settings["wrong_origin"] = True
@@ -171,7 +183,9 @@ def test_untrusted_context_stops_before_push(sandbox, change):
 
 
 def test_failure_receipt_preserves_known_remote_branch_and_redacts_error(monkeypatch, capsys):
+    """Verify that failure receipt preserves known remote branch and redacts error."""
     def fail(kind, *, issue, receipt, refresh_table, refresh_pending):
+        """Simulate publication failure after preserving known remote ownership in the receipt."""
         receipt.update(status="branch_published", branch="automation/metrics/12-1", head_sha="a" * 40)
         raise RuntimeError("PRIVATE provider details")
     monkeypatch.setattr(p, "publish", fail)
@@ -186,6 +200,7 @@ def test_failure_receipt_preserves_known_remote_branch_and_redacts_error(monkeyp
 
 @pytest.mark.parametrize("path", ["LEADERBOARD.md", "arena/entries/5.json"])
 def test_arena_rejects_other_issue_or_whole_table_changes(sandbox, path):
+    """Verify that arena rejects other issue or whole table changes."""
     root, _, env, calls, _, _, _, _ = sandbox
     env["GITHUB_EVENT_NAME"] = "issues"
     target = root / path
@@ -198,6 +213,7 @@ def test_arena_rejects_other_issue_or_whole_table_changes(sandbox, path):
 
 @pytest.mark.parametrize("mutation", ["boolean_schema", "extra_field", "list"])
 def test_arena_rejects_noncanonical_record_before_push(sandbox, mutation):
+    """Verify that arena rejects noncanonical record before push."""
     root, _, env, calls, _, _, _, _ = sandbox
     env["GITHUB_EVENT_NAME"] = "issues"
     record = {"schema_version": 1, "issue": 4,
@@ -221,6 +237,7 @@ def test_arena_rejects_noncanonical_record_before_push(sandbox, mutation):
 
 
 def test_table_publication_uses_complete_baseline_and_unique_pr(sandbox):
+    """Verify that table publication uses complete baseline and unique PR."""
     from laurea.arena import materialize_entries
     root, remote, env, calls, bodies, _, git, sha = sandbox
     env["GITHUB_EVENT_NAME"] = "push"
@@ -234,6 +251,7 @@ def test_table_publication_uses_complete_baseline_and_unique_pr(sandbox):
 
 
 def test_table_publication_rejects_moved_default_before_push(sandbox):
+    """Verify that table publication rejects moved default before push."""
     root, _, env, calls, _, settings, _, _ = sandbox
     env["GITHUB_EVENT_NAME"] = "push"
     settings["default_sha"] = "b" * 40
@@ -243,6 +261,7 @@ def test_table_publication_rejects_moved_default_before_push(sandbox):
 
 
 def test_table_publication_rejects_incomplete_render(sandbox):
+    """Verify that table publication rejects incomplete render."""
     root, _, env, calls, _, _, _, _ = sandbox
     env["GITHUB_EVENT_NAME"] = "push"
     (root / "LEADERBOARD.md").write_text("missing accepted historical row")
@@ -253,6 +272,7 @@ def test_table_publication_rejects_incomplete_render(sandbox):
 
 @pytest.mark.parametrize("count", [1, 2])
 def test_pending_table_prs_retain_ownership_without_mutation(sandbox, count):
+    """Verify that pending table PRS retain ownership without mutation."""
     from laurea.arena import materialize_entries
     root, _, env, calls, _, settings, git, sha = sandbox
     env["GITHUB_EVENT_NAME"] = "push"
@@ -269,6 +289,7 @@ def test_pending_table_prs_retain_ownership_without_mutation(sandbox, count):
 
 
 def test_saturated_table_owner_inventory_fails_closed(sandbox):
+    """Verify that saturated table owner inventory fails closed."""
     from laurea.arena import materialize_entries
     root, _, env, calls, _, settings, _, _ = sandbox
     env["GITHUB_EVENT_NAME"] = "push"
@@ -280,6 +301,7 @@ def test_saturated_table_owner_inventory_fails_closed(sandbox):
 
 
 def test_independently_merged_entrants_both_reach_table_pr(sandbox):
+    """Verify that independently merged entrants both reach table PR."""
     from laurea.arena import write_entry, materialize_entries
     root, remote, env, _, _, settings, git, original = sandbox
     for issue, login in [(1, "alice"), (2, "bob")]:
@@ -308,6 +330,7 @@ def test_independently_merged_entrants_both_reach_table_pr(sandbox):
 @pytest.mark.parametrize("foreign_change,outcome", [(False, "normal"), (True, "normal"),
     (False, "timeout_after"), (False, "timeout_before"), (False, "concurrent")])
 def test_refresh_existing_table_fast_forwards_or_rejects_foreign_work(sandbox, monkeypatch, foreign_change, outcome):
+    """Verify that refresh existing table fast forwards or rejects foreign work."""
     from laurea.arena import materialize_entries, write_entry
     root, remote, env, calls, _, settings, git, original = sandbox
     branch = "automation/arena-table/9-1"
@@ -347,6 +370,7 @@ def test_refresh_existing_table_fast_forwards_or_rejects_foreign_work(sandbox, m
         tree = git("rev-parse", previous + "^{tree}")
         rival = git("commit-tree", tree, "-p", previous, "-m", "concurrent owner update")
     def racing_command(argv, *, root, env):
+        """Inject the configured concurrent branch change into otherwise real fixture commands."""
         if argv[:3] == ["git", "push", "origin"]:
             attempts.append(argv)
             if outcome == "timeout_before":
@@ -382,6 +406,7 @@ def test_refresh_existing_table_fast_forwards_or_rejects_foreign_work(sandbox, m
 
 @pytest.mark.parametrize("empty_advance", [False, True])
 def test_metrics_refresh_reuses_existing_pr_and_preserves_new_default(sandbox, empty_advance):
+    """Verify that metrics refresh reuses existing PR and preserves new default."""
     root, remote, env, calls, _, settings, git, original = sandbox
     branch = "automation/metrics/9-1"
     git("switch", "-c", branch)
@@ -420,6 +445,7 @@ def test_metrics_refresh_reuses_existing_pr_and_preserves_new_default(sandbox, e
     ("2026-09-18", [("2026-09-18", 2)]),
 ])
 def test_metrics_refresh_preserves_pending_history_by_date(sandbox, current_date, expected):
+    """Verify that metrics refresh preserves pending history by date."""
     root, remote, env, _, _, settings, git, original = sandbox
     branch = "automation/metrics/9-1"
     git("switch", "-c", branch)

@@ -7,10 +7,12 @@ from laurea.security import summarize_alerts
 
 
 def alert(number=1, **fields):
+    """Build a synthetic open alert with optional overridden evidence fields."""
     return {"number": number, "state": "open", **fields}
 
 
 def test_vulnerability_severities_are_observed_not_inferred():
+    """Verify that vulnerability severities are observed not inferred."""
     result = summarize_alerts([
         alert(1, security_vulnerability={"severity": "critical", "package": {"name": "PRIVATE"}}),
         alert(2, security_vulnerability={"severity": "high"}),
@@ -26,6 +28,7 @@ def test_vulnerability_severities_are_observed_not_inferred():
 
 
 def test_code_scanning_warning_is_not_a_security_severity():
+    """Verify that code scanning warning is not a security severity."""
     result = summarize_alerts([
         alert(1, rule={"severity": "warning", "security_severity_level": "high"}),
         alert(2, rule={"severity": "error"}),
@@ -35,6 +38,7 @@ def test_code_scanning_warning_is_not_a_security_severity():
 
 
 def test_credentials_remain_an_explicit_obligation_without_secret_content():
+    """Verify that credentials remain an explicit obligation without secret content."""
     result = summarize_alerts([alert(secret="PRIVATE", locations_url="PRIVATE",  # allow-secret: synthetic redaction sentinel, not a credential
                                     metadata=[{"value": "PRIVATE"}])], "secret_scanning")
     assert result["credential_alerts_observed"] == 1
@@ -45,6 +49,7 @@ def test_credentials_remain_an_explicit_obligation_without_secret_content():
 
 @pytest.mark.parametrize("source", ["dependabot", "code_scanning", "secret_scanning"])
 def test_empty_list_is_not_enabled_coverage(source):
+    """Verify that empty list is not enabled coverage."""
     result = summarize_alerts([], source)
     assert result["open_alerts_observed"] == 0
     assert result["status"] == "measured"
@@ -52,6 +57,7 @@ def test_empty_list_is_not_enabled_coverage(source):
 
 
 def test_full_page_preserves_observed_high_alerts_and_unknown_remainder():
+    """Verify that full page preserves observed high alerts and unknown remainder."""
     result = summarize_alerts([alert(n, security_vulnerability={"severity": "high"})
                                for n in range(1, 101)], "dependabot")
     assert result["severity_counts_observed"]["high"] == 100
@@ -62,5 +68,6 @@ def test_full_page_preserves_observed_high_alerts_and_unknown_remainder():
 @pytest.mark.parametrize("rows", [None, [None], [alert(), alert()], [alert(True)],
                                  [alert(0)], [{"number": 1}], [alert(state="fixed")]])
 def test_malformed_or_non_open_alerts_are_not_a_measured_count(rows):
+    """Verify that malformed or non open alerts are not a measured count."""
     with pytest.raises(ValueError):
         summarize_alerts(rows, "dependabot")

@@ -6,8 +6,10 @@ from laurea.health import collect_health_batch
 
 
 def test_bounded_batch_keeps_full_denominator_and_redacts_private_entries():
+    """Verify that bounded batch keeps full denominator and redacts private entries."""
     calls = []
     def read(path):
+        """Supply the synthetic API evidence or failure required by the surrounding regression."""
         calls.append(path)
         return {"private": True}
     report = collect_health_batch(["private/one", "private/two", "private/three"],
@@ -22,14 +24,18 @@ def test_bounded_batch_keeps_full_denominator_and_redacts_private_entries():
 
 @pytest.mark.parametrize("inventory", [[], ["owner/repo", "OWNER/REPO"], [None], "owner/repo"])
 def test_invalid_inventory_does_not_read(inventory):
+    """Verify that invalid inventory does not read."""
     def read(path):
+        """Supply the synthetic API evidence or failure required by the surrounding regression."""
         raise AssertionError("must not perform reads")
     with pytest.raises(ValueError):
         collect_health_batch(inventory, "fixture", read=read)
 
 
 def test_budget_failure_preserves_unknown_entries():
+    """Verify that budget failure preserves unknown entries."""
     def read(path):
+        """Supply the synthetic API evidence or failure required by the surrounding regression."""
         raise OSError("PRIVATE_TOKEN_DETAIL")
     report = collect_health_batch(["owner/one", "owner/two"], "fixture", read=read)
     assert report["scope"]["attempted_entries_unmeasured"] == 2
@@ -38,8 +44,10 @@ def test_budget_failure_preserves_unknown_entries():
 
 
 def test_offset_preserves_inventory_without_repeating_earlier_reads():
+    """Verify that offset preserves inventory without repeating earlier reads."""
     calls = []
     def read(path):
+        """Supply the synthetic API evidence or failure required by the surrounding regression."""
         calls.append(path)
         return {"private": True}
     report = collect_health_batch(["owner/one", "owner/two", "owner/three"],
@@ -53,18 +61,22 @@ def test_offset_preserves_inventory_without_repeating_earlier_reads():
 
 @pytest.mark.parametrize("offset", [-1, True, 1, "0"])
 def test_invalid_offset_is_rejected_before_reads(offset):
+    """Verify that invalid offset is rejected before reads."""
     with pytest.raises(ValueError):
         collect_health_batch(["owner/one"], "fixture", offset=offset,
                              read=lambda path: pytest.fail("unexpected read"))
 
 
 def test_one_reader_budget_is_shared(monkeypatch):
+    """Verify that one reader budget is shared."""
     instances = []
     class Limited:
         def __init__(self, token):
+            """Initialize the synthetic shared reader used to check request-budget accounting."""
             instances.append(self)
             self.calls = 0
         def __call__(self, path):
+            """Exercise the synthetic reader's configured response and shared call accounting."""
             self.calls += 1
             if self.calls > 1:
                 raise OSError("budget exhausted")
@@ -77,6 +89,7 @@ def test_one_reader_budget_is_shared(monkeypatch):
 
 
 def test_cli_emits_explicit_unmeasured_batch(tmp_path, monkeypatch, capsys):
+    """Verify that CLI emits explicit unmeasured batch."""
     from laurea.cli import main
     source = tmp_path / "inventory.json"
     source.write_text('["owner/repo"]')

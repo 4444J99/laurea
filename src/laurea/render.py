@@ -68,10 +68,12 @@ def _laurel(x: int, y: int, scale: float = 1.0) -> str:
 
 
 def _fmt(value: float) -> str:
+    """Format a finite numeric measurement with grouping and at most one fractional digit."""
     return f"{int(value):,}" if value == int(value) else f"{value:,.1f}"
 
 
 def _wrap(text: str, width: int) -> list[str]:
+    """Wrap whitespace-delimited words without splitting an individual word longer than the requested width."""
     lines: list[str] = []
     line = ""
     for word in text.split():
@@ -97,6 +99,7 @@ def _truncate(text: str, width: int) -> str:
 
 
 def _tspans(lines: list[str], x: int, line_height: int = 14) -> str:
+    """Escape text lines into positioned SVG spans, using zero vertical offset for the first line."""
     return "".join(
         f'<tspan x="{x}" dy="{0 if index == 0 else line_height}">{escape(line)}</tspan>'
         for index, line in enumerate(lines)

@@ -86,6 +86,10 @@ query($login: String!, $cursor: String) {
 
 
 def resolve_token() -> str:
+    """Read the configured token variables in priority order, then try the authenticated GitHub CLI.
+
+    Return the existing credential without provisioning one; raise RuntimeError when none is available.
+    """
     for var in ("LAUREA_TOKEN", "GH_TOKEN", "GITHUB_TOKEN"):
         token = os.environ.get(var)
         if token:
@@ -104,6 +108,7 @@ def resolve_token() -> str:
 
 
 def _gql(query: str, variables: dict[str, Any], token: str) -> dict[str, Any]:
+    """Send one authenticated GraphQL request with a 30-second timeout and reject API error payloads."""
     body = json.dumps({"query": query, "variables": variables}).encode()
     req = urllib.request.Request(
         GRAPHQL_URL,

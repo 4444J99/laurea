@@ -14,6 +14,7 @@ from laurea.arena import write_entry
 
 @pytest.mark.parametrize("malformed", [False, True])
 def test_workflow_checks_entry_inventory_without_replacing_table(tmp_path, malformed):
+    """Verify that workflow checks entry inventory without replacing table."""
     root = Path(__file__).resolve().parents[1]
     workflow = (root / ".github/workflows/validate.yml").read_text()
     block = workflow.split("      - name: Validate arena entry inventory\n", 1)[1]

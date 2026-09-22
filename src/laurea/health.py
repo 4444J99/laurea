@@ -24,11 +24,16 @@ class Unmeasured(RuntimeError):
 
 class Reader:
     def __init__(self, token: str, *, seconds: float = 60, requests: int = 40):  # allow-secret: runtime parameter or synthetic rejection fixture; no credential literal
+        """Initialize the shared request allowance and monotonic deadline for authenticated read-only probes."""
         self.token = token  # allow-secret: runtime parameter or synthetic rejection fixture; no credential literal
         self.deadline = time.monotonic() + seconds
         self.remaining = requests
 
     def __call__(self, path: str) -> Any:
+        """Consume one budgeted REST read and decode bounded JSON.
+
+        Reject exhausted time/request budgets and responses over two megabytes rather than claiming empty evidence.
+        """
         remaining = self.deadline - time.monotonic()
         if remaining <= 0 or self.remaining <= 0:
             raise Unmeasured("read budget exhausted")
@@ -47,6 +52,7 @@ class Reader:
 
 
 def _connection(value: Any, key: str) -> list[dict[str, Any]]:
+    """Return a connection only when every listed object and its exact total count are available."""
     if not isinstance(value, dict):
         raise Unmeasured("malformed connection")
     nodes = value.get(key)
@@ -58,10 +64,15 @@ def _connection(value: Any, key: str) -> list[dict[str, Any]]:
 
 
 def _unknown() -> dict[str, Any]:
+    """Create an explicit unmeasured observation rather than a zero-count or success claim."""
     return {"status": "unmeasured"}
 
 
 def _verification(read: Callable, prefix: str, sha: str) -> dict[str, Any]:
+    """Inspect at most ten exact-head workflow runs and distinguish active, executed, and absent steps.
+
+    Retain omitted or unreadable runs in the unknown denominator; execution alone does not establish acceptance.
+    """
     runs = _connection(read(prefix + "/actions/runs?head_sha=" + sha + "&per_page=100"), "workflow_runs")
     observations = []
     # A bounded subset remains explicit; successful children never cover omitted runs.
@@ -100,6 +111,7 @@ def _verification(read: Callable, prefix: str, sha: str) -> dict[str, Any]:
 
 
 def _security(read: Callable, prefix: str) -> dict[str, Any]:
+    """Collect bounded counts-only alert observations, keeping unavailable scanner sources unmeasured."""
     result = {}
     for name, endpoint in (("dependabot", "dependabot/alerts"),
                            ("code_scanning", "code-scanning/alerts"),
@@ -150,6 +162,10 @@ def collect_health_batch(repositories, token, *, limit=5, offset=0, read=None):
 
 
 def collect_health(repository: str, token: str, *, read: Callable | None = None) -> dict[str, Any]:  # allow-secret: runtime parameter or synthetic rejection fixture; no credential literal
+    """Observe one repository at a stable default generation with final public-identity readback.
+
+    Redact private or unconfirmed identities, retain partial coverage, and do not infer merge or acceptance authority.
+    """
     if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repository):
         raise ValueError("repository must be OWNER/NAME")
     read = read or Reader(token)

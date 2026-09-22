@@ -17,6 +17,7 @@ CARD = "assets/cards/verdict.svg"
 
 
 def git(root: Path, *args: str) -> str:
+    """Run a checked Git command against an isolated local fixture repository and return its stdout."""
     return subprocess.run(
         ["git", *args], cwd=root, check=True, capture_output=True, text=True,
         timeout=10,
@@ -24,6 +25,7 @@ def git(root: Path, *args: str) -> str:
 
 
 def initialize(root: Path) -> None:
+    """Initialize and configure an isolated Git repository for metrics-history tests."""
     root.mkdir()
     git(root, "init", "-b", "main")
     git(root, "config", "user.name", "Regression fixture")
@@ -31,6 +33,7 @@ def initialize(root: Path) -> None:
 
 
 def write_metrics(root: Path, rows: list[dict]) -> None:
+    """Write deterministic metrics, dated history, and a matching verdict-card fixture."""
     history, card = root / HISTORY, root / CARD
     card.parent.mkdir(parents=True, exist_ok=True)
     history.write_text("".join(json.dumps(row) + "\n" for row in rows))
@@ -38,6 +41,7 @@ def write_metrics(root: Path, rows: list[dict]) -> None:
 
 
 def fixture(tmp_path: Path, previous: list[dict], current: list[dict]):
+    """Create a local repository with predecessor and current metrics histories for refresh tests."""
     root = tmp_path / "repo"
     initialize(root)
     write_metrics(root, previous)
@@ -47,6 +51,7 @@ def fixture(tmp_path: Path, previous: list[dict], current: list[dict]):
     write_metrics(root, current)
 
     def run(*args):
+        """Execute real local Git operations for the isolated metrics-history fixture."""
         assert args[0] == "git"
         return git(root, *args[1:])
 
@@ -68,6 +73,7 @@ def fixture(tmp_path: Path, previous: list[dict], current: list[dict]):
     ],
 )
 def test_merged_history_and_card_agree(tmp_path, previous, current, key, expected_delta):
+    """Verify that merged history and card agree."""
     root, predecessor, run = fixture(tmp_path, previous, current)
     before = (root / CARD).read_text()
     merge_pending_metrics_history(run, root=root, predecessor=predecessor)
@@ -84,6 +90,7 @@ def test_merged_history_and_card_agree(tmp_path, previous, current, key, expecte
 
 
 def test_no_predecessor_history_leaves_current_outputs_untouched(tmp_path):
+    """Without a predecessor history blob, refreshing must leave current outputs byte-identical."""
     root = tmp_path / "repo"
     initialize(root)
     git(root, "commit", "--allow-empty", "-m", "no earlier history")
@@ -97,6 +104,7 @@ def test_no_predecessor_history_leaves_current_outputs_untouched(tmp_path):
 
 
 def test_unrenderable_predecessor_does_not_replace_current_outputs(tmp_path):
+    """Verify that unrenderable predecessor does not replace current outputs."""
     root, predecessor, run = fixture(
         tmp_path, [{"date": "2026-09-17", "followers": 4}],
         [{"date": "2026-09-18", "followers": 7}],
@@ -104,6 +112,7 @@ def test_unrenderable_predecessor_does_not_replace_current_outputs(tmp_path):
     before = ((root / HISTORY).read_bytes(), (root / CARD).read_bytes())
 
     def malformed(*args):
+        """Return malformed predecessor evidence for the history-refresh negative control."""
         if args[:2] == ("git", "show"):
             return json.dumps({"date": "2026-09-17", "followers": "invalid"})
         return run(*args)
@@ -115,6 +124,7 @@ def test_unrenderable_predecessor_does_not_replace_current_outputs(tmp_path):
 
 @pytest.mark.parametrize("relative", ["assets", "assets/cards", HISTORY, CARD])
 def test_symlinked_output_is_rejected_without_writing_through_it(tmp_path, relative):
+    """Verify that symlinked output is rejected without writing through it."""
     root, predecessor, run = fixture(
         tmp_path, [{"date": "2026-09-17", "followers": 4}],
         [{"date": "2026-09-18", "followers": 7}],
@@ -132,6 +142,7 @@ def test_symlinked_output_is_rejected_without_writing_through_it(tmp_path, relat
 
 
 def test_refresh_stages_matching_card_and_preserves_both_parents(tmp_path):
+    """Verify that refresh stages matching card and preserves both parents."""
     root = tmp_path / "repo"
     initialize(root)
     remote = tmp_path / "remote.git"

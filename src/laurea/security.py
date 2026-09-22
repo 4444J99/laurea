@@ -5,6 +5,10 @@ from typing import Any
 
 
 def summarize_alerts(rows: Any, source: str) -> dict:
+    """Validate unique open alerts and return counts without identities, locations, or secret values.
+
+    Use only explicit source-specific security severity; saturated pages and scanner coverage remain unmeasured.
+    """
     if not isinstance(rows, list):
         raise ValueError("malformed alert list")
     seen = set()

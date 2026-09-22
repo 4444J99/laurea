@@ -7,6 +7,7 @@ from laurea.github import CoverageError, _paginate_repos, collect
 
 
 def connection(nodes, total=None, more=False, cursor=None):
+    """Build GraphQL connection evidence with explicit nodes, total count, and pagination state."""
     return {"nodes": nodes, "totalCount": len(nodes) if total is None else total,
             "pageInfo": {"hasNextPage": more, "endCursor": cursor}}
 
@@ -14,14 +15,17 @@ def connection(nodes, total=None, more=False, cursor=None):
 @pytest.mark.parametrize("conn", [connection([], 1), connection([], 0, True, None),
                                   {"nodes": None}, connection([None])])
 def test_bad_connections_fail_closed(monkeypatch, conn):
+    """Verify that bad connections fail closed."""
     monkeypatch.setattr("laurea.github._gql", lambda *args: {"repos": conn})
     with pytest.raises(CoverageError):
         _paginate_repos("query", ["repos"], {}, "token")
 
 
 def test_repeated_cursor_is_bounded(monkeypatch):
+    """Verify that repeated cursor is bounded."""
     calls = []
     def gql(*args):
+        """Return controlled GraphQL pages or failures for the surrounding coverage regression."""
         calls.append(args)
         return {"repos": connection([{}], 5, True, "same")}
     monkeypatch.setattr("laurea.github._gql", gql)
@@ -32,6 +36,7 @@ def test_repeated_cursor_is_bounded(monkeypatch):
 
 @pytest.mark.parametrize("visibility", ["public", "private", "unknown", "different-id", "malformed"])
 def test_failed_org_and_private_exclusion_remain_counted(monkeypatch, visibility):
+    """Verify that failed org and private exclusion remain counted."""
     user = {"login": "tester", "name": "Tester", "createdAt": "2020-01-01Z",
             "followers": {"totalCount": 0}, "contributionsCollection": {
                 "contributionCalendar": {"totalContributions": 0},
@@ -39,6 +44,7 @@ def test_failed_org_and_private_exclusion_remain_counted(monkeypatch, visibility
                 "totalPullRequestReviewContributions": 0,
                 "totalIssueContributions": 0, "restrictedContributionsCount": 0}}
     def gql(query, variables, token):
+        """Return controlled GraphQL pages or failures for the surrounding coverage regression."""
         if "node(id:" in query:
             if visibility == "malformed":
                 return None
@@ -76,8 +82,10 @@ def test_failed_org_and_private_exclusion_remain_counted(monkeypatch, visibility
 
 
 def test_multiple_pages_preserve_cursor_and_total(monkeypatch):
+    """Verify that multiple pages preserve cursor and total."""
     calls = []
     def gql(query, variables, token):
+        """Return controlled GraphQL pages or failures for the surrounding coverage regression."""
         calls.append(variables["cursor"])
         if variables["cursor"] is None:
             return {"repos": connection([{"id": "one"}], 2, True, "next")}
@@ -88,6 +96,7 @@ def test_multiple_pages_preserve_cursor_and_total(monkeypatch):
 
 
 def test_changed_denominator_is_unmeasured(monkeypatch):
+    """Verify that changed denominator is unmeasured."""
     pages = iter([connection([{}], 2, True, "next"), connection([{}], 3)])
     monkeypatch.setattr("laurea.github._gql", lambda *args: {"repos": next(pages)})
     with pytest.raises(CoverageError, match="changed"):
@@ -95,6 +104,7 @@ def test_changed_denominator_is_unmeasured(monkeypatch):
 
 
 def test_membership_and_repository_failures_have_both_attempts(monkeypatch):
+    """Verify that membership and repository failures have both attempts."""
     user = {"login": "tester", "name": "Tester", "createdAt": "2020-01-01Z",
             "followers": {"totalCount": 0}, "contributionsCollection": {
                 "contributionCalendar": {"totalContributions": 0},
@@ -102,6 +112,7 @@ def test_membership_and_repository_failures_have_both_attempts(monkeypatch):
                 "totalPullRequestReviewContributions": 0,
                 "totalIssueContributions": 0, "restrictedContributionsCount": 0}}
     def gql(query, *args):
+        """Return controlled GraphQL pages or failures for the surrounding coverage regression."""
         if "contributionsCollection" in query:
             return {"user": user}
         raise OSError("unavailable")
@@ -126,6 +137,7 @@ def test_impossible_nonterminal_page_stops_before_next_request(monkeypatch, page
     expected_calls = 2 if len(pages) == 3 else 1
 
     def gql(query, variables, token):
+        """Return controlled GraphQL pages or failures for the surrounding coverage regression."""
         calls.append(variables["cursor"])
         return {"repos": pages[len(calls) - 1]}
 
@@ -149,6 +161,7 @@ def test_impossible_pagination_cannot_claim_complete_collection(monkeypatch, fai
     calls = []
 
     def gql(query, variables, token):
+        """Return controlled GraphQL pages or failures for the surrounding coverage regression."""
         if "contributionsCollection" in query:
             return {"user": user}
         if "organizations(first" in query:
@@ -179,6 +192,7 @@ def test_empty_terminal_connection_remains_valid(monkeypatch):
     calls = []
 
     def gql(query, variables, token):
+        """Return controlled GraphQL pages or failures for the surrounding coverage regression."""
         calls.append(variables["cursor"])
         return {"repos": connection([], 0)}
 

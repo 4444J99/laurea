@@ -10,6 +10,7 @@ from laurea.verdict import collect_verdict
 
 
 def snapshot():
+    """Build the synthetic corpus input used to verify publication-coverage boundaries."""
     return {"login": "test", "created_at": "2020-01-01T00:00:00Z", "followers": 1,
             "orgs": [], "repos": [],
             "contributions": dict.fromkeys(["total", "commits", "pull_requests", "reviews", "issues", "restricted"], 0),
@@ -18,6 +19,7 @@ def snapshot():
 
 
 def report(value):
+    """Wrap the supplied synthetic snapshot in a deterministic report for consumer tests."""
     return Report(login="test", generated_at="2026-09-16T00:00:00Z", snapshot=value,
                   findings=run_all(value))
 
@@ -25,6 +27,7 @@ def report(value):
 @pytest.mark.parametrize("coverage", [None, "invalid", {"status": "unmeasured"},
     {"status": "complete", "organization_scope_complete": False, "failed_sources": 0}])
 def test_incomplete_compute_preserves_metrics_and_same_day_history(monkeypatch, tmp_path, coverage):
+    """Verify that incomplete compute preserves metrics and same day history."""
     value = snapshot()
     value["coverage"] = coverage
     metrics = tmp_path / "metrics.json"
@@ -41,6 +44,7 @@ def test_incomplete_compute_preserves_metrics_and_same_day_history(monkeypatch, 
 
 
 def test_incomplete_render_and_arena_cannot_publish_partial_counts():
+    """Verify that incomplete render and arena cannot publish partial counts."""
     value = snapshot()
     complete = report(value)
     value["coverage"]["status"] = "unmeasured"
@@ -51,6 +55,7 @@ def test_incomplete_render_and_arena_cannot_publish_partial_counts():
 
 
 def test_private_aggregate_semantics_reach_all_consumers(monkeypatch):
+    """Rendering, findings, and reception use the same identity-free aggregate meaning."""
     value = snapshot()
     public = {"isFork": False, "stargazerCount": 2, "primaryLanguage": {"name": "Python"}}
     private = {"isFork": False, "stargazerCount": 5, "primaryLanguage": {"name": "Rust"}}
@@ -69,6 +74,7 @@ def test_private_aggregate_semantics_reach_all_consumers(monkeypatch):
 
 
 def test_redacted_snapshot_without_aggregates_cannot_change_metric_meaning():
+    """Verify that redacted snapshot without aggregates cannot change metric meaning."""
     value = snapshot()
     value["coverage"]["private_repositories_excluded"] = 1
     with pytest.raises(ValueError, match="aggregate"):
@@ -77,6 +83,7 @@ def test_redacted_snapshot_without_aggregates_cannot_change_metric_meaning():
 
 @pytest.mark.parametrize("coverage", [None, "invalid", 1])
 def test_direct_profile_handles_malformed_coverage_as_unknown(coverage):
+    """Verify that direct profile handles malformed coverage as unknown."""
     value = snapshot()
     measured = report(value)
     value["coverage"] = coverage

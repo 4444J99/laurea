@@ -22,6 +22,7 @@ API = "https://api.github.com"
 
 
 def _rest(path: str, token: str) -> Any:
+    """Read and decode one authenticated GitHub REST response with a 30-second timeout."""
     req = urllib.request.Request(
         f"{API}{path}",
         headers={
@@ -64,6 +65,7 @@ def append_entry(entry: dict[str, Any], jsonl: Path) -> list[dict[str, Any]]:
 
 
 def load_history(jsonl: Path) -> list[dict[str, Any]]:
+    """Read nonblank JSONL observations in stored order, returning an empty list for a missing history file."""
     if not jsonl.exists():
         return []
     return [json.loads(line) for line in jsonl.read_text().splitlines() if line.strip()]
@@ -86,6 +88,7 @@ _ROWS = (
 
 
 def verdict_card(history: list[dict[str, Any]]) -> str:
+    """Render recorded reception signals and oldest-to-latest deltas as an escaped SVG card."""
     since = history[0]["date"] if history else "—"
     rows = []
     for i, (key, label) in enumerate(_ROWS):

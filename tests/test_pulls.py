@@ -8,8 +8,10 @@ PREFIX = "/repos/owner/repo"
 
 
 def fixture(*, draft=False, mergeable=True, move=None, denied=False, checks=None, reviews=None, count=1):
+    """Build a bounded pull-request API fixture with configurable state and evidence failures."""
     calls = []
     def read(path):
+        """Supply the synthetic API evidence or failure required by the surrounding regression."""
         calls.append(path)
         if path == PREFIX + "/pulls?state=open&per_page=100":
             return [{"number": number} for number in range(1, count + 1)]
@@ -38,6 +40,7 @@ def fixture(*, draft=False, mergeable=True, move=None, denied=False, checks=None
 
 @pytest.mark.parametrize("draft,mergeable,blocker", [(True, True, "draft"), (False, False, "merge_conflict")])
 def test_current_generation_can_establish_specific_blocker(draft, mergeable, blocker):
+    """Verify that current generation can establish specific blocker."""
     read, _ = fixture(draft=draft, mergeable=mergeable)
     row = collect_pulls(read, PREFIX, 7)["pulls_observed"][0]
     assert row["generation"] == "current"
@@ -47,6 +50,7 @@ def test_current_generation_can_establish_specific_blocker(draft, mergeable, blo
 
 @pytest.mark.parametrize("move", ["head", "base", "closed", "repository"])
 def test_generation_changes_cannot_retain_readiness(move):
+    """Verify that generation changes cannot retain readiness."""
     read, _ = fixture(draft=True, move=move)
     row = collect_pulls(read, PREFIX, 7)["pulls_observed"][0]
     assert row["readiness"] == "unmeasured"
@@ -54,6 +58,7 @@ def test_generation_changes_cannot_retain_readiness(move):
 
 
 def test_empty_checks_do_not_prove_policy_or_acceptance():
+    """Verify that empty checks do not prove policy or acceptance."""
     read, _ = fixture()
     row = collect_pulls(read, PREFIX, 7)["pulls_observed"][0]
     assert row["checks"]["observed"] == 0
@@ -66,11 +71,13 @@ def test_empty_checks_do_not_prove_policy_or_acceptance():
     {"total_count": 1, "check_runs": [{"head_sha": BASE, "status": "completed", "conclusion": "success"}]},
 ])
 def test_truncated_or_wrong_head_checks_are_unknown(checks):
+    """Verify that truncated or wrong head checks are unknown."""
     read, _ = fixture(checks=checks)
     assert collect_pulls(read, PREFIX, 7)["pulls_observed"][0]["checks"] == {"status": "unmeasured"}
 
 
 def test_denial_keeps_current_identity_but_not_check_coverage():
+    """Verify that denial keeps current identity but not check coverage."""
     read, _ = fixture(denied=True)
     result = collect_pulls(read, PREFIX, 7)
     row = result["pulls_observed"][0]
@@ -82,6 +89,7 @@ def test_denial_keeps_current_identity_but_not_check_coverage():
 
 
 def test_reviews_are_bound_to_head_and_deduplicated_by_reviewer():
+    """Verify that reviews are bound to head and deduplicated by reviewer."""
     reviews = [
         {"id": 99, "commit_id": SHA, "user": {"id": 4}, "state": "APPROVED"},
         {"id": 2, "commit_id": SHA, "user": {"id": 4}, "state": "CHANGES_REQUESTED"},
@@ -96,6 +104,7 @@ def test_reviews_are_bound_to_head_and_deduplicated_by_reviewer():
 
 
 def test_detail_budget_preserves_omitted_denominator():
+    """Verify that detail budget preserves omitted denominator."""
     read, calls = fixture(count=8)
     result = collect_pulls(read, PREFIX, 7)
     assert result["open_observed"] == 8
@@ -105,8 +114,10 @@ def test_detail_budget_preserves_omitted_denominator():
 
 
 def test_readback_budget_failure_never_reports_a_current_blocker():
+    """Verify that readback budget failure never reports a current blocker."""
     base, calls = fixture(draft=True)
     def read(path):
+        """Supply the synthetic API evidence or failure required by the surrounding regression."""
         if path == PREFIX + "/pulls/1" and path in calls:
             raise RuntimeError("budget exhausted")
         return base(path)
@@ -117,6 +128,7 @@ def test_readback_budget_failure_never_reports_a_current_blocker():
 
 
 def test_failed_optional_check_is_observed_without_inventing_merge_policy():
+    """A failed check is reported as observed evidence, not invented required-check or merge policy."""
     checks = {"total_count": 1, "check_runs": [
         {"head_sha": SHA, "status": "completed", "conclusion": "failure"}]}
     read, _ = fixture(checks=checks)
@@ -126,8 +138,10 @@ def test_failed_optional_check_is_observed_without_inventing_merge_policy():
 
 
 def test_closed_detail_cannot_complete_open_listing_coverage():
+    """Verify that closed detail cannot complete open listing coverage."""
     base, _ = fixture()
     def read(path):
+        """Supply the synthetic API evidence or failure required by the surrounding regression."""
         result = base(path)
         if path == PREFIX + "/pulls/1":
             result["state"] = "closed"
