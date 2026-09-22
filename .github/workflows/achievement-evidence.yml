@@ -1,0 +1,34 @@
+name: achievement-evidence
+
+on:
+  pull_request:
+    paths:
+      - 'evidence/**'
+      - 'scripts/verify_achievements.py'
+      - 'tests/test_achievement_evidence.py'
+      - '.github/workflows/achievement-evidence.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'evidence/**'
+      - 'scripts/verify_achievements.py'
+      - 'tests/test_achievement_evidence.py'
+      - '.github/workflows/achievement-evidence.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frozen-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/verify_achievements.py
+      - run: python -m unittest discover -s tests -p test_achievement_evidence.py -v
