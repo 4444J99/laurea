@@ -128,6 +128,7 @@ class CoverageError(RuntimeError):
 def _paginate_repos(
     query: str, key_path: list[str], variables: dict[str, Any], token: str
 ) -> list[dict[str, Any]]:
+    """Read a stable connection, rejecting impossible nonterminal page evidence."""
     nodes: list[dict[str, Any]] = []
     cursor: str | None = None
     seen: set[str] = set()
@@ -152,6 +153,8 @@ def _paginate_repos(
                 if len(nodes) != total:
                     raise CoverageError("connection count mismatch")
                 return nodes
+            if not batch or len(nodes) >= total:
+                raise CoverageError("inconsistent pagination state")
             cursor = page["endCursor"]
             if not isinstance(cursor, str) or not cursor or cursor in seen:
                 raise CoverageError("pagination did not advance")
