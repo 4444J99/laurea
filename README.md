@@ -1,6 +1,6 @@
 # LAVREA — evidence-bearing achievement intelligence
 
-LAVREA is the durable achievement and distinction layer for **@4444J99**: measure the work, identify what is statistically or externally unusual, preserve provenance, and render the strongest defensible case without allowing later context loss to erase previously established distinctions.
+LAVREA is the durable achievement and distinction layer for **@4444J99**: measure the work, identify reproducible distinctions and externally validated achievements, preserve provenance, and render the strongest defensible case without allowing later context loss to erase previously established distinctions.
 
 <p align="center">
   <img src="assets/cards/hero.svg" alt="Measured GitHub activity profile" width="800"/>
@@ -19,7 +19,7 @@ LAVREA is the durable achievement and distinction layer for **@4444J99**: measur
 
 This is not merely a GitHub-stat card generator. Its job is to answer:
 
-**What is measurably, externally, or demonstrably exceptional about this body of work—and what evidence makes that claim survive scrutiny?**
+**What is measurably distinctive, externally validated, or demonstrably exceptional about this body of work—and what evidence makes that claim survive scrutiny?**
 
 Start with the [Achievement Ledger](ACHIEVEMENTS.md). The generated API snapshot remains in [PROFILE.md](assets/PROFILE.md), and field definitions remain in [METHODOLOGY.md](METHODOLOGY.md).
 
@@ -29,7 +29,9 @@ The ledger deliberately distinguishes direct measurements, reproducible derived 
 
 The latest checked snapshot records **33,587 GitHub contribution events**, **15,671 commits**, **4,191 pull requests opened**, **290 visible non-fork repositories**, **17 primary-language labels**, and **109 Python-primary repositories** in the visible corpus.
 
-These numbers are intentionally named precisely. Contributions are not commits; repository visibility is not authorship; volume is not quality. Precision makes the genuinely unusual signals stronger, not weaker.
+These numbers are intentionally named precisely. Contributions are not commits; repository visibility is not authorship; volume is not quality. Precision makes the measurements easier to assess and the verified achievements harder to dismiss.
+
+The ledger also records three independently verifiable upstream merges in **FastMCP**, **Datadog GuardDog**, and the **Temporal Python SDK**, each with pull-request and merge evidence.
 
 ## The arena
 
