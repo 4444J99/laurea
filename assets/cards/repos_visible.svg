@@ -18,8 +18,8 @@
   <rect width="419" height="169" x="0.5" y="0.5" rx="10" fill="#161b22" stroke="#30363d"/>
   <text class="t fade" x="24" y="34">Visible non-fork repository corpus</text>
   <text class="status fade d1" x="396" y="34" text-anchor="end" fill="#e3b341">MEASURED</text>
-  <text class="big fade d1" x="24" y="76">290</text>
+  <text class="big fade d1" x="24" y="76">306</text>
   <text class="ev fade d2" x="93" y="76">repositories</text>
-  <text class="ev fade d2" x="24" y="104">290 non-fork repositories were visible across the personal</text><text class="ev fade d3" x="24" y="120">account and 10 organization memberships returned by the</text><text class="ev fade d4" x="24" y="136">API</text>
+  <text class="ev fade d2" x="24" y="104">306 non-fork repositories were visible across the personal</text><text class="ev fade d3" x="24" y="120">account and 10 organization memberships returned by the</text><text class="ev fade d4" x="24" y="136">API</text>
   <text class="ev fade d4" x="24" y="157">Boundary: not proof of authorship, quality, proficiency, or impact.</text>
 </svg>
