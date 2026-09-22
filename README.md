@@ -1,8 +1,6 @@
-# LAVREA — measured GitHub activity with provenance
+# LAVREA — evidence-bearing achievement intelligence
 
-LAVREA snapshots the GitHub fields visible to a run, derives a small set of
-bounded corpus descriptions, and renders the result as SVG cards. It publishes
-counts and definitions, not percentile rank or engineering-quality claims.
+LAVREA is the durable achievement and distinction layer for **@4444J99**: measure the work, identify what is statistically or externally unusual, preserve provenance, and render the strongest defensible case without allowing later context loss to erase previously established distinctions.
 
 <p align="center">
   <img src="assets/cards/hero.svg" alt="Measured GitHub activity profile" width="800"/>
@@ -17,39 +15,32 @@ counts and definitions, not percentile rank or engineering-quality claims.
   <img src="assets/cards/language_layer_coverage.svg" alt="Mapped language-layer coverage" width="420"/>
 </p>
 
-The generated report is [PROFILE.md](assets/PROFILE.md). The field definitions
-and publication boundary are in [METHODOLOGY.md](METHODOLOGY.md).
+## Why this repository exists
 
-## What the snapshot contains
+This is not merely a GitHub-stat card generator. Its job is to answer:
 
-- GitHub contribution-calendar events and associated API-provided fields;
-- pull requests opened in the trailing contribution collection;
-- non-fork repositories visible across the personal account and returned
-  organization memberships;
-- GitHub-assigned primary-language labels across that visible corpus;
-- the account creation date and organization memberships visible to the token.
+**What is measurably, externally, or demonstrably exceptional about this body of work—and what evidence makes that claim survive scrutiny?**
 
-These observations do not establish individual authorship for organization
-repositories, pull-request review or merge state, code quality, reliability,
-adoption, business impact, or engineering rank.
+Start with the [Achievement Ledger](ACHIEVEMENTS.md). The generated API snapshot remains in [PROFILE.md](assets/PROFILE.md), and field definitions remain in [METHODOLOGY.md](METHODOLOGY.md).
+
+The ledger deliberately distinguishes direct measurements, reproducible derived distinctions, and externally attributed distinctions. That means an old percentile implementation can be withdrawn without rewriting history: a recruiter-originated finding remains a recruiter-originated finding until its original evidence is recovered or contradicted.
+
+## Current measured surface
+
+The latest checked snapshot records **33,587 GitHub contribution events**, **15,671 commits**, **4,191 pull requests opened**, **290 visible non-fork repositories**, **17 primary-language labels**, and **109 Python-primary repositories** in the visible corpus.
+
+These numbers are intentionally named precisely. Contributions are not commits; repository visibility is not authorship; volume is not quality. Precision makes the genuinely unusual signals stronger, not weaker.
 
 ## The arena
 
-An issue titled `arena: your-login` asks CI to compute the same bounded fields
-for another public account and update [LEADERBOARD.md](LEADERBOARD.md). The table
-orders rows by activity count for navigation; it is not a quality ranking.
+An issue titled `arena: your-login` asks CI to compute the same bounded fields for another public account and update [LEADERBOARD.md](LEADERBOARD.md). The table orders rows by activity count for navigation; it is not, by itself, a quality ranking.
 
 ## Run it on yourself
 
 1. Use the repository as a template or fork it.
-2. Enable Actions. The canonical `organvm/laurea` repository tracks `4444J99`;
-   a personal copy defaults to its repository owner. An organization-owned copy
-   must set the repository variable `LAUREA_LOGIN` to the user account it is
-   explicitly authorized to measure.
-3. Optionally add a `LAUREA_TOKEN` secret if the run should include restricted
-   contribution counts and private organization visibility.
-4. Embed a generated card, for example
-   `https://raw.githubusercontent.com/YOU/laurea/main/assets/cards/hero.svg`.
+2. Enable Actions. The canonical `organvm/laurea` repository tracks `4444J99`; a personal copy defaults to its repository owner. An organization-owned copy must set `LAUREA_LOGIN`.
+3. Optionally add a `LAUREA_TOKEN` secret for restricted contribution counts and private organization visibility.
+4. Embed a generated card.
 
 ```bash
 pip install -e '.[test]'
@@ -58,9 +49,7 @@ laurea axes
 python -m pytest tests -q
 ```
 
-LAVREA has zero runtime dependencies. Add an observation with one registered
-function in `src/laurea/detectors.py`; every observation must name its source
-field or deterministic transformation and state its interpretive boundary.
+LAVREA has zero runtime dependencies. Every observation must name its source field or deterministic transformation and state its interpretive boundary.
 
 ## License
 
