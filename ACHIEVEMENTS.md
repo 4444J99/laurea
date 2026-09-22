@@ -36,37 +36,36 @@ These are GitHub API measurements. Contribution events and commits are different
 
 ## Quantitative sanity check
 
-GitHub reported nearly **986 million commits in 2025** and more than **180 million developers** on the platform (GitHub Octoverse 2025).
+GitHub reported **more than 986 million public commits** for its 2025 Octoverse year, **September 1, 2024–August 31, 2025**. That published figure is a reported lower bound for the defined public-activity period, not a known maximum.
 
-This gives a useful hard upper-bound argument. If an account had **35,000 commits in the same one-year measurement window**, no more than 986,000,000 / 35,000 ≈ **28,172 accounts** could possibly have that many commits, even under the maximally conservative assumption that every global commit were allocated only to accounts at or above that threshold. Relative to 180 million GitHub developers, that ceiling is about **0.016% of accounts**.
+A **35,000-commit** account count is directly comparable with that aggregate only if it uses the same period and matching public-commit definition. Even then, the aggregate alone cannot establish an account-rank ceiling because GitHub does not publish the corresponding same-window unique-committer distribution or Python-commit distribution.
 
-That arithmetic does **not** by itself establish “top 1% of people who committed” or “top 1% of Python committers,” because GitHub does not publish the required unique-committer denominator or Python-commit distribution. It does establish that a verified 35,000-commit annual count would be an extreme-volume outlier by platform-scale arithmetic.
+The checked 2026-08-21 snapshot currently records **33,587 contribution events but 15,671 commits**. Therefore the newer “35,000+ commits” figure must be re-measured as commits before LAVREA publishes it as a direct GitHub fact. The recruiter-originated top-1% Python-committer distinction remains separately preserved as an attributed historical finding until its original calculation is recovered or contradicted.
 
-The checked 2026-08-21 snapshot currently records **33,587 contribution events but 15,671 commits**. Therefore the claimed newer “35,000+ commits” figure must be re-measured as commits before it is published as a direct GitHub fact. The distinction matters.
+## Verified public open-source acceptance
 
-## Public open-source acceptance
+Activity volume is not the only signal. Accepted work in independent upstream projects is direct external validation. Three previously identified contributions are now independently inspectable:
 
-Activity volume is not the only signal. Accepted work in independent upstream projects is stronger evidence of external validation. The achievement surface should continuously record merged upstream contributions, including previously identified work in:
+| upstream project | merged contribution | merge evidence | contribution type | upstream decision |
+|---|---|---|---|---|
+| [FastMCP](https://github.com/PrefectHQ/fastmcp) | [PrefectHQ/fastmcp#3662](https://github.com/PrefectHQ/fastmcp/pull/3662), “fix: serialize object query params per OpenAPI style/explode rules” | merged **2026-03-28**, merge SHA `16eb2ffcb04049cb929d1764054675a4db43c4d7` | bug fix + regression tests for OpenAPI object query serialization | **merged upstream** |
+| [Datadog GuardDog](https://github.com/DataDog/guarddog) | [DataDog/guarddog#703](https://github.com/DataDog/guarddog/pull/703), “fix: normalize git URLs in npm_metadata_mismatch to avoid false positives” | merged **2026-06-08**, merge SHA `12e2ca6e88545dcb6314f005714e3ec855445002` | bug fix + regression tests for git-URL normalization | **merged upstream** |
+| [Temporal Python SDK](https://github.com/temporalio/sdk-python) | [temporalio/sdk-python#1385](https://github.com/temporalio/sdk-python/pull/1385), “docs: document OpenTelemetryConfig and PrometheusConfig fields” | merged **2026-04-07**, merge SHA `01359357e3a51083aa82d9f2d7084e9138ed9d1f` | documentation improvement for telemetry configuration | **merged upstream** |
 
-- FastMCP;
-- Datadog GuardDog;
-- Temporal Python SDK.
+These are stronger than self-reported activity counts because each records an independent upstream repository accepting @4444J99-authored work into its project history.
 
-Each entry should eventually carry repository, pull request, merge SHA/date, contribution type, and the external maintainer decision.
+## What this profile proves
 
-## What makes this profile unusual
+The defensible story is not “many green squares.” It is the intersection of independently inspectable signals:
 
-The defensible story is not “many green squares.” It is the intersection of:
+- **33,587 contribution-calendar events and 15,671 commits** in the checked trailing-12-month snapshot;
+- **4,191 pull requests opened** in that same measured surface;
+- a visible corpus spanning **290 non-fork repositories**, **17 primary-language labels**, and **109 Python-primary repositories**;
+- **three verified merged contributions to independent upstream projects** recorded above;
+- visible membership across **10 GitHub organizations** in the checked snapshot;
+- evidence-bearing governance, automation, and repository stewardship across a large public corpus rather than isolated toy repositories.
 
-- unusually high measured GitHub activity;
-- thousands of pull requests in a trailing year;
-- a repository corpus spanning 17 primary-language labels;
-- a Python-heavy corpus (109 repositories with Python as GitHub primary language in the checked snapshot);
-- accepted contributions to independent open-source projects;
-- operation across a multi-organization systems estate;
-- evidence-bearing governance, automation, and repository stewardship rather than isolated toy repositories.
-
-LAVREA should make those distinctions legible, current, and independently inspectable.
+LAVREA should keep making those distinctions legible, current, and independently inspectable.
 
 ## Publication rule
 
