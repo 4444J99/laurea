@@ -1,0 +1,36 @@
+name: distinction-atlas
+
+on:
+  pull_request:
+    paths:
+      - 'evidence/**'
+      - 'DISTINCTIONS.md'
+      - 'scripts/build_distinction_atlas.py'
+      - 'tests/test_distinction_atlas.py'
+      - '.github/workflows/distinction-atlas.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'evidence/**'
+      - 'DISTINCTIONS.md'
+      - 'scripts/build_distinction_atlas.py'
+      - 'tests/test_distinction_atlas.py'
+      - '.github/workflows/distinction-atlas.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  atlas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/build_distinction_atlas.py --check
+      - run: python -m unittest discover -s tests -p 'test_distinction_atlas.py' -v

@@ -18,3 +18,13 @@ Refresh by adding a new dated evidence record with source, scope, queries, and o
 Run `python scripts/verify_achievements.py` and `python -m unittest discover -s tests -p test_achievement_evidence.py -v`. These are offline structural/arithmetic checks, not proof that a network query was rerun. The saved SQL/replay URLs support external remeasurement. Do not alter frozen values merely to make tests pass; a justified update gets a new record and matching tests.
 
 Preserve the existing API renderer, arena, historical snapshots, and one-intention-per-PR workflow. Do not delete history or create a competing achievement repository.
+
+## Whole-practice distinction discovery
+
+Also read `DISTINCTIONS.md`, `evidence/2026-09-22-distinction-atlas.json` and `docs/distinction-method.md`. The atlas extends rather than replaces the measured achievement ledger. It connects claim, evidence, demonstrated capability, audience problem and outcome measure across engineering, language, creative practice, learning and research.
+
+Preserve the whole practice: do not frame Anthony as a teacher transitioning into engineering, or erase artistic and language work to fit a conventional technical profile. Comparative rarity requires a real comparison; qualitative synthesis can remain useful without an invented global rank. A released artwork, an independent credit and an inspected implementation are distinct forms of evidence and should be named accurately.
+
+The builder is offline, not an autonomous discovery agent. Run `python scripts/build_distinction_atlas.py --check` and `python -m unittest discover -s tests -p 'test_distinction_atlas.py' -v` after catalog, renderer or report edits. Regenerate with `python scripts/build_distinction_atlas.py --output DISTINCTIONS.md`. Keep source references and the canonical evidence digest intact; add a dated record for genuinely new observations.
+
+Do not commit private source material to this public repository. Restricted flags in a renderer cannot protect committed data. Public claims must use approved public evidence; unresolved leads remain leads. Discovery should produce useful proof or improved outcomes, not just more flattering adjectives or more repositories.
