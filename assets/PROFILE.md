@@ -2,7 +2,7 @@
 
 *Generated 2026-09-23T00:38:52.716777Z for [@4444J99](https://github.com/4444J99). Counts come from the GitHub API; derived observations name their transformation. No percentile ranking is published because this repository does not carry a validated population distribution.*
 
-*Source implementation: `4444J99/laurea` at `0491e6d6757550a3de04766ef66a2b98f6352cbb`.*
+*Source implementation: `organvm/laurea` at `0491e6d6757550a3de04766ef66a2b98f6352cbb`.*
 
 ## GitHub contribution activity (12 months) — **measured**
 
