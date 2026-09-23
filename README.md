@@ -2,7 +2,11 @@
 
 ## Anthony James Padavano · @4444J99
 
-**AI systems builder with independently accepted work across protocol correctness, security tooling, observability, and developer experience.**
+**AI systems builder and multimedia artist connecting language, executable structure, and human experience.**
+
+**[Explore the Distinction Atlas](DISTINCTIONS.md)** — nine documented areas spanning systems engineering, instruction design, computational representation, literary infrastructure and released music; four problem-fit pathways for applied AI, creative technology, learning and research.
+
+The atlas connects what the work demonstrates to where it can help. Its [source registry](evidence/2026-09-22-distinction-atlas.json) and [method](docs/distinction-method.md) preserve the evidence behind each connection. The achievement ledger below remains the canonical record of the measured activity distinction and accepted upstream work.
 
 | Distinction | Evidence |
 |---|---|
@@ -31,6 +35,19 @@ The distinction is the combination: measurable activity at scale, a Python-cente
 LAVREA discovers, measures, and presents the strongest evidence-backed distinctions in this body of work. The achievement comes first; its scope is visible beside it; the detailed proof is one click away.
 
 Facts live in dated evidence records. Derived rankings retain the actual cohort, SQL, dates, counts, and rounding rule. Historical third-party findings retain their attribution. A failed later reconstruction does not erase an earlier finding, and missing context is not disproof.
+
+### Build audience-specific distinction reports
+
+```bash
+python scripts/build_distinction_atlas.py --check
+python scripts/build_distinction_atlas.py --audience applied-ai
+python scripts/build_distinction_atlas.py --audience creative-technology
+python scripts/build_distinction_atlas.py --audience learning-design
+python scripts/build_distinction_atlas.py --audience research
+python -m unittest discover -s tests -p 'test_distinction_atlas.py' -v
+```
+
+These reports are generated offline from reviewed public evidence. They are not autonomous research runs. Each pathway connects several documented capabilities to a proposed use, a demonstration and an outcome measure.
 
 ### Verify the achievement record
 
