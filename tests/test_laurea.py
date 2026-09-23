@@ -132,6 +132,9 @@ def test_rendered_assets_are_valid_and_wrap_bounded_hero_copy():
             root = ET.fromstring(content)
             assert root.tag.endswith("svg")
     hero = assets["cards/hero.svg"]
+    assert 'width="420"' in hero
+    assert 'height="310"' in hero
+    assert "github.com/organvm/laurea" in hero
     assert "Measured GitHub activity profile" in hero
     assert "organization memberships" in hero
     assert hero.count("<tspan") >= 9

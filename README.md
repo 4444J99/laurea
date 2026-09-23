@@ -65,7 +65,7 @@ The evidence file includes the two SQL queries and HTTP replay URLs for independ
 
 The [generated profile](assets/PROFILE.md) and [metrics](assets/metrics.json) retain the earlier API snapshot. Their dates and visible-repository scope differ from the September 22 ecosystem manifest above; do not mix their counts.
 
-<p align="center"><img src="assets/cards/hero.svg" alt="Earlier dated GitHub API activity snapshot" width="800"/></p>
+<p align="center"><img src="assets/cards/hero.svg" alt="Earlier dated GitHub API activity snapshot" width="420"/></p>
 <p align="center"><img src="assets/cards/contributions_year.svg" alt="Earlier contribution activity" width="420"/><img src="assets/cards/repos_visible.svg" alt="Earlier visible non-fork corpus" width="420"/></p>
 <p align="center"><img src="assets/cards/language_breadth.svg" alt="Earlier primary-language breadth" width="420"/><img src="assets/cards/language_layer_coverage.svg" alt="Earlier mapped language-layer coverage" width="420"/></p>
 
