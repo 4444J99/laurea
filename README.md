@@ -4,37 +4,67 @@
 
 **AI systems builder and multimedia artist connecting language, executable structure, and human experience.**
 
-**[Explore the Distinction Atlas](DISTINCTIONS.md)** — nine documented areas spanning systems engineering, instruction design, computational representation, literary infrastructure and released music; four problem-fit pathways for applied AI, creative technology, learning and research.
+<!-- LAVREA:HIGHLIGHTS:START -->
+## Statistical highlights
 
-The atlas connects what the work demonstrates to where it can help. Its [source registry](evidence/2026-09-22-distinction-atlas.json) and [method](docs/distinction-method.md) preserve the evidence behind each connection. The achievement ledger below remains the canonical record of the measured activity distinction and accepted upstream work.
+Evidence edition: **September 22, 2026**. These are dated findings, not live counters.
 
-| Distinction | Evidence |
+| Dimension | Result | Evidence and scope |
+|---|---|---|
+| Comparative activity | **Top 1% on 3 measured axes** | Push volume **0.029%**, push-active days **0.230%**, PR openings **0.800%**; upper-tail positions in the observed public dataset, October 2025–June 2026. |
+| Annual participation | **35,896 contributions · 318 active days** | Trailing-year contribution-calendar snapshot, September 22, 2026. |
+| External acceptance | **6 accepted contributions across 6 independent upstream projects** | Authored PRs with recorded merge identifiers; the expanded six-project record supersedes the earlier four-project selection. |
+| Released music | **5 releases · 63 tracks · 4:10:51 of audio** | ETCETER4 catalog; sum of displayed durations, including a remix collection. |
+| Narrative corpus | **28 studies · 8 categories · 141 algorithm descriptions** | Repository-reported corpus dimensions; not an independent enumeration or execution of all algorithms. |
+| Correctness repair | **1,501-row minimum restored where 9 rows passed** | Accepted Dagster-project predicate fix, with 1,492 undersized row-count cases reproduced locally. |
+| Technical concentration | **88 Python-primary repositories** | 168 classified non-fork ecosystem repositories; 13 primary-language labels in the dated manifest. |
+
+The push-volume and active-day comparison populations each contain **17,775,327 accounts**; the PR-opening population contains **2,267,625 accounts**. These include automated accounts and observed public events only. The three metrics are related, not independent probabilities; they are not multiplied into a composite rank.
+
+**[Full statistical evidence](STATISTICS.md)** · **[Original achievement ledger](ACHIEVEMENTS.md)** · **[Whole-practice atlas](DISTINCTIONS.md)**
+
+### Accepted work outside the owner ecosystem
+
+| Upstream contribution | Merged |
 |---|---|
-| **Top 0.029% by observed public GitHub push-event volume** | Rank **5,045 of 17,775,327 active accounts**, October 2025–June 2026; a measured comparison, not an estimated distribution. |
-| **35,896 GitHub contribution events · 318 active days** | Trailing-year profile manifest generated **September 22, 2026**. |
-| **Four confirmed upstream merges** | **FastMCP, Datadog GuardDog, Temporal Python SDK, and dbt MCP** accepted distinct contributions. |
-| **Python-centered, cross-stack systems corpus** | **88 Python-primary repositories** among **168 classified original ecosystem repositories**, spanning **13 primary-language labels**, in the September 22 manifest. |
+| [DataDog/guarddog #703](https://github.com/DataDog/guarddog/pull/703) | 2026-06-08 |
+| [dbt-labs/dbt-mcp #669](https://github.com/dbt-labs/dbt-mcp/pull/669) | 2026-03-27 |
+| [jairus-m/dagster-sdlc #22](https://github.com/jairus-m/dagster-sdlc/pull/22) | 2026-03-27 |
+| [PrefectHQ/fastmcp #3662](https://github.com/PrefectHQ/fastmcp/pull/3662) | 2026-03-28 |
+| [primeinc/github-stars #39](https://github.com/primeinc/github-stars/pull/39) | 2026-05-10 |
+| [temporalio/sdk-python #1385](https://github.com/temporalio/sdk-python/pull/1385) | 2026-04-07 |
 
-**[Read the achievement ledger](ACHIEVEMENTS.md)** · **[Inspect the frozen evidence and replayable SQL](evidence/2026-09-22-achievements.json)** · **[Understand the measurement](METHODOLOGY.md)**
+The recruiter-originated **top-1% Python committer** finding remains separately attributed in the achievement ledger. None of these newer comparisons erases or relabels that history.
+<!-- LAVREA:HIGHLIGHTS:END -->
 
-The public-event ranking includes automated accounts and is specific to push frequency in the observed dataset. It is not an authored-commit, Python-only, private-activity, or engineering-quality ranking. The separately recruiter-originated **top-1% Python committer** distinction is retained with its provenance in the ledger.
+## The whole practice
 
-## Beyond activity: accepted work
+[Explore the Distinction Atlas](DISTINCTIONS.md): nine documented areas spanning systems engineering, instruction design, computational representation, literary infrastructure and released music, with audience-specific pathways for applied AI, creative technology, learning and research.
 
-| Project | Contribution |
-|---|---|
-| [FastMCP #3662](https://github.com/PrefectHQ/fastmcp/pull/3662) | Corrected OpenAPI object query serialization, with regression tests. |
-| [GuardDog #703](https://github.com/DataDog/guarddog/pull/703) | Normalized equivalent git URLs to prevent security-scanner false positives. |
-| [Temporal Python SDK #1385](https://github.com/temporalio/sdk-python/pull/1385) | Documented OpenTelemetry and Prometheus configuration behavior. |
-| [dbt MCP #669](https://github.com/dbt-labs/dbt-mcp/pull/669) | Clarified the OAuth authentication experience for developers using team-configured tooling. |
+The atlas is a dated selection. For the expanded statistical and six-project upstream record, use the highlights above and [STATISTICS.md](STATISTICS.md). Its [source registry](evidence/2026-09-22-distinction-atlas.json) and [method](docs/distinction-method.md) preserve the evidence behind its connections. Original four-project findings remain valid historical selections, not a ceiling on subsequent achievements.
 
-The distinction is the combination: measurable activity at scale, a Python-centered systems corpus, and accepted work that improves both machine behavior and the human understanding of that behavior.
+## What happens next
+
+[The measurement roadmap](docs/measurement-roadmap.md) defines the next distinct evidence passes: engineering depth, teaching scale, creative reception, and client outcomes. Each pass has a named measurement, primary inputs, deduplication rules, and an explicit completion test. Unmeasured outcomes are not presented as achievements.
 
 ## What LAVREA does
 
-LAVREA discovers, measures, and presents the strongest evidence-backed distinctions in this body of work. The achievement comes first; its scope is visible beside it; the detailed proof is one click away.
+LAVREA discovers, measures, and presents evidence-backed distinctions in this body of work. The achievement comes first, with its scope beside it and detailed proof one click away.
 
-Facts live in dated evidence records. Derived rankings retain the actual cohort, SQL, dates, counts, and rounding rule. Historical third-party findings retain their attribution. A failed later reconstruction does not erase an earlier finding, and missing context is not disproof.
+Facts live in dated evidence records. Derived comparisons retain their cohort, dates, actual results and calculation. Historical third-party findings retain their attribution. A failed later reconstruction does not erase an earlier finding, and missing context is not disproof.
+
+The front-page statistics are generated from the two pinned evidence records, not copied into another manually maintained table. This prevents a newly documented accomplishment from remaining hidden in an appendix while the public summary keeps advertising an older count.
+
+### Verify and regenerate the front page
+
+```bash
+python scripts/render_highlights.py --check
+python scripts/render_highlights.py
+python -m unittest discover -s tests -p 'test_public_highlights.py' -v
+python scripts/derive_multi_axis_statistics.py
+```
+
+These commands are offline. They verify source pins, regenerate text, and reproduce arithmetic; they do not fetch new evidence or run a scheduled discovery process. Refreshes add reviewed, dated evidence and update the source pins deliberately, without rewriting earlier observations.
 
 ### Build audience-specific distinction reports
 
@@ -47,33 +77,31 @@ python scripts/build_distinction_atlas.py --audience research
 python -m unittest discover -s tests -p 'test_distinction_atlas.py' -v
 ```
 
-These reports are generated offline from reviewed public evidence. They are not autonomous research runs. Each pathway connects several documented capabilities to a proposed use, a demonstration and an outcome measure.
+These reports use the reviewed public evidence in their dated atlas edition. Each pathway connects documented capabilities to a proposed use, demonstration and outcome measure.
 
-### Verify the achievement record
-
-These commands are offline and require only Python's standard library. They validate the saved arithmetic and evidence structure; they do not pretend to refetch the external dataset.
+### Verify the original achievement record
 
 ```bash
 python scripts/verify_achievements.py
 python -m unittest discover -s tests -p test_achievement_evidence.py -v
 ```
 
-The evidence file includes the two SQL queries and HTTP replay URLs for independent remeasurement. Refreshes create new dated records rather than silently rewriting historical results. Automated regression checks also run on relevant pull requests and pushes.
+The evidence file includes the SQL and replay URLs for independent remeasurement. Field definitions and comparison boundaries are in [METHODOLOGY.md](METHODOLOGY.md).
 
 <details>
-<summary>Earlier generated API profile and cards — dated snapshot, separate measurement scope</summary>
+<summary>Generated API profile and cards — separate dated measurement scope</summary>
 
-The [generated profile](assets/PROFILE.md) and [metrics](assets/metrics.json) retain the earlier API snapshot. Their dates and visible-repository scope differ from the September 22 ecosystem manifest above; do not mix their counts.
+The [generated profile](assets/PROFILE.md) and [metrics](assets/metrics.json) contain the API renderer's own timestamp and visible-repository scope. Those differ from the frozen September 22 ecosystem manifest; do not mix the counts or label the frozen findings as freshly measured.
 
-<p align="center"><img src="assets/cards/hero.svg" alt="Earlier dated GitHub API activity snapshot" width="800"/></p>
-<p align="center"><img src="assets/cards/contributions_year.svg" alt="Earlier contribution activity" width="420"/><img src="assets/cards/repos_visible.svg" alt="Earlier visible non-fork corpus" width="420"/></p>
-<p align="center"><img src="assets/cards/language_breadth.svg" alt="Earlier primary-language breadth" width="420"/><img src="assets/cards/language_layer_coverage.svg" alt="Earlier mapped language-layer coverage" width="420"/></p>
+<p align="center"><img src="assets/cards/hero.svg" alt="Dated GitHub API activity snapshot" width="800"/></p>
+<p align="center"><img src="assets/cards/contributions_year.svg" alt="Contribution activity" width="420"/><img src="assets/cards/repos_visible.svg" alt="Visible non-fork corpus" width="420"/></p>
+<p align="center"><img src="assets/cards/language_breadth.svg" alt="Primary-language breadth" width="420"/><img src="assets/cards/language_layer_coverage.svg" alt="Mapped language-layer coverage" width="420"/></p>
 
 </details>
 
 ## The arena
 
-An issue titled `arena: your-login` asks CI to compute the same bounded API fields for another public account and update [LEADERBOARD.md](LEADERBOARD.md). Ordering that table by activity is not a quality ranking or the population comparison reported above.
+An issue titled `arena: your-login` asks CI to compute the bounded API fields for another public account and update [LEADERBOARD.md](LEADERBOARD.md). Ordering that table by activity is not a quality ranking or the population comparison reported above.
 
 ## Run it on yourself
 
@@ -86,7 +114,7 @@ laurea axes
 python -m pytest tests -q
 ```
 
-LAVREA has zero runtime dependencies. The frozen Anthony-specific achievement record remains explicitly identified; running API cards for a different account does not transfer these distinctions to that account.
+LAVREA has zero runtime dependencies. The frozen Anthony-specific records and this showcase remain subject-specific; running API cards for a different account does not transfer these distinctions to that account.
 
 ## License
 

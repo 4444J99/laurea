@@ -1,0 +1,39 @@
+name: public-highlights
+
+on:
+  pull_request:
+    paths:
+      - 'README.md'
+      - 'evidence/**'
+      - 'scripts/render_highlights.py'
+      - 'scripts/derive_multi_axis_statistics.py'
+      - 'tests/test_public_highlights.py'
+      - '.github/workflows/public-highlights.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'README.md'
+      - 'evidence/**'
+      - 'scripts/render_highlights.py'
+      - 'scripts/derive_multi_axis_statistics.py'
+      - 'tests/test_public_highlights.py'
+      - '.github/workflows/public-highlights.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-highlights:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/render_highlights.py --check
+      - run: python scripts/derive_multi_axis_statistics.py
+      - run: python -m unittest discover -s tests -p 'test_public_highlights.py' -v
