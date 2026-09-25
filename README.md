@@ -37,6 +37,20 @@ The push-volume and active-day comparison populations each contain **17,775,327 
 The recruiter-originated **top-1% Python committer** finding remains separately attributed in the achievement ledger. None of these newer comparisons erases or relabels that history.
 <!-- LAVREA:HIGHLIGHTS:END -->
 
+<!-- LAVREA:SOURCE-CENSUS:START -->
+## Source-verified depth — September 24, 2026
+
+**184 canonical AI skills, all passing native structural validation.** The inventory excludes 692 SKILL.md paths outside the canonical roots; it does not count generated copies as additional skills.
+
+**28 studies · 141 algorithm records · 135 axioms · 246 diagnostic questions.** All 141 algorithm records contain the five required descriptive fields. These quantities were enumerated from the pinned source, upgrading the earlier README-reported counts.
+
+**Narrative core/CLI/API tests: 324 passed, 2 skipped.** Local execution, separately scoped from record completeness; the skipped optional-provider tests and environment are disclosed in the report.
+
+**[Source census and execution evidence](SOURCE_CENSUS.md)** · **[Audience stat blocks](docs/stat-blocks/engineering.md)**
+
+This new edition complements the dated September 22 findings; it does not relabel activity as commits, corpus completeness as efficacy, or maintained third-party material as sole authorship.
+<!-- LAVREA:SOURCE-CENSUS:END -->
+
 ## The whole practice
 
 [Explore the Distinction Atlas](DISTINCTIONS.md): nine documented areas spanning systems engineering, instruction design, computational representation, literary infrastructure and released music, with audience-specific pathways for applied AI, creative technology, learning and research.
