@@ -33,6 +33,12 @@ class CensusTests(unittest.TestCase):
     def test_duplicate_algorithm_flagged(self):
         d={'studies':{'a':{'algorithms':[{'id':'x'},{'id':'x'}]}}}
         self.assertEqual(c.narrative_census(json.dumps(d).encode())['duplicate_study_algorithm_ids'],['a:x'])
+    def test_real_core_algorithms_schema(self):
+        d={'studies':{'x':{'core_algorithms':[{'name':'a','purpose':'p','pseudocode':'p','inputs':['a'],'outputs':['b']}],'diagnostic_questions':['why']}}}
+        r=c.narrative_census(json.dumps(d).encode())
+        self.assertEqual(r['algorithm_records'],1); self.assertEqual(r['complete_algorithm_contracts'],1); self.assertEqual(r['diagnostic_questions'],1)
+    def test_unknown_algorithm_schema_rejected(self):
+        with self.assertRaises(ValueError): c.narrative_census(json.dumps({'studies':{'x':{}}}).encode())
     def test_metadata_not_used_as_measured_count(self):
         d={'meta':{'study_count':999},'studies':{}}
         self.assertEqual(c.narrative_census(json.dumps(d).encode())['enumerated_studies'],0)

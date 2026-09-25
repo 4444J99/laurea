@@ -132,7 +132,13 @@ def narrative_census(raw: bytes) -> dict:
     inventory, identities, axiom_ids = [], [], []
     fields = Counter()
     for key, study in sorted(studies.items()):
-        algorithms = sequence(study.get('algorithms'))
+        if 'core_algorithms' in study:
+            algorithm_field = 'core_algorithms'
+        elif 'algorithms' in study:
+            algorithm_field = 'algorithms'
+        else:
+            raise ValueError(f'Missing algorithm collection in study {key}')
+        algorithms = sequence(study[algorithm_field])
         axioms = sequence(study.get('axioms'))
         entries = []
         for i, a in enumerate(algorithms):
@@ -145,7 +151,8 @@ def narrative_census(raw: bytes) -> dict:
         axiom_ids.extend(f'{key}:{a.get("id", i)}' for i,a in enumerate(axioms))
         inventory.append({'id':key, 'declared_id':study.get('id'), 'category':study.get('category'),
                           'algorithms':entries, 'axiom_count':len(axioms),
-                          'study_fields':sorted(study)})
+                          'study_fields':sorted(study), 'algorithm_field':algorithm_field,
+                          'diagnostic_questions':len(sequence(study.get('diagnostic_questions')))})
     duplicates = [k for k,v in Counter(identities).items() if v>1]
     return {'source_blob_sha':blob_sha(raw), 'source_sha256':hashlib.sha256(raw).hexdigest(),
             'metadata_study_count':data.get('meta',{}).get('study_count'), 'enumerated_studies':len(inventory),
@@ -153,7 +160,11 @@ def narrative_census(raw: bytes) -> dict:
             'algorithm_records':len(identities), 'unique_study_algorithm_ids':len(set(identities)),
             'duplicate_study_algorithm_ids':duplicates, 'axiom_records':len(axiom_ids),
             'unique_study_axiom_ids':len(set(axiom_ids)),
-            'algorithm_field_presence':dict(fields), 'inventory':inventory,
+            'algorithm_field_presence':dict(fields),
+            'complete_algorithm_contracts':sum(all(k in a['fields'] for k in ('name','purpose','pseudocode','inputs','outputs')) for s in inventory for a in s['algorithms']),
+            'diagnostic_questions':sum(s['diagnostic_questions'] for s in inventory),
+            'cross_reference_sequences':len(sequence(data.get('cross_references',{}).get('sequences'))),
+            'inventory':inventory,
             'boundary':'Counts formalized source records, not peer-reviewed papers or independently executed algorithms.'}
 
 
@@ -199,6 +210,7 @@ def main() -> int:
                 raise ValueError('Invalid source commit')
             url = f'https://codeload.github.com/{canonical}/tar.gz/{commit}'
             archive = get(url); files = unpack(archive)
+            (args.output/f'{key}-source.tar.gz').write_bytes(archive)
             project = {'repository':canonical,'repository_id':info['id'],'commit':commit,
                        'archive_sha256':hashlib.sha256(archive).hexdigest(),'file_count':len(files),
                        'source_url':url,'python':python_inventory(files)}

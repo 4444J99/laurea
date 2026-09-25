@@ -20,11 +20,15 @@ jobs:
         run: python -m unittest discover -s tests -p test_source_census.py -v
       - name: Public source enumeration
         run: python scripts/source_census.py --output census-output
+      - name: Validate canonical skill structures
+        run: |
+          set -o pipefail
+          python census-output/skills-source/scripts/validate_skills.py --unique | tee census-output/skills-validator.log
       - name: Package this exact collector and existing verification sources
         if: always()
         run: |
           mkdir -p census-output/collector-source
-          cp -r scripts tests src evidence pyproject.toml census-output/collector-source/
+          cp -r .github scripts tests src evidence docs pyproject.toml census-output/collector-source/
           cp README.md DISTINCTIONS.md STATISTICS.md census-output/collector-source/
           git rev-parse HEAD > census-output/checkout-sha.txt
       - uses: actions/upload-artifact@v4
@@ -32,5 +36,6 @@ jobs:
         with:
           name: source-census-${{ github.run_id }}
           path: census-output/
+          include-hidden-files: true
           retention-days: 30
           if-no-files-found: error
