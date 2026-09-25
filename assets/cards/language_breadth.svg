@@ -20,6 +20,6 @@
   <text class="status fade d1" x="396" y="34" text-anchor="end" fill="#8b949e">DERIVED</text>
   <text class="big fade d1" x="24" y="76">16</text>
   <text class="ev fade d2" x="72" y="76">primary-language labels</text>
-  <text class="ev fade d2" x="24" y="104">GitHub assigns 16 distinct primary-language labels across</text><text class="ev fade d3" x="24" y="120">the visible non-fork corpus — led by Python (119),</text><text class="ev fade d4" x="24" y="136">TypeScript (59), HTML (24), JavaScript (22), Shell (14)</text>
+  <text class="ev fade d2" x="24" y="104">GitHub assigns 16 distinct primary-language labels across</text><text class="ev fade d3" x="24" y="120">the visible non-fork corpus — led by Python (120),</text><text class="ev fade d4" x="24" y="136">TypeScript (58), HTML (24), JavaScript (22), Shell (14)</text>
   <text class="ev fade d4" x="24" y="157">Boundary: not proof of authorship, quality, proficiency, or impact.</text>
 </svg>
