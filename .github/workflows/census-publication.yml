@@ -1,0 +1,39 @@
+name: census-publication
+on:
+  pull_request:
+    paths:
+      - 'evidence/2026-09-24-source-census.json'
+      - 'evidence/source-census-2026-09-24/**'
+      - 'SOURCE_CENSUS.md'
+      - 'README.md'
+      - 'docs/stat-blocks/**'
+      - 'scripts/render_source_census.py'
+      - 'tests/test_census_publication.py'
+      - '.github/workflows/census-publication.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'evidence/2026-09-24-source-census.json'
+      - 'evidence/source-census-2026-09-24/**'
+      - 'SOURCE_CENSUS.md'
+      - 'README.md'
+      - 'docs/stat-blocks/**'
+      - 'scripts/render_source_census.py'
+      - 'tests/test_census_publication.py'
+      - '.github/workflows/census-publication.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/render_source_census.py --check
+      - run: python -m unittest discover -s tests -p test_census_publication.py -v

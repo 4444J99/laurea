@@ -1,14 +1,14 @@
 {
   "schema_version": "laurea.report.v2",
   "login": "4444J99",
-  "generated_at": "2026-08-21T13:36:17.634675Z",
-  "source_repository": "organvm/laurea",
-  "source_sha": "7fb9c15ef253bc14459519d090447b653750d46d",
+  "generated_at": "2026-09-25T14:35:50.674794Z",
+  "source_repository": "4444J99/laurea",
+  "source_sha": "fba3af5e17566e1873a724e6ea47fdda8315cefc",
   "snapshot": {
     "login": "4444J99",
     "name": "Anthony James Padavano",
     "created_at": "2016-12-27T17:24:06Z",
-    "followers": 39,
+    "followers": 43,
     "orgs": [
       "organvm-i-theoria",
       "organvm-ii-poiesis",
@@ -23,13 +23,213 @@
     ],
     "repos": [
       {
+        "name": "radix-recursiva-solve-coagula-redi",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T06:24:15Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "collective-persona-operations",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 1,
+        "pushedAt": "2026-09-24T12:53:32Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "render-second-amendment",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-17T09:09:01Z",
+        "primaryLanguage": {
+          "name": "G-code"
+        }
+      },
+      {
+        "name": "reverse-engine-recursive-run",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 2,
+        "pushedAt": "2026-09-23T05:08:58Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "auto-revision-epistemic-engine",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-24T13:22:03Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "cognitive-archaelogy-tribunal",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-04T16:05:26Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "gamified-coach-interface",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T12:38:30Z",
+        "primaryLanguage": {
+          "name": "HTML"
+        }
+      },
+      {
+        "name": "virgil-training-overlay",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-07-19T06:34:37Z",
+        "primaryLanguage": {
+          "name": "Swift"
+        }
+      },
+      {
+        "name": "client-sdk",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-11T01:46:57Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "audio-synthesis-bridge",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-24T13:23:44Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "metasystem-master",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T02:23:07Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "domus-genoma",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T14:04:59Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
         "name": "mirror-mirror",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-07-30T03:20:57Z",
+        "pushedAt": "2026-08-26T12:05:12Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        }
+      },
+      {
+        "name": "the-invisible-ledger",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 1,
+        "pushedAt": "2026-08-26T12:05:11Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "my-knowledge-base",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 1,
+        "pushedAt": "2026-09-25T01:39:52Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "my--father-mother",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 1,
+        "pushedAt": "2026-08-09T10:55:53Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "universal-mail--automation",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 1,
+        "pushedAt": "2026-09-17T02:22:00Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "linguistic-atomization-framework",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 2,
+        "pushedAt": "2026-09-23T07:23:47Z",
+        "primaryLanguage": {
+          "name": "HTML"
+        }
+      },
+      {
+        "name": "organon-noumenon--ontogenetic-morphe",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 1,
+        "pushedAt": "2026-09-24T12:53:38Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "sema-metra--alchemica-mundi",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 1,
+        "pushedAt": "2026-09-23T07:20:26Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "recursive-engine--generative-entity",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 1,
+        "pushedAt": "2026-09-23T06:19:34Z",
+        "primaryLanguage": {
+          "name": "Python"
         }
       },
       {
@@ -37,9 +237,69 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-08-12T05:07:01Z",
+        "pushedAt": "2026-09-23T05:18:22Z",
         "primaryLanguage": {
           "name": "JavaScript"
+        }
+      },
+      {
+        "name": "organvm-profile-readme",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-08-26T12:06:46Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "learning-resources",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-16T14:58:35Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "salon-archive",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-08-29T03:07:42Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "announcement-templates",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T06:17:58Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "social-automation",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T05:13:56Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "organvm-corpvs-testamentvm",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T14:09:51Z",
+        "primaryLanguage": {
+          "name": "Python"
         }
       },
       {
@@ -47,9 +307,129 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-14T09:16:12Z",
+        "pushedAt": "2026-09-25T12:38:20Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        }
+      },
+      {
+        "name": "scalable-lore-expert",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T06:30:36Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "adaptive-personal-syllabus",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 3,
+        "pushedAt": "2026-09-24T13:54:48Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "alchemia-ingestvm",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T07:31:40Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "alchemical-synthesizer",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-16T07:09:32Z",
+        "primaryLanguage": {
+          "name": "SuperCollider"
+        }
+      },
+      {
+        "name": "essay-pipeline",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T06:19:22Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "analytics-engine",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T05:14:45Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "editorial-standards",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-24T15:58:45Z",
+        "primaryLanguage": {
+          "name": "Shell"
+        }
+      },
+      {
+        "name": "reading-observatory",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T22:52:41Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "koinonia-db",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T22:59:22Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "organvm-engine",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T10:56:15Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "system-dashboard",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-01T20:48:54Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "kerygma-pipeline",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-08-09T11:12:49Z",
+        "primaryLanguage": {
+          "name": "Python"
         }
       },
       {
@@ -57,9 +437,49 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-19T16:55:49Z",
+        "pushedAt": "2026-09-25T03:24:51Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        }
+      },
+      {
+        "name": "application-pipeline",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T01:31:37Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "organvm-mcp-server",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T06:20:59Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "kerygma-profiles",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-07-24T17:04:30Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "tool-interaction-design",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-22T22:35:21Z",
+        "primaryLanguage": {
+          "name": "Python"
         }
       },
       {
@@ -67,7 +487,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-24T06:44:05Z",
+        "pushedAt": "2026-09-23T15:13:57Z",
         "primaryLanguage": null
       },
       {
@@ -75,15 +495,27 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-30T15:37:11Z",
-        "primaryLanguage": null
+        "pushedAt": "2026-09-23T21:20:55Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "organvm-ontologia",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-08-26T12:05:10Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
       },
       {
         "name": "padavano",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-15T13:32:49Z",
+        "pushedAt": "2026-09-17T01:15:25Z",
         "primaryLanguage": {
           "name": "HTML"
         }
@@ -93,19 +525,459 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:00:30Z",
+        "pushedAt": "2026-09-18T18:46:41Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
       },
       {
-        "name": "sovereign-systems--elevate-align",
+        "name": "vox--architectura-gubernatio",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-21T02:14:22Z",
+        "pushedAt": "2026-09-17T14:26:40Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "spira-salvtis-operatio",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-18T03:03:32Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        }
+      },
+      {
+        "name": "a-organvm",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-08-28T21:44:04Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "system-system--system",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-08-26T12:05:11Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "sovereign--ground--4444j99",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T17:57:20Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "custodia-securitatis",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-06-22T14:55:28Z",
+        "primaryLanguage": null
+      },
+      {
+        "name": "hokage-chess--4444j99",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-24T12:55:43Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "organvm-scrutator",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-24T13:19:24Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "brainstorm-20260423",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-07-18T23:49:25Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "sovereign--ground",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T07:18:16Z",
+        "primaryLanguage": {
+          "name": "HTML"
+        }
+      },
+      {
+        "name": "persona-fleet",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T05:19:55Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "digital-income-organism-inquiry",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-07-18T23:48:31Z",
+        "primaryLanguage": {
+          "name": "Shell"
+        }
+      },
+      {
+        "name": "composition-1-2",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-07-10T00:24:07Z",
+        "primaryLanguage": {
+          "name": "HTML"
+        }
+      },
+      {
+        "name": "_agent-health",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T04:22:13Z",
+        "primaryLanguage": {
+          "name": "Shell"
+        }
+      },
+      {
+        "name": "_agent",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-17T12:47:44Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "_tui",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-05-19T16:03:18Z",
+        "primaryLanguage": null
+      },
+      {
+        "name": "system-system--system--monad",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-24T12:23:53Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "generative-abstract-environments-studies",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-06-22T16:23:16Z",
+        "primaryLanguage": {
+          "name": "HTML"
+        }
+      },
+      {
+        "name": "_dot-config",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-05-23T05:39:32Z",
+        "primaryLanguage": {
+          "name": "Shell"
+        }
+      },
+      {
+        "name": "glyph-cascade-tapes",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T12:38:27Z",
+        "primaryLanguage": {
+          "name": "JavaScript"
+        }
+      },
+      {
+        "name": "personal",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-07-02T00:25:57Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "session-meta",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T03:16:22Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "speculum-opencode",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-06-24T04:17:13Z",
+        "primaryLanguage": {
+          "name": "Cypher"
+        }
+      },
+      {
+        "name": "md-summoning",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-24T14:12:37Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "doc",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-06-12T12:35:43Z",
+        "primaryLanguage": null
+      },
+      {
+        "name": "prompt-registry-archive",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-08-30T13:08:13Z",
+        "primaryLanguage": null
+      },
+      {
+        "name": "bound",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-17T12:47:52Z",
+        "primaryLanguage": {
+          "name": "JavaScript"
+        }
+      },
+      {
+        "name": "opencode-plans",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-05-27T13:40:16Z",
+        "primaryLanguage": null
+      },
+      {
+        "name": "_diagnostics",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-08-31T18:07:20Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "_limen",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-06-12T13:58:44Z",
+        "primaryLanguage": {
+          "name": "Shell"
+        }
+      },
+      {
+        "name": "payrail",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-07-06T18:59:05Z",
+        "primaryLanguage": {
+          "name": "JavaScript"
+        }
+      },
+      {
+        "name": "claude-runtime-state",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-07-24T14:47:57Z",
+        "primaryLanguage": {
+          "name": "HTML"
+        }
+      },
+      {
+        "name": "limen",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T14:13:46Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "homebrew-limen",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-05-31T16:28:10Z",
+        "primaryLanguage": {
+          "name": "Ruby"
+        }
+      },
+      {
+        "name": "portvs",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T03:46:35Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "relationship-pipeline",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-17T12:47:36Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "euro-trip-2026",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-06-04T11:30:28Z",
+        "primaryLanguage": {
+          "name": "HTML"
+        }
+      },
+      {
+        "name": "ops",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T14:15:11Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "ops-witness",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T12:38:24Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "media-ark",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-08-26T12:06:58Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "process-environment-enactment-20260609173021",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-08-29T22:54:42Z",
+        "primaryLanguage": {
+          "name": "C"
+        }
+      },
+      {
+        "name": "process-environment-enactment-public-20260609173432",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-06-24T01:19:18Z",
+        "primaryLanguage": {
+          "name": "C"
+        }
+      },
+      {
+        "name": "session-stone-sanitized-019ea761-bff5-7841-b772-f2d85475092e-20260609175059",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-06-22T17:17:52Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "knowledge-corpus",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-24T18:27:36Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "edu-organism",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-08-26T12:05:10Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "domus",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-08-29T23:14:16Z",
+        "primaryLanguage": {
+          "name": "Python"
         }
       },
       {
@@ -113,7 +985,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-06-29T10:41:22Z",
+        "pushedAt": "2026-08-26T12:05:11Z",
         "primaryLanguage": {
           "name": "GDScript"
         }
@@ -129,22 +1001,138 @@
         }
       },
       {
+        "name": "browser-state",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-06-25T19:42:49Z",
+        "primaryLanguage": {
+          "name": "HTML"
+        }
+      },
+      {
+        "name": "netmode",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-24T16:44:44Z",
+        "primaryLanguage": {
+          "name": "Shell"
+        }
+      },
+      {
+        "name": "quaestor",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-24T13:48:50Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "collaboratory",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T09:24:05Z",
+        "primaryLanguage": {
+          "name": "HTML"
+        }
+      },
+      {
+        "name": "laurea",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T02:42:00Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
         "name": "4444J99",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-21T07:09:16Z",
+        "pushedAt": "2026-09-25T11:54:20Z",
         "primaryLanguage": null
+      },
+      {
+        "name": "arca",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-07-30T05:00:31Z",
+        "primaryLanguage": null
+      },
+      {
+        "name": "daily-engine",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-23T01:07:11Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "manumissio",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-07-15T23:56:19Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "in-my-head",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-08-27T17:46:10Z",
+        "primaryLanguage": {
+          "name": "JavaScript"
+        }
+      },
+      {
+        "name": "hospes-operations-private",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T04:33:54Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
       },
       {
         "name": "victoroff-os",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-17T21:58:44Z",
+        "pushedAt": "2026-09-25T14:09:50Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
+      },
+      {
+        "name": "the-thing-without-a-name-screendance",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-03T15:54:24Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "arca-g2",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-08-12T17:50:47Z",
+        "primaryLanguage": null
       },
       {
         "name": "engagement-record",
@@ -161,7 +1149,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-15T19:25:41Z",
+        "pushedAt": "2026-09-25T00:11:59Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
@@ -181,9 +1169,177 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-15T19:25:45Z",
+        "pushedAt": "2026-09-24T08:13:38Z",
         "primaryLanguage": {
           "name": "JavaScript"
+        }
+      },
+      {
+        "name": "arca-g3",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T13:00:52Z",
+        "primaryLanguage": null
+      },
+      {
+        "name": "the-thing-without-a-name",
+        "isFork": false,
+        "isArchived": true,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-01T01:36:41Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "process-environment-enactment",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-08-30T23:28:17Z",
+        "primaryLanguage": {
+          "name": "C"
+        }
+      },
+      {
+        "name": "organvm-ci-relay",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T03:29:10Z",
+        "primaryLanguage": {
+          "name": "JavaScript"
+        }
+      },
+      {
+        "name": "hospes",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-22T15:20:00Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "simvltanea",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-22T13:29:18Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "estate-vault",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-16T19:38:19Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
+        "name": "styx-public",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T01:05:49Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "spira-salvtis-template",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-24T01:24:44Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "prds-core",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-24T12:53:39Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "prds-engine",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T02:41:41Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "prds-ops",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T03:32:24Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "prds-commerce",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T02:24:00Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "prds-marketing",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T12:59:24Z",
+        "primaryLanguage": {
+          "name": "Astro"
+        }
+      },
+      {
+        "name": "prds-admin",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T04:23:32Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "prds-intel",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-22T09:27:26Z",
+        "primaryLanguage": {
+          "name": "TypeScript"
+        }
+      },
+      {
+        "name": "clavis",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-09-25T03:31:45Z",
+        "primaryLanguage": {
+          "name": "Python"
         }
       },
       {
@@ -191,7 +1347,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-08-07T02:25:15Z",
+        "pushedAt": "2026-09-24T14:30:02Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -201,7 +1357,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-08T01:18:34Z",
+        "pushedAt": "2026-09-25T02:22:29Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -211,7 +1367,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T06:18:26Z",
+        "pushedAt": "2026-09-24T15:28:04Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -221,7 +1377,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:10:59Z",
+        "pushedAt": "2026-09-24T15:35:48Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -231,7 +1387,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-30T16:54:18Z",
+        "pushedAt": "2026-08-29T03:07:29Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -251,7 +1407,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-06-22T20:22:46Z",
+        "pushedAt": "2026-09-25T04:20:40Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -261,7 +1417,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-14T21:14:52Z",
+        "pushedAt": "2026-09-24T14:19:24Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -271,7 +1427,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T10:51:12Z",
+        "pushedAt": "2026-09-23T01:22:48Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -289,7 +1445,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-15T13:13:07Z",
+        "pushedAt": "2026-08-29T13:13:18Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -299,7 +1455,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-05-23T05:41:24Z",
+        "pushedAt": "2026-08-31T23:30:38Z",
         "primaryLanguage": null
       },
       {
@@ -307,7 +1463,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 2,
-        "pushedAt": "2026-08-21T04:15:08Z",
+        "pushedAt": "2026-09-18T04:13:18Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
@@ -317,7 +1473,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:11:22Z",
+        "pushedAt": "2026-09-23T06:19:56Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
@@ -327,7 +1483,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-07-19T07:59:04Z",
+        "pushedAt": "2026-09-23T01:24:32Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
@@ -337,7 +1493,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-23T16:04:54Z",
+        "pushedAt": "2026-09-23T01:20:08Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -347,7 +1503,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-19T08:02:03Z",
+        "pushedAt": "2026-09-23T01:32:21Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -357,7 +1513,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 3,
-        "pushedAt": "2026-08-20T19:44:35Z",
+        "pushedAt": "2026-09-24T19:45:35Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -376,8 +1532,8 @@
         "name": "example-interactive-installation",
         "isFork": false,
         "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-23T00:53:52Z",
+        "stargazerCount": 1,
+        "pushedAt": "2026-09-23T06:20:46Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -387,7 +1543,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-23T21:43:48Z",
+        "pushedAt": "2026-09-23T01:39:57Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -407,7 +1563,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-23T18:54:10Z",
+        "pushedAt": "2026-09-23T06:42:41Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -417,7 +1573,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-20T03:19:07Z",
+        "pushedAt": "2026-09-24T16:12:19Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -427,7 +1583,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:13:08Z",
+        "pushedAt": "2026-08-26T12:05:07Z",
         "primaryLanguage": {
           "name": "HTML"
         }
@@ -487,7 +1643,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-20T12:48:37Z",
+        "pushedAt": "2026-09-24T12:48:58Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
@@ -496,8 +1652,8 @@
         "name": "public-record-data-scrapper",
         "isFork": false,
         "isArchived": false,
-        "stargazerCount": 7,
-        "pushedAt": "2026-08-17T02:20:56Z",
+        "stargazerCount": 1,
+        "pushedAt": "2026-09-23T22:11:11Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -507,7 +1663,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-20T01:19:31Z",
+        "pushedAt": "2026-09-22T03:53:08Z",
         "primaryLanguage": {
           "name": "Kotlin"
         }
@@ -517,7 +1673,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-08-20T19:58:55Z",
+        "pushedAt": "2026-09-24T19:58:52Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -526,8 +1682,8 @@
         "name": "tab-bookmark-manager",
         "isFork": false,
         "isArchived": false,
-        "stargazerCount": 1,
-        "pushedAt": "2026-08-21T06:56:02Z",
+        "stargazerCount": 2,
+        "pushedAt": "2026-09-25T06:54:16Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
@@ -537,7 +1693,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-14T20:14:22Z",
+        "pushedAt": "2026-09-24T17:35:32Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
@@ -547,7 +1703,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-16T13:05:09Z",
+        "pushedAt": "2026-09-23T03:23:36Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -557,7 +1713,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-21T04:54:16Z",
+        "pushedAt": "2026-09-25T04:57:30Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -567,7 +1723,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-08-20T14:10:02Z",
+        "pushedAt": "2026-09-17T14:09:31Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -577,7 +1733,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-14T22:55:37Z",
+        "pushedAt": "2026-09-18T22:54:52Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -587,7 +1743,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-20T07:58:37Z",
+        "pushedAt": "2026-09-23T03:23:28Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -597,7 +1753,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-08-09T11:11:28Z",
+        "pushedAt": "2026-08-27T17:46:02Z",
         "primaryLanguage": {
           "name": "Shell"
         }
@@ -607,7 +1763,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-08-14T10:46:39Z",
+        "pushedAt": "2026-09-24T01:24:04Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -617,7 +1773,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-08-16T22:53:32Z",
+        "pushedAt": "2026-09-25T00:15:54Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -626,8 +1782,8 @@
         "name": "agentic-titan",
         "isFork": false,
         "isArchived": false,
-        "stargazerCount": 6,
-        "pushedAt": "2026-08-10T23:48:15Z",
+        "stargazerCount": 5,
+        "pushedAt": "2026-09-23T16:26:52Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -647,7 +1803,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-08-13T02:37:38Z",
+        "pushedAt": "2026-09-24T02:35:57Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -657,7 +1813,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-08-08T21:34:23Z",
+        "pushedAt": "2026-08-29T03:13:34Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -667,7 +1823,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:28:35Z",
+        "pushedAt": "2026-09-24T06:20:32Z",
         "primaryLanguage": null
       },
       {
@@ -675,7 +1831,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-20T16:41:08Z",
+        "pushedAt": "2026-09-13T13:10:13Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -695,7 +1851,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-14T08:36:07Z",
+        "pushedAt": "2026-09-13T13:10:10Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -705,7 +1861,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:16:37Z",
+        "pushedAt": "2026-09-23T21:39:23Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -725,7 +1881,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-11T17:41:01Z",
+        "pushedAt": "2026-09-13T20:31:45Z",
         "primaryLanguage": {
           "name": "Shell"
         }
@@ -735,7 +1891,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-14T02:26:28Z",
+        "pushedAt": "2026-08-28T02:25:14Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -745,7 +1901,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:20:00Z",
+        "pushedAt": "2026-09-25T04:20:27Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -755,7 +1911,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:17:16Z",
+        "pushedAt": "2026-09-18T05:17:00Z",
         "primaryLanguage": {
           "name": "MDX"
         }
@@ -765,7 +1921,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-14T19:34:36Z",
+        "pushedAt": "2026-09-11T19:34:33Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -775,7 +1931,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:28:47Z",
+        "pushedAt": "2026-09-25T14:28:32Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
@@ -785,7 +1941,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-14T18:54:20Z",
+        "pushedAt": "2026-09-11T18:54:37Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -805,7 +1961,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:18:29Z",
+        "pushedAt": "2026-09-13T05:59:32Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -835,7 +1991,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-05T09:07:49Z",
+        "pushedAt": "2026-09-23T01:21:54Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -845,7 +2001,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-18T23:50:26Z",
+        "pushedAt": "2026-08-26T18:26:38Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -855,9 +2011,9 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-02T00:11:30Z",
+        "pushedAt": "2026-09-10T01:57:53Z",
         "primaryLanguage": {
-          "name": "TypeScript"
+          "name": "HTML"
         }
       },
       {
@@ -865,7 +2021,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-07T04:09:27Z",
+        "pushedAt": "2026-09-25T14:07:21Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -875,7 +2031,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-02T07:23:03Z",
+        "pushedAt": "2026-09-23T01:24:27Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -895,7 +2051,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-12T05:54:03Z",
+        "pushedAt": "2026-09-23T17:25:59Z",
         "primaryLanguage": {
           "name": "HTML"
         }
@@ -905,7 +2061,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-10T15:36:43Z",
+        "pushedAt": "2026-09-07T15:35:26Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -915,7 +2071,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-14T03:44:12Z",
+        "pushedAt": "2026-09-18T03:44:14Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
@@ -945,7 +2101,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-03T15:21:41Z",
+        "pushedAt": "2026-08-27T17:46:03Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
@@ -955,7 +2111,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-09T11:46:08Z",
+        "pushedAt": "2026-08-31T23:30:36Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -965,7 +2121,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-18T23:49:20Z",
+        "pushedAt": "2026-08-27T17:46:06Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -975,7 +2131,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-21T23:37:49Z",
+        "pushedAt": "2026-08-31T23:30:41Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -985,7 +2141,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-21T12:33:48Z",
+        "pushedAt": "2026-09-20T19:49:02Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -995,7 +2151,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-21T12:24:08Z",
+        "pushedAt": "2026-09-22T17:46:39Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -1005,7 +2161,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-08-15T22:24:36Z",
+        "pushedAt": "2026-09-19T22:22:48Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -1015,7 +2171,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-08-20T00:47:37Z",
+        "pushedAt": "2026-09-24T00:48:51Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -1034,8 +2190,8 @@
         "name": "a-i--skills",
         "isFork": false,
         "isArchived": false,
-        "stargazerCount": 15,
-        "pushedAt": "2026-08-09T01:33:33Z",
+        "stargazerCount": 17,
+        "pushedAt": "2026-08-27T12:25:47Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -1045,7 +2201,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 3,
-        "pushedAt": "2026-07-29T11:34:05Z",
+        "pushedAt": "2026-08-26T12:06:26Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -1055,7 +2211,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-15T00:38:57Z",
+        "pushedAt": "2026-09-19T00:39:09Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -1065,7 +2221,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-03T15:34:57Z",
+        "pushedAt": "2026-08-26T12:05:08Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -1075,7 +2231,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-07T08:45:26Z",
+        "pushedAt": "2026-08-31T21:44:26Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -1105,7 +2261,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-14T01:15:32Z",
+        "pushedAt": "2026-09-17T01:29:46Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -1115,7 +2271,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-30T00:53:52Z",
+        "pushedAt": "2026-09-17T00:57:00Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -1153,7 +2309,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-09T12:06:25Z",
+        "pushedAt": "2026-08-26T12:05:08Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -1179,7 +2335,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-19T09:36:29Z",
+        "pushedAt": "2026-08-26T18:07:58Z",
         "primaryLanguage": {
           "name": "Shell"
         }
@@ -1217,9 +2373,9 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:09:09Z",
+        "pushedAt": "2026-09-23T15:04:42Z",
         "primaryLanguage": {
-          "name": "CSS"
+          "name": "Python"
         }
       },
       {
@@ -1237,7 +2393,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T10:51:17Z",
+        "pushedAt": "2026-09-18T18:49:13Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -1257,7 +2413,7 @@
         "isFork": true,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-03-27T22:10:27Z",
+        "pushedAt": "2026-08-26T12:05:09Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -1267,7 +2423,7 @@
         "isFork": true,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-19T09:42:55Z",
+        "pushedAt": "2026-08-26T12:05:09Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -1295,7 +2451,7 @@
         "isFork": true,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-04-27T14:40:18Z",
+        "pushedAt": "2026-08-26T12:05:09Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -1305,7 +2461,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-06-24T04:17:02Z",
+        "pushedAt": "2026-09-24T16:09:36Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -1325,7 +2481,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-13T04:34:06Z",
+        "pushedAt": "2026-09-18T02:29:52Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -1335,7 +2491,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-21T12:57:29Z",
+        "pushedAt": "2026-09-25T14:07:25Z",
         "primaryLanguage": {
           "name": "Astro"
         }
@@ -1355,7 +2511,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-08-16T23:41:15Z",
+        "pushedAt": "2026-09-13T14:45:59Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -1383,7 +2539,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:14:21Z",
+        "pushedAt": "2026-08-29T23:14:21Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -1393,7 +2549,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-12T20:24:08Z",
+        "pushedAt": "2026-09-11T07:44:25Z",
         "primaryLanguage": {
           "name": "Shell"
         }
@@ -1452,50 +2608,10 @@
         "name": "meta-organvm.github.io",
         "isFork": false,
         "isArchived": false,
-        "stargazerCount": 0,
+        "stargazerCount": 1,
         "pushedAt": "2026-07-03T15:42:05Z",
         "primaryLanguage": {
           "name": "HTML"
-        }
-      },
-      {
-        "name": "radix-recursiva-solve-coagula-redi",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:15:32Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "collective-persona-operations",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 1,
-        "pushedAt": "2026-08-21T00:34:10Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "render-second-amendment",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-04T02:49:44Z",
-        "primaryLanguage": {
-          "name": "G-code"
-        }
-      },
-      {
-        "name": "reverse-engine-recursive-run",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 2,
-        "pushedAt": "2026-08-09T11:15:49Z",
-        "primaryLanguage": {
-          "name": "Python"
         }
       },
       {
@@ -1509,36 +2625,6 @@
         }
       },
       {
-        "name": "auto-revision-epistemic-engine",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:10:57Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "cognitive-archaelogy-tribunal",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:11:04Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "gamified-coach-interface",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-13T20:24:21Z",
-        "primaryLanguage": {
-          "name": "HTML"
-        }
-      },
-      {
         "name": "cog-init-1-0-",
         "isFork": false,
         "isArchived": true,
@@ -1546,16 +2632,6 @@
         "pushedAt": "2026-03-10T12:29:12Z",
         "primaryLanguage": {
           "name": "Python"
-        }
-      },
-      {
-        "name": "virgil-training-overlay",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-19T06:34:37Z",
-        "primaryLanguage": {
-          "name": "Swift"
         }
       },
       {
@@ -1569,31 +2645,11 @@
         }
       },
       {
-        "name": "client-sdk",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:03:58Z",
-        "primaryLanguage": {
-          "name": "TypeScript"
-        }
-      },
-      {
         "name": "performance-sdk",
         "isFork": false,
         "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-03-10T12:29:29Z",
-        "primaryLanguage": {
-          "name": "TypeScript"
-        }
-      },
-      {
-        "name": "audio-synthesis-bridge",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:10:56Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -1635,36 +2691,6 @@
         }
       },
       {
-        "name": "metasystem-master",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-20T08:34:36Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "domus-genoma",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-21T13:12:45Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "the-invisible-ledger",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 1,
-        "pushedAt": "2026-07-18T23:51:05Z",
-        "primaryLanguage": {
-          "name": "TypeScript"
-        }
-      },
-      {
         "name": "intake",
         "isFork": false,
         "isArchived": true,
@@ -1673,81 +2699,11 @@
         "primaryLanguage": null
       },
       {
-        "name": "my-knowledge-base",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 1,
-        "pushedAt": "2026-08-14T01:48:18Z",
-        "primaryLanguage": {
-          "name": "TypeScript"
-        }
-      },
-      {
-        "name": "my--father-mother",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 1,
-        "pushedAt": "2026-08-09T10:55:53Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "universal-mail--automation",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 1,
-        "pushedAt": "2026-08-11T04:15:08Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "linguistic-atomization-framework",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 2,
-        "pushedAt": "2026-08-11T11:54:56Z",
-        "primaryLanguage": {
-          "name": "HTML"
-        }
-      },
-      {
-        "name": "organon-noumenon--ontogenetic-morphe",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 1,
-        "pushedAt": "2026-08-09T11:14:14Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "sema-metra--alchemica-mundi",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 1,
-        "pushedAt": "2026-08-13T17:14:11Z",
-        "primaryLanguage": {
-          "name": "TypeScript"
-        }
-      },
-      {
-        "name": "recursive-engine--generative-entity",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 1,
-        "pushedAt": "2026-08-13T07:36:33Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
         "name": "etceter4",
         "isFork": false,
         "isArchived": true,
         "stargazerCount": 0,
-        "pushedAt": "2026-02-23T16:31:41Z",
+        "pushedAt": "2026-08-27T17:46:09Z",
         "primaryLanguage": {
           "name": "HTML"
         }
@@ -1757,217 +2713,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:10:33Z",
-        "primaryLanguage": {
-          "name": "Shell"
-        }
-      },
-      {
-        "name": "4444J99",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-17T06:52:07Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "learning-resources",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:13:03Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "salon-archive",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-30T00:43:51Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "announcement-templates",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-07T13:37:06Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "social-automation",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-06T13:25:27Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "organvm-corpvs-testamentvm",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-21T12:33:20Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "scalable-lore-expert",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:15:56Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "adaptive-personal-syllabus",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 3,
-        "pushedAt": "2026-08-07T14:18:08Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "alchemia-ingestvm",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-05T04:40:12Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "alchemical-synthesizer",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-15T09:43:36Z",
-        "primaryLanguage": {
-          "name": "SuperCollider"
-        }
-      },
-      {
-        "name": "essay-pipeline",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-24T04:23:59Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "analytics-engine",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:10:52Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "editorial-standards",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:11:25Z",
-        "primaryLanguage": {
-          "name": "Shell"
-        }
-      },
-      {
-        "name": "reading-observatory",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:15:51Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "koinonia-db",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:12:55Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "organvm-engine",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-01T21:56:27Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "system-dashboard",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-01T20:47:17Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "kerygma-pipeline",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:12:49Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "application-pipeline",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-05T17:32:38Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "organvm-mcp-server",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-01T14:37:19Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "kerygma-profiles",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-24T17:04:30Z",
+        "pushedAt": "2026-09-16T10:24:32Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -2042,26 +2788,6 @@
         "isArchived": true,
         "stargazerCount": 5,
         "pushedAt": "2026-07-22T11:24:16Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "tool-interaction-design",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-31T08:54:38Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "organvm-ontologia",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-07T00:44:51Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -2285,16 +3011,6 @@
         "primaryLanguage": null
       },
       {
-        "name": "vox--architectura-gubernatio",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-24T00:53:54Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
         "name": "fastapi_mcp",
         "isFork": true,
         "isArchived": true,
@@ -2339,7 +3055,7 @@
         "isFork": true,
         "isArchived": true,
         "stargazerCount": 0,
-        "pushedAt": "2026-05-12T08:43:28Z",
+        "pushedAt": "2026-08-27T17:47:31Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -2349,7 +3065,7 @@
         "isFork": true,
         "isArchived": true,
         "stargazerCount": 0,
-        "pushedAt": "2026-05-02T02:51:22Z",
+        "pushedAt": "2026-08-27T17:47:44Z",
         "primaryLanguage": {
           "name": "Go"
         }
@@ -2405,16 +3121,6 @@
         }
       },
       {
-        "name": "a-organvm",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-14T21:44:02Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
         "name": "a2a-python",
         "isFork": true,
         "isArchived": true,
@@ -2429,29 +3135,9 @@
         "isFork": true,
         "isArchived": true,
         "stargazerCount": 0,
-        "pushedAt": "2026-07-28T21:34:18Z",
+        "pushedAt": "2026-08-27T17:47:39Z",
         "primaryLanguage": {
           "name": "Go"
-        }
-      },
-      {
-        "name": "system-system--system",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-19T11:00:00Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "sovereign--ground--4444j99",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-06T23:06:21Z",
-        "primaryLanguage": {
-          "name": "HTML"
         }
       },
       {
@@ -2468,14 +3154,6 @@
         "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-04-15T17:07:38Z",
-        "primaryLanguage": null
-      },
-      {
-        "name": "custodia-securitatis",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-06-22T14:55:28Z",
         "primaryLanguage": null
       },
       {
@@ -2567,53 +3245,13 @@
         "primaryLanguage": null
       },
       {
-        "name": "hokage-chess--4444j99",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-17T04:20:02Z",
-        "primaryLanguage": {
-          "name": "TypeScript"
-        }
-      },
-      {
-        "name": "organvm-scrutator",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-20T03:00:28Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "brainstorm-20260423",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-18T23:49:25Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
         "name": "content-engine--asset-amplifier--a-organvm-legacy",
         "isFork": false,
         "isArchived": true,
         "stargazerCount": 0,
-        "pushedAt": "2026-04-30T17:29:19Z",
+        "pushedAt": "2026-08-27T17:46:07Z",
         "primaryLanguage": {
           "name": "TypeScript"
-        }
-      },
-      {
-        "name": "sovereign--ground",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-06-20T18:56:32Z",
-        "primaryLanguage": {
-          "name": "HTML"
         }
       },
       {
@@ -2625,493 +3263,33 @@
         "primaryLanguage": null
       },
       {
-        "name": "persona-fleet",
-        "isFork": false,
+        "name": "victoroff-os",
+        "isFork": true,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-14T23:24:46Z",
-        "primaryLanguage": {
-          "name": "TypeScript"
-        }
-      },
-      {
-        "name": "digital-income-organism-inquiry",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-18T23:48:31Z",
-        "primaryLanguage": {
-          "name": "Shell"
-        }
-      },
-      {
-        "name": "composition-1-2",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-10T00:24:07Z",
-        "primaryLanguage": {
-          "name": "HTML"
-        }
-      },
-      {
-        "name": "_agent-health",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-01T04:06:15Z",
-        "primaryLanguage": {
-          "name": "Shell"
-        }
-      },
-      {
-        "name": "_agent",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-19T02:55:01Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "_tui",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-05-19T16:03:18Z",
-        "primaryLanguage": null
-      },
-      {
-        "name": "system-system--system--monad",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-01T23:45:02Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "generative-abstract-environments-studies",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-06-22T16:23:16Z",
-        "primaryLanguage": {
-          "name": "HTML"
-        }
-      },
-      {
-        "name": "_dot-config",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-05-23T05:39:32Z",
-        "primaryLanguage": {
-          "name": "Shell"
-        }
-      },
-      {
-        "name": "glyph-cascade-tapes",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-14T04:13:58Z",
+        "pushedAt": "2026-09-07T23:15:38Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
-      },
-      {
-        "name": "personal",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-02T00:25:57Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "session-meta",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-11T12:45:48Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "speculum-opencode",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-06-24T04:17:13Z",
-        "primaryLanguage": {
-          "name": "Cypher"
-        }
-      },
-      {
-        "name": "md-summoning",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-06-05T14:36:28Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "doc",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-06-12T12:35:43Z",
-        "primaryLanguage": null
-      },
-      {
-        "name": "prompt-registry-archive",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-06-23T01:54:07Z",
-        "primaryLanguage": null
-      },
-      {
-        "name": "bound",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-06-22T16:34:41Z",
-        "primaryLanguage": {
-          "name": "JavaScript"
-        }
-      },
-      {
-        "name": "opencode-plans",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-05-27T13:40:16Z",
-        "primaryLanguage": null
-      },
-      {
-        "name": "_diagnostics",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-21T17:10:33Z",
-        "primaryLanguage": {
-          "name": "TypeScript"
-        }
-      },
-      {
-        "name": "_limen",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-06-12T13:58:44Z",
-        "primaryLanguage": {
-          "name": "Shell"
-        }
-      },
-      {
-        "name": "payrail",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-06T18:59:05Z",
-        "primaryLanguage": {
-          "name": "JavaScript"
-        }
-      },
-      {
-        "name": "claude-runtime-state",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-24T14:47:57Z",
-        "primaryLanguage": {
-          "name": "HTML"
-        }
-      },
-      {
-        "name": "limen",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-21T13:05:46Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "homebrew-limen",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-05-31T16:28:10Z",
-        "primaryLanguage": {
-          "name": "Ruby"
-        }
-      },
-      {
-        "name": "portvs",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-09T11:14:43Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "relationship-pipeline",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-09T10:49:23Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "euro-trip-2026",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-06-04T11:30:28Z",
-        "primaryLanguage": {
-          "name": "HTML"
-        }
-      },
-      {
-        "name": "ops",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-20T14:09:12Z",
-        "primaryLanguage": null
-      },
-      {
-        "name": "ops-witness",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-17T07:13:13Z",
-        "primaryLanguage": null
-      },
-      {
-        "name": "media-ark",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-10T01:56:05Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "process-environment-enactment-20260609173021",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-06-24T04:17:09Z",
-        "primaryLanguage": {
-          "name": "C"
-        }
-      },
-      {
-        "name": "process-environment-enactment-public-20260609173432",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-06-24T01:19:18Z",
-        "primaryLanguage": {
-          "name": "C"
-        }
-      },
-      {
-        "name": "session-stone-sanitized-019ea761-bff5-7841-b772-f2d85475092e-20260609175059",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-06-22T17:17:52Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "knowledge-corpus",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-30T08:05:16Z",
-        "primaryLanguage": null
-      },
-      {
-        "name": "edu-organism",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-23T16:37:24Z",
-        "primaryLanguage": {
-          "name": "TypeScript"
-        }
-      },
-      {
-        "name": "domus",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-04T18:51:53Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "browser-state",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-06-25T19:42:49Z",
-        "primaryLanguage": {
-          "name": "HTML"
-        }
-      },
-      {
-        "name": "netmode",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-22T09:14:12Z",
-        "primaryLanguage": {
-          "name": "Shell"
-        }
-      },
-      {
-        "name": "quaestor",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-19T09:18:28Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "collaboratory",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-06-25T19:42:29Z",
-        "primaryLanguage": {
-          "name": "HTML"
-        }
-      },
-      {
-        "name": "laurea",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-21T13:14:32Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "arca",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-30T05:00:31Z",
-        "primaryLanguage": null
-      },
-      {
-        "name": "daily-engine",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-27T16:19:18Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "manumissio",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-15T23:56:19Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "in-my-head",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-07-11T12:07:14Z",
-        "primaryLanguage": {
-          "name": "JavaScript"
-        }
-      },
-      {
-        "name": "hospes",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-20T00:14:23Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "the-thing-without-a-name",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-17T18:48:54Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
-        "name": "arca-g2",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-12T17:50:47Z",
-        "primaryLanguage": null
-      },
-      {
-        "name": "arca-g3",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-08-12T23:59:31Z",
-        "primaryLanguage": null
       }
     ],
     "contributions": {
-      "total": 33587,
-      "commits": 15671,
-      "pull_requests": 4191,
-      "reviews": 219,
-      "issues": 2504,
-      "restricted": 10979
+      "total": 36500,
+      "commits": 16302,
+      "pull_requests": 4536,
+      "reviews": 225,
+      "issues": 2713,
+      "restricted": 12662
     }
   },
   "findings": [
     {
       "axis": "contributions_year",
       "title": "GitHub contribution activity (12 months)",
-      "value": 33587.0,
+      "value": 36500.0,
       "unit": "contribution events",
       "status": "measured",
-      "evidence": "GitHub reports 33,587 contribution-calendar events in the last 12 months. Associated API fields report 15,671 commits, 4,191 pull requests, 219 reviews, and 2,504 issues; these fields are not an additive breakdown",
+      "evidence": "GitHub reports 36,500 contribution-calendar events in the last 12 months. Associated API fields report 16,302 commits, 4,536 pull requests, 225 reviews, and 2,713 issues; these fields are not an additive breakdown",
       "source": "GitHub GraphQL contributionsCollection and contributionCalendar",
       "analysis": "This is an activity count, not a count of shipped units. GitHub events vary in scope and do not establish review, merge, quality, or impact."
     },
@@ -3128,30 +3306,30 @@
     {
       "axis": "pull_requests_year",
       "title": "Pull requests opened (12 months)",
-      "value": 4191.0,
+      "value": 4536.0,
       "unit": "pull requests",
       "status": "measured",
-      "evidence": "GitHub reports 4,191 pull requests opened in the trailing 12-month collection",
+      "evidence": "GitHub reports 4,536 pull requests opened in the trailing 12-month collection",
       "source": "GitHub GraphQL contributionsCollection.totalPullRequestContributions",
       "analysis": "Opened pull requests are activity events; this field does not say whether they were reviewed, mergeable, merged, distinct in scope, or created without automation."
     },
     {
       "axis": "repos_visible",
       "title": "Visible non-fork repository corpus",
-      "value": 290.0,
+      "value": 306.0,
       "unit": "repositories",
       "status": "measured",
-      "evidence": "290 non-fork repositories were visible across the personal account and 10 organization memberships returned by the API",
+      "evidence": "306 non-fork repositories were visible across the personal account and 10 organization memberships returned by the API",
       "source": "GitHub GraphQL repositories connections with isFork=false",
       "analysis": "Organization repositories can include work by other contributors. Visibility does not establish individual authorship, maintenance, or operation."
     },
     {
       "axis": "language_breadth",
       "title": "Primary-language breadth of the visible corpus",
-      "value": 17.0,
+      "value": 16.0,
       "unit": "primary-language labels",
       "status": "derived",
-      "evidence": "GitHub assigns 17 distinct primary-language labels across the visible non-fork corpus \u2014 led by Python (109), TypeScript (50), HTML (24), JavaScript (21), Shell (15)",
+      "evidence": "GitHub assigns 16 distinct primary-language labels across the visible non-fork corpus \u2014 led by Python (120), TypeScript (58), HTML (24), JavaScript (22), Shell (14)",
       "source": "Distinct repository.primaryLanguage.name values in the visible corpus",
       "analysis": "A repository has one GitHub-assigned primary language. This describes the corpus and does not establish individual proficiency or authorship."
     },
@@ -3168,10 +3346,10 @@
     {
       "axis": "tenure",
       "title": "Account age",
-      "value": 9.6,
+      "value": 9.7,
       "unit": "years",
       "status": "derived",
-      "evidence": "The GitHub account was created in 2016 (9.6 years ago)",
+      "evidence": "The GitHub account was created in 2016 (9.7 years ago)",
       "source": "GitHub GraphQL user.createdAt",
       "analysis": "Account age is not equivalent to continuous professional experience or activity."
     }
