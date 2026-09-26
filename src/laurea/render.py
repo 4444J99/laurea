@@ -6,6 +6,7 @@ from xml.sax.saxutils import escape
 
 from .baselines import STATUS_DERIVED, STATUS_MEASURED
 from .models import Finding, Report
+from .corpus import corpus_totals, require_complete
 
 NOT_MEASURED = (
     "individual authorship or responsibility for organization repositories",
@@ -67,10 +68,12 @@ def _laurel(x: int, y: int, scale: float = 1.0) -> str:
 
 
 def _fmt(value: float) -> str:
+    """Format a finite numeric measurement with grouping and at most one fractional digit."""
     return f"{int(value):,}" if value == int(value) else f"{value:,.1f}"
 
 
 def _wrap(text: str, width: int) -> list[str]:
+    """Wrap whitespace-delimited words without splitting an individual word longer than the requested width."""
     lines: list[str] = []
     line = ""
     for word in text.split():
@@ -96,6 +99,7 @@ def _truncate(text: str, width: int) -> str:
 
 
 def _tspans(lines: list[str], x: int, line_height: int = 14) -> str:
+    """Escape text lines into positioned SVG spans, using zero vertical offset for the first line."""
     return "".join(
         f'<tspan x="{x}" dy="{0 if index == 0 else line_height}">{escape(line)}</tspan>'
         for index, line in enumerate(lines)
@@ -105,9 +109,7 @@ def _tspans(lines: list[str], x: int, line_height: int = 14) -> str:
 def hero_card(report: Report) -> str:
     """Render a generic profile card without population-ranking claims."""
     contributions = report.snapshot["contributions"]
-    repositories = len(
-        [repo for repo in report.snapshot["repos"] if repo["isFork"] is False]
-    )
+    repositories = corpus_totals(report.snapshot)["nonfork_repositories"]
     stats = (
         (f"{contributions['total']:,}", ["contribution events", "trailing 12 months"]),
         (f"{repositories:,}", ["non-fork repositories", "visible corpus"]),
@@ -184,6 +186,23 @@ def profile_md(report: Report) -> str:
         f"*Source implementation: `{report.source_repository}` at `{report.source_sha}`.*",
         "",
     ]
+    coverage = report.snapshot.get("coverage")
+    coverage = coverage if isinstance(coverage, dict) else {}
+    lines += [
+        "## Source coverage",
+        "",
+        f"Collection: **{coverage.get('status', 'unmeasured')}**. "
+        f"Health: **{coverage.get('health_status', 'unmeasured')}**.",
+        "",
+        f"Observed repositories: {coverage.get('observed_repositories', 'unknown')}; "
+        f"private repositories excluded: {coverage.get('private_repositories_excluded', 'unknown')}; "
+        f"failed sources: {coverage.get('failed_sources', 'unknown')}.",
+        "",
+        "Token-visible membership scope is not an administered-estate census. "
+        "Default SHA identifies a source generation; it does not prove executed "
+        "verification, security coverage or PR readiness.",
+        "",
+    ]
     for finding in report.findings:
         evidence = finding.evidence.rstrip(".")
         lines += [
@@ -211,6 +230,7 @@ def profile_md(report: Report) -> str:
 
 def render_all(report: Report) -> dict[str, str]:
     """Return every generated relative path and its content."""
+    require_complete(report.snapshot)
     output = {"cards/hero.svg": hero_card(report)}
     for finding in report.findings:
         output[f"cards/{finding.axis}.svg"] = axis_card(finding)

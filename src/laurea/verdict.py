@@ -16,11 +16,13 @@ from typing import Any
 from xml.sax.saxutils import escape
 
 from .render import BG, BORDER, GOLD, MUTED, _STYLE, _shimmer
+from .corpus import corpus_totals
 
 API = "https://api.github.com"
 
 
 def _rest(path: str, token: str) -> Any:
+    """Read and decode one authenticated GitHub REST response with a 30-second timeout."""
     req = urllib.request.Request(
         f"{API}{path}",
         headers={
@@ -38,7 +40,7 @@ def collect_verdict(snapshot: dict[str, Any], repo: str, token: str, today: str)
     entry: dict[str, Any] = {
         "date": today,
         "followers": snapshot["followers"],
-        "stars_estate": sum(r["stargazerCount"] for r in snapshot["repos"]),
+        "stars_estate": corpus_totals(snapshot)["stars"],
     }
     try:
         entry["showcase_stars"] = _rest(f"/repos/{repo}", token)["stargazers_count"]
@@ -63,6 +65,7 @@ def append_entry(entry: dict[str, Any], jsonl: Path) -> list[dict[str, Any]]:
 
 
 def load_history(jsonl: Path) -> list[dict[str, Any]]:
+    """Read nonblank JSONL observations in stored order, returning an empty list for a missing history file."""
     if not jsonl.exists():
         return []
     return [json.loads(line) for line in jsonl.read_text().splitlines() if line.strip()]
@@ -85,6 +88,7 @@ _ROWS = (
 
 
 def verdict_card(history: list[dict[str, Any]]) -> str:
+    """Render recorded reception signals and oldest-to-latest deltas as an escaped SVG card."""
     since = history[0]["date"] if history else "—"
     rows = []
     for i, (key, label) in enumerate(_ROWS):
