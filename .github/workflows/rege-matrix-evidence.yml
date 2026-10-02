@@ -1,0 +1,35 @@
+name: rege-matrix-evidence
+on:
+  pull_request:
+    paths:
+      - 'REGE_MATRIX_EVIDENCE.md'
+      - 'evidence/2026-10-02-rege-matrix-execution.json'
+      - 'docs/stat-blocks/engineering-depth.md'
+      - 'scripts/verify_rege_matrix_evidence.py'
+      - 'tests/test_rege_matrix_evidence.py'
+      - '.github/workflows/rege-matrix-evidence.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'REGE_MATRIX_EVIDENCE.md'
+      - 'evidence/2026-10-02-rege-matrix-execution.json'
+      - 'docs/stat-blocks/engineering-depth.md'
+      - 'scripts/verify_rege_matrix_evidence.py'
+      - 'tests/test_rege_matrix_evidence.py'
+      - '.github/workflows/rege-matrix-evidence.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/verify_rege_matrix_evidence.py
+      - run: python -m unittest discover -s tests -p test_rege_matrix_evidence.py -v
