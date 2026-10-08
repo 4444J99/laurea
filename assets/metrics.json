@@ -1,9 +1,9 @@
 {
   "schema_version": "laurea.report.v2",
   "login": "4444J99",
-  "generated_at": "2026-10-07T09:32:47.130240Z",
+  "generated_at": "2026-10-08T09:33:54.706797Z",
   "source_repository": "4444J99/laurea",
-  "source_sha": "592554e57b2ddc34f3398f1f99237cfdc3c28b39",
+  "source_sha": "cbcbd57be8bc437785af7bf18bec310ea0a62025",
   "snapshot": {
     "login": "4444J99",
     "name": "Anthony James Padavano",
@@ -23,11 +23,11 @@
     ],
     "repos": [
       {
-        "name": "a-mavs-olevm",
+        "name": "generative-multimedia-spatial-environment",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 2,
-        "pushedAt": "2026-09-30T23:26:54Z",
+        "pushedAt": "2026-10-08T00:14:23Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
@@ -77,7 +77,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-03T21:56:58Z",
+        "pushedAt": "2026-10-08T09:09:57Z",
         "primaryLanguage": {
           "name": "G-code"
         }
@@ -97,7 +97,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-09-30T23:30:43Z",
+        "pushedAt": "2026-10-08T00:50:04Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -145,7 +145,7 @@
       {
         "name": "github-config--organvm-i-theoria",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-10-05T02:34:49Z",
         "primaryLanguage": {
@@ -285,7 +285,7 @@
       {
         "name": "github-config--organvm-ii-poiesis",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-10-05T03:13:14Z",
         "primaryLanguage": {
@@ -501,7 +501,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-10-02T11:35:09Z",
+        "pushedAt": "2026-10-07T12:25:22Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -561,7 +561,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 2,
-        "pushedAt": "2026-10-06T23:19:15Z",
+        "pushedAt": "2026-10-08T06:43:38Z",
         "primaryLanguage": {
           "name": "HTML"
         }
@@ -649,9 +649,9 @@
       {
         "name": "etceter4",
         "isFork": false,
-        "isArchived": true,
+        "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-08-27T17:46:09Z",
+        "pushedAt": "2026-10-08T00:29:36Z",
         "primaryLanguage": {
           "name": "HTML"
         }
@@ -669,7 +669,7 @@
       {
         "name": "github-config--organvm-iii-ergon",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-10-05T02:09:15Z",
         "primaryLanguage": null
@@ -677,7 +677,7 @@
       {
         "name": "github-config--organvm-iv-taxis",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-08-26T12:05:08Z",
         "primaryLanguage": {
@@ -687,7 +687,7 @@
       {
         "name": "github-config--organvm-v-logos",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-10-04T22:12:45Z",
         "primaryLanguage": {
@@ -697,7 +697,7 @@
       {
         "name": "github-config--organvm-vi-koinonia",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-08-09T11:11:19Z",
         "primaryLanguage": {
@@ -717,7 +717,7 @@
       {
         "name": "github-config--organvm",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-10-05T04:11:04Z",
         "primaryLanguage": {
@@ -879,7 +879,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-05T11:12:56Z",
+        "pushedAt": "2026-10-08T07:10:09Z",
         "primaryLanguage": {
           "name": "Astro"
         }
@@ -1137,7 +1137,7 @@
       {
         "name": "organvm-i-theoria--superproject",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-09-26T21:15:32Z",
         "primaryLanguage": {
@@ -1147,7 +1147,7 @@
       {
         "name": "organvm-ii-poiesis--superproject",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-06-19T09:59:27Z",
         "primaryLanguage": null
@@ -1155,7 +1155,7 @@
       {
         "name": "organvm-iii-ergon--superproject",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-08-29T23:14:21Z",
         "primaryLanguage": {
@@ -1165,7 +1165,7 @@
       {
         "name": "organvm-iv-taxis--superproject",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-09-11T07:44:25Z",
         "primaryLanguage": {
@@ -1175,7 +1175,7 @@
       {
         "name": "organvm-v-logos--superproject",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-07-01T07:40:07Z",
         "primaryLanguage": {
@@ -1185,7 +1185,7 @@
       {
         "name": "organvm-vi-koinonia--superproject",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-07-01T10:20:27Z",
         "primaryLanguage": {
@@ -1195,7 +1195,7 @@
       {
         "name": "organvm-vii-kerygma--superproject",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-07-01T12:11:20Z",
         "primaryLanguage": {
@@ -1205,7 +1205,7 @@
       {
         "name": "meta-organvm--superproject",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-07-02T00:26:48Z",
         "primaryLanguage": {
@@ -1215,7 +1215,7 @@
       {
         "name": "workspace--superproject",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-06-12T12:36:02Z",
         "primaryLanguage": {
@@ -1275,7 +1275,7 @@
       {
         "name": "organvm-i-theoria.github.io",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-10-01T23:09:37Z",
         "primaryLanguage": {
@@ -1293,7 +1293,7 @@
       {
         "name": "organvm-ii-poiesis.github.io",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-07-03T15:41:58Z",
         "primaryLanguage": {
@@ -1311,7 +1311,7 @@
       {
         "name": "organvm-iii-ergon.github.io",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-07-09T22:32:42Z",
         "primaryLanguage": {
@@ -1329,7 +1329,7 @@
       {
         "name": "organvm-iv-taxis.github.io",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-10-01T20:46:33Z",
         "primaryLanguage": {
@@ -1347,7 +1347,7 @@
       {
         "name": "organvm-v-logos.github.io",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-10-03T05:11:21Z",
         "primaryLanguage": {
@@ -1365,7 +1365,7 @@
       {
         "name": "organvm-vi-koinonia.github.io",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-10-01T20:46:39Z",
         "primaryLanguage": {
@@ -1383,7 +1383,7 @@
       {
         "name": "organvm-vii-kerygma.github.io",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-10-01T20:46:43Z",
         "primaryLanguage": {
@@ -1401,7 +1401,7 @@
       {
         "name": "meta-organvm.github.io",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-07-03T15:42:05Z",
         "primaryLanguage": {
@@ -1921,7 +1921,7 @@
       {
         "name": "typescript-sdk",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-08-26T12:05:09Z",
         "primaryLanguage": {
@@ -2011,7 +2011,7 @@
       {
         "name": "pydantic-ai",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-08-26T12:05:09Z",
         "primaryLanguage": {
@@ -2271,7 +2271,7 @@
       {
         "name": "blender-mcp",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-05-02T02:51:25Z",
         "primaryLanguage": {
@@ -2281,7 +2281,7 @@
       {
         "name": "gemini-cli-blender-extension",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-05-02T02:51:26Z",
         "primaryLanguage": null
@@ -2377,7 +2377,7 @@
       {
         "name": "awesome-claude-code",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-08-26T12:05:09Z",
         "primaryLanguage": {
@@ -2665,7 +2665,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-07T05:43:54Z",
+        "pushedAt": "2026-10-08T08:25:52Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -2735,7 +2735,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-06T16:45:19Z",
+        "pushedAt": "2026-10-08T08:09:19Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -2925,7 +2925,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-06T09:32:06Z",
+        "pushedAt": "2026-10-07T09:32:49Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -3001,7 +3001,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-07T06:49:20Z",
+        "pushedAt": "2026-10-08T02:16:25Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
@@ -3099,7 +3099,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-07T04:48:58Z",
+        "pushedAt": "2026-10-07T19:28:50Z",
         "primaryLanguage": null
       },
       {
@@ -3187,7 +3187,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-09-24T12:53:39Z",
+        "pushedAt": "2026-10-08T07:55:55Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -3295,7 +3295,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-07T04:22:38Z",
+        "pushedAt": "2026-10-08T08:18:54Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -3305,7 +3305,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-07T02:13:29Z",
+        "pushedAt": "2026-10-08T01:44:32Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -3321,6 +3321,26 @@
         }
       },
       {
+        "name": "timed-text-navigation-loop",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-10-08T07:43:41Z",
+        "primaryLanguage": {
+          "name": "HTML"
+        }
+      },
+      {
+        "name": "audiovisual-media-postproduction-system",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-10-08T06:22:39Z",
+        "primaryLanguage": {
+          "name": "Python"
+        }
+      },
+      {
         "name": "victoroff-os",
         "isFork": true,
         "isArchived": false,
@@ -3332,22 +3352,22 @@
       }
     ],
     "contributions": {
-      "total": 38121,
-      "commits": 4139,
-      "pull_requests": 1267,
+      "total": 38266,
+      "commits": 4182,
+      "pull_requests": 1282,
       "reviews": 69,
-      "issues": 1453,
-      "restricted": 31173
+      "issues": 1557,
+      "restricted": 31155
     }
   },
   "findings": [
     {
       "axis": "contributions_year",
       "title": "GitHub contribution activity (12 months)",
-      "value": 38121.0,
+      "value": 38266.0,
       "unit": "contribution events",
       "status": "measured",
-      "evidence": "GitHub reports 38,121 contribution-calendar events in the last 12 months. Associated API fields report 4,139 commits, 1,267 pull requests, 69 reviews, and 1,453 issues; these fields are not an additive breakdown",
+      "evidence": "GitHub reports 38,266 contribution-calendar events in the last 12 months. Associated API fields report 4,182 commits, 1,282 pull requests, 69 reviews, and 1,557 issues; these fields are not an additive breakdown",
       "source": "GitHub GraphQL contributionsCollection and contributionCalendar",
       "analysis": "This is an activity count, not a count of shipped units. GitHub events vary in scope and do not establish review, merge, quality, or impact."
     },
@@ -3364,20 +3384,20 @@
     {
       "axis": "pull_requests_year",
       "title": "Pull requests opened (12 months)",
-      "value": 1267.0,
+      "value": 1282.0,
       "unit": "pull requests",
       "status": "measured",
-      "evidence": "GitHub reports 1,267 pull requests opened in the trailing 12-month collection",
+      "evidence": "GitHub reports 1,282 pull requests opened in the trailing 12-month collection",
       "source": "GitHub GraphQL contributionsCollection.totalPullRequestContributions",
       "analysis": "Opened pull requests are activity events; this field does not say whether they were reviewed, mergeable, merged, distinct in scope, or created without automation."
     },
     {
       "axis": "repos_visible",
       "title": "Visible non-fork repository corpus",
-      "value": 317.0,
+      "value": 319.0,
       "unit": "repositories",
       "status": "measured",
-      "evidence": "317 non-fork repositories were visible across the personal account and 10 organization memberships returned by the API",
+      "evidence": "319 non-fork repositories were visible across the personal account and 10 organization memberships returned by the API",
       "source": "GitHub GraphQL repositories connections with isFork=false",
       "analysis": "Organization repositories can include work by other contributors. Visibility does not establish individual authorship, maintenance, or operation."
     },
@@ -3387,7 +3407,7 @@
       "value": 16.0,
       "unit": "primary-language labels",
       "status": "derived",
-      "evidence": "GitHub assigns 16 distinct primary-language labels across the visible non-fork corpus \u2014 led by Python (127), TypeScript (60), HTML (25), JavaScript (22), Shell (13)",
+      "evidence": "GitHub assigns 16 distinct primary-language labels across the visible non-fork corpus \u2014 led by Python (128), TypeScript (60), HTML (26), JavaScript (22), Shell (13)",
       "source": "Distinct repository.primaryLanguage.name values in the visible corpus",
       "analysis": "A repository has one GitHub-assigned primary language. This describes the corpus and does not establish individual proficiency or authorship."
     },
