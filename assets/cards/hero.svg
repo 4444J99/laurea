@@ -29,7 +29,7 @@
   <text class="ev fade d1" text-anchor="middle" x="400" y="119"><tspan x="400" dy="0">GitHub activity does not establish authorship, quality, reliability, adoption, or</tspan><tspan x="400" dy="15">impact.</tspan></text>
   
   <g class="fade d1" transform="translate(70, 160)">
-    <text class="big" text-anchor="middle" x="60">38,266</text>
+    <text class="big" text-anchor="middle" x="60">38,268</text>
     <text class="ev" text-anchor="middle" x="60" y="24"><tspan x="60" dy="0">contribution events</tspan><tspan x="60" dy="14">trailing 12 months</tspan></text>
   </g>
   <g class="fade d2" transform="translate(250, 160)">
