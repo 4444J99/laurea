@@ -1,14 +1,14 @@
 {
   "schema_version": "laurea.report.v2",
   "login": "4444J99",
-  "generated_at": "2026-10-15T09:30:15.660825Z",
+  "generated_at": "2026-10-16T09:28:43.398326Z",
   "source_repository": "4444J99/laurea",
-  "source_sha": "753d5cd239a56f5fb47fdbd7cb28ad4494b01a59",
+  "source_sha": "e6e689a095d8622fd1e68a46786f610636a5f4a6",
   "snapshot": {
     "login": "4444J99",
     "name": "Anthony James Padavano",
     "created_at": "2016-12-27T17:24:06Z",
-    "followers": 42,
+    "followers": 41,
     "orgs": [
       "organvm-i-theoria",
       "organvm-ii-poiesis",
@@ -27,7 +27,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 2,
-        "pushedAt": "2026-10-13T20:08:13Z",
+        "pushedAt": "2026-10-16T04:12:16Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
@@ -57,7 +57,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-10-09T01:10:34Z",
+        "pushedAt": "2026-10-16T00:35:23Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -177,7 +177,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-08T19:59:45Z",
+        "pushedAt": "2026-10-15T19:54:17Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -187,7 +187,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-09T06:55:25Z",
+        "pushedAt": "2026-10-16T06:56:53Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
@@ -307,7 +307,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-10T17:42:41Z",
+        "pushedAt": "2026-10-15T14:04:37Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -327,7 +327,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-09-24T13:23:44Z",
+        "pushedAt": "2026-10-15T17:24:02Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -363,7 +363,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-02T05:11:48Z",
+        "pushedAt": "2026-10-15T16:04:23Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -491,7 +491,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-10-09T01:42:19Z",
+        "pushedAt": "2026-10-16T01:44:23Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -591,7 +591,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-10-12T17:15:51Z",
+        "pushedAt": "2026-10-15T17:18:02Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -919,7 +919,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-10T17:58:43Z",
+        "pushedAt": "2026-10-15T14:07:42Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -1237,7 +1237,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-14T02:25:28Z",
+        "pushedAt": "2026-10-16T00:13:40Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -1863,7 +1863,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-08T19:41:10Z",
+        "pushedAt": "2026-10-16T02:13:39Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -2665,7 +2665,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-13T21:42:52Z",
+        "pushedAt": "2026-10-15T13:56:59Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -2745,7 +2745,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-05T14:28:26Z",
+        "pushedAt": "2026-10-16T06:53:33Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -2805,7 +2805,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-13T01:11:15Z",
+        "pushedAt": "2026-10-15T15:22:01Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -2925,7 +2925,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-14T13:00:10Z",
+        "pushedAt": "2026-10-15T09:30:18Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -3001,7 +3001,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-12T18:02:26Z",
+        "pushedAt": "2026-10-16T01:47:26Z",
         "primaryLanguage": {
           "name": "JavaScript"
         }
@@ -3167,7 +3167,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-12T17:07:52Z",
+        "pushedAt": "2026-10-15T23:10:00Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -3295,7 +3295,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-13T13:56:09Z",
+        "pushedAt": "2026-10-15T10:24:18Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -3335,7 +3335,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-14T21:23:56Z",
+        "pushedAt": "2026-10-15T13:32:42Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -3468,9 +3468,9 @@
       }
     ],
     "contributions": {
-      "total": 45734,
-      "commits": 9154,
-      "pull_requests": 3463,
+      "total": 45739,
+      "commits": 9158,
+      "pull_requests": 3464,
       "reviews": 105,
       "issues": 2125,
       "restricted": 30861
@@ -3480,10 +3480,10 @@
     {
       "axis": "contributions_year",
       "title": "GitHub contribution activity (12 months)",
-      "value": 45734.0,
+      "value": 45739.0,
       "unit": "contribution events",
       "status": "measured",
-      "evidence": "GitHub reports 45,734 contribution-calendar events in the last 12 months. Associated API fields report 9,154 commits, 3,463 pull requests, 105 reviews, and 2,125 issues; these fields are not an additive breakdown",
+      "evidence": "GitHub reports 45,739 contribution-calendar events in the last 12 months. Associated API fields report 9,158 commits, 3,464 pull requests, 105 reviews, and 2,125 issues; these fields are not an additive breakdown",
       "source": "GitHub GraphQL contributionsCollection and contributionCalendar",
       "analysis": "This is an activity count, not a count of shipped units. GitHub events vary in scope and do not establish review, merge, quality, or impact."
     },
@@ -3500,10 +3500,10 @@
     {
       "axis": "pull_requests_year",
       "title": "Pull requests opened (12 months)",
-      "value": 3463.0,
+      "value": 3464.0,
       "unit": "pull requests",
       "status": "measured",
-      "evidence": "GitHub reports 3,463 pull requests opened in the trailing 12-month collection",
+      "evidence": "GitHub reports 3,464 pull requests opened in the trailing 12-month collection",
       "source": "GitHub GraphQL contributionsCollection.totalPullRequestContributions",
       "analysis": "Opened pull requests are activity events; this field does not say whether they were reviewed, mergeable, merged, distinct in scope, or created without automation."
     },
