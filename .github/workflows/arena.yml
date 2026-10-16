@@ -11,7 +11,7 @@ permissions:
 jobs:
   verify:
     if: startsWith(github.event.issue.title, 'arena:')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - name: Extract login (strict — title is untrusted input)
