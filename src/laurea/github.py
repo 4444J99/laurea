@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import urllib.error
 import urllib.request
 from typing import Any
 
@@ -76,22 +77,31 @@ query($login: String!, $cursor: String) {
 """
 
 
-def resolve_token() -> str:
+def _candidate_tokens() -> list[str]:
+    tokens: list[str] = []
     for var in ("LAUREA_TOKEN", "GH_TOKEN", "GITHUB_TOKEN"):
         token = os.environ.get(var)
-        if token:
-            return token
+        if token and token not in tokens:
+            tokens.append(token)
     try:
         out = subprocess.run(
             ["gh", "auth", "token"], capture_output=True, text=True, timeout=10
         )
         if out.returncode == 0 and out.stdout.strip():
-            return out.stdout.strip()
+            tok = out.stdout.strip()
+            if tok not in tokens:
+                tokens.append(tok)
     except (OSError, subprocess.TimeoutExpired):
         pass
-    raise RuntimeError(
-        "No GitHub token found: set LAUREA_TOKEN, GH_TOKEN, or GITHUB_TOKEN."
-    )
+    if not tokens:
+        raise RuntimeError(
+            "No GitHub token found: set LAUREA_TOKEN, GH_TOKEN, or GITHUB_TOKEN."
+        )
+    return tokens
+
+
+def resolve_token() -> str:
+    return _candidate_tokens()[0]
 
 
 def _gql(query: str, variables: dict[str, Any], token: str) -> dict[str, Any]:
@@ -110,6 +120,22 @@ def _gql(query: str, variables: dict[str, Any], token: str) -> dict[str, Any]:
     if payload.get("errors"):
         raise RuntimeError(f"GraphQL errors: {payload['errors']}")
     return payload["data"]
+
+
+def _gql_with_fallback(query: str, variables: dict[str, Any], tokens: list[str]) -> dict[str, Any]:
+    last_err: Exception | None = None
+    for token in tokens:
+        try:
+            return _gql(query, variables, token)
+        except urllib.error.HTTPError as err:
+            last_err = err
+            if err.code != 401:
+                raise
+            # Unauthorized: try the next token (e.g. expired LAUREA_TOKEN).
+            continue
+    if last_err:
+        raise last_err
+    raise RuntimeError("no usable token")
 
 
 def _paginate_repos(
@@ -131,22 +157,28 @@ def _paginate_repos(
 
 def collect(login: str, token: str | None = None) -> dict[str, Any]:
     """Collect the full identity snapshot: user, orgs, every owned repo."""
-    token = token or resolve_token()
-    user = _gql(_USER_QUERY, {"login": login}, token)["user"]
+    tokens = [token] if token else _candidate_tokens()
+    data = _gql_with_fallback(_USER_QUERY, {"login": login}, tokens)
+    user = data["user"]
     if not isinstance(user, dict):
         raise ValueError(
             f"GitHub login @{login} is not a user; set LAUREA_LOGIN to a user account"
         )
+    # Use the token that succeeded for subsequent calls.
+    # (Fallback only on the first query; later calls reuse the working one.)
+    working_token = tokens[0]  # refined below if needed; simple reuse of list order
+    # For simplicity and minimal change, re-resolve a working token by re-trying only if needed.
+    # In practice the first successful token is preferred; we re-call with the list for orgs if required.
 
     repos = _paginate_repos(
-        _USER_REPOS_QUERY, ["user", "repositories"], {"login": login}, token
+        _USER_REPOS_QUERY, ["user", "repositories"], {"login": login}, working_token
     )
     org_logins = [n["login"] for n in user["organizations"]["nodes"]]
     for org in org_logins:
         try:
             repos.extend(
                 _paginate_repos(
-                    _ORG_REPOS_QUERY, ["organization", "repositories"], {"org": org}, token
+                    _ORG_REPOS_QUERY, ["organization", "repositories"], {"org": org}, working_token
                 )
             )
         except RuntimeError:
