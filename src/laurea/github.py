@@ -122,11 +122,13 @@ def _gql(query: str, variables: dict[str, Any], token: str) -> dict[str, Any]:
     return payload["data"]
 
 
-def _gql_with_fallback(query: str, variables: dict[str, Any], tokens: list[str]) -> dict[str, Any]:
+def _gql_with_fallback(
+    query: str, variables: dict[str, Any], tokens: list[str]
+) -> tuple[dict[str, Any], str]:
     last_err: Exception | None = None
     for token in tokens:
         try:
-            return _gql(query, variables, token)
+            return _gql(query, variables, token), token
         except urllib.error.HTTPError as err:
             last_err = err
             if err.code != 401:
@@ -158,17 +160,12 @@ def _paginate_repos(
 def collect(login: str, token: str | None = None) -> dict[str, Any]:
     """Collect the full identity snapshot: user, orgs, every owned repo."""
     tokens = [token] if token else _candidate_tokens()
-    data = _gql_with_fallback(_USER_QUERY, {"login": login}, tokens)
+    data, working_token = _gql_with_fallback(_USER_QUERY, {"login": login}, tokens)
     user = data["user"]
     if not isinstance(user, dict):
         raise ValueError(
             f"GitHub login @{login} is not a user; set LAUREA_LOGIN to a user account"
         )
-    # Use the token that succeeded for subsequent calls.
-    # (Fallback only on the first query; later calls reuse the working one.)
-    working_token = tokens[0]  # refined below if needed; simple reuse of list order
-    # For simplicity and minimal change, re-resolve a working token by re-trying only if needed.
-    # In practice the first successful token is preferred; we re-call with the list for orgs if required.
 
     repos = _paginate_repos(
         _USER_REPOS_QUERY, ["user", "repositories"], {"login": login}, working_token
