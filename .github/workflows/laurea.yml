@@ -25,7 +25,10 @@ jobs:
         env:
           # A user PAT (LAUREA_TOKEN secret) also counts private contributions;
           # the default token still measures the full public estate.
-          LAUREA_TOKEN: ${{ secrets.LAUREA_TOKEN }}
+          # Temporarily omitted: the secret has been returning 401 Unauthorized
+          # since 2026-10-18. Uncomment after renewing the PAT if private
+          # contributions are required.
+          # LAUREA_TOKEN: ${{ secrets.LAUREA_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # The canonical repository tracks Anthony. Personal copies default to
           # their owner; organization-owned copies set the LAUREA_LOGIN variable
