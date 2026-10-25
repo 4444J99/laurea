@@ -1,4 +1,5 @@
 name: laurea
+# Receipt: green progress polish 2026-10-25 — successful run with actions/checkout@v7 and setup-python@v7 (Node 24).
 
 on:
   schedule:
