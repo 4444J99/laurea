@@ -18,8 +18,8 @@
   <rect width="419" height="169" x="0.5" y="0.5" rx="10" fill="#161b22" stroke="#30363d"/>
   <text class="t fade" x="24" y="34">Primary-language breadth of the…</text>
   <text class="status fade d1" x="396" y="34" text-anchor="end" fill="#8b949e">DERIVED</text>
-  <text class="big fade d1" x="24" y="76">16</text>
-  <text class="ev fade d2" x="72" y="76">primary-language labels</text>
-  <text class="ev fade d2" x="24" y="104">GitHub assigns 16 distinct primary-language labels across</text><text class="ev fade d3" x="24" y="120">the visible non-fork corpus — led by Python (137),</text><text class="ev fade d4" x="24" y="136">TypeScript (60), HTML (25), JavaScript (23), Shell (13)</text>
+  <text class="big fade d1" x="24" y="76">5</text>
+  <text class="ev fade d2" x="51" y="76">primary-language labels</text>
+  <text class="ev fade d2" x="24" y="104">GitHub assigns 5 distinct primary-language labels across</text><text class="ev fade d3" x="24" y="120">the visible non-fork corpus — led by Python (32),</text><text class="ev fade d4" x="24" y="136">TypeScript (10), HTML (3), JavaScript (2), SuperCollider …</text>
   <text class="ev fade d4" x="24" y="157">Boundary: not proof of authorship, quality, proficiency, or impact.</text>
 </svg>

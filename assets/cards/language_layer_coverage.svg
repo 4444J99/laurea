@@ -18,8 +18,8 @@
   <rect width="419" height="169" x="0.5" y="0.5" rx="10" fill="#161b22" stroke="#30363d"/>
   <text class="t fade" x="24" y="34">Mapped language-layer coverage</text>
   <text class="status fade d1" x="396" y="34" text-anchor="end" fill="#8b949e">DERIVED</text>
-  <text class="big fade d1" x="24" y="76">5</text>
+  <text class="big fade d1" x="24" y="76">3</text>
   <text class="ev fade d2" x="51" y="76">mapped layers</text>
-  <text class="ev fade d2" x="24" y="104">The static language map places the visible corpus in 5</text><text class="ev fade d3" x="24" y="120">layers: backend, creative, frontend, infra, native</text>
+  <text class="ev fade d2" x="24" y="104">The static language map places the visible corpus in 3</text><text class="ev fade d3" x="24" y="120">layers: backend, creative, frontend</text>
   <text class="ev fade d4" x="24" y="157">Boundary: not proof of authorship, quality, proficiency, or impact.</text>
 </svg>
