@@ -1,14 +1,14 @@
 {
   "schema_version": "laurea.report.v2",
   "login": "4444J99",
-  "generated_at": "2026-10-30T09:22:37.407585Z",
+  "generated_at": "2026-10-31T09:18:52.178585Z",
   "source_repository": "4444J99/laurea",
-  "source_sha": "f41851b4a21089728d0b12c6ff872431022aec27",
+  "source_sha": "26258e69517e507bd99a13d52e67c86d2155eb22",
   "snapshot": {
     "login": "4444J99",
     "name": "Anthony James Padavano",
     "created_at": "2016-12-27T17:24:06Z",
-    "followers": 39,
+    "followers": 38,
     "orgs": [
       "organvm-i-theoria",
       "organvm-ii-poiesis",
@@ -47,7 +47,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-26T09:08:03Z",
+        "pushedAt": "2026-10-30T21:48:40Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -55,7 +55,7 @@
       {
         "name": "a-i--skills",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 17,
         "pushedAt": "2026-10-29T15:46:23Z",
         "primaryLanguage": {
@@ -103,7 +103,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-29T08:35:23Z",
+        "pushedAt": "2026-10-31T04:21:45Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -111,7 +111,7 @@
       {
         "name": "agentic-titan",
         "isFork": false,
-        "isArchived": false,
+        "isArchived": true,
         "stargazerCount": 1,
         "pushedAt": "2026-10-26T23:46:26Z",
         "primaryLanguage": {
@@ -213,7 +213,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 3,
-        "pushedAt": "2026-10-23T14:37:59Z",
+        "pushedAt": "2026-10-30T14:14:57Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -253,7 +253,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-16T21:20:07Z",
+        "pushedAt": "2026-10-30T11:34:21Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -293,7 +293,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-29T21:54:25Z",
+        "pushedAt": "2026-10-30T11:09:20Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -351,7 +351,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-29T05:39:04Z",
+        "pushedAt": "2026-10-31T04:28:45Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -627,16 +627,6 @@
         }
       },
       {
-        "name": "limen",
-        "isFork": false,
-        "isArchived": false,
-        "stargazerCount": 0,
-        "pushedAt": "2026-10-30T09:17:53Z",
-        "primaryLanguage": {
-          "name": "Python"
-        }
-      },
-      {
         "name": "media-ark",
         "isFork": false,
         "isArchived": false,
@@ -651,7 +641,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-29T09:22:55Z",
+        "pushedAt": "2026-10-30T09:22:39Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -729,7 +719,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-24T00:25:54Z",
+        "pushedAt": "2026-10-31T00:23:44Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -784,22 +774,22 @@
       }
     ],
     "contributions": {
-      "total": 47468,
-      "commits": 9646,
-      "pull_requests": 4006,
-      "reviews": 106,
-      "issues": 2398,
-      "restricted": 31286
+      "total": 52494,
+      "commits": 4268,
+      "pull_requests": 1303,
+      "reviews": 53,
+      "issues": 1678,
+      "restricted": 45167
     }
   },
   "findings": [
     {
       "axis": "contributions_year",
       "title": "GitHub contribution activity (12 months)",
-      "value": 47468.0,
+      "value": 52494.0,
       "unit": "contribution events",
       "status": "measured",
-      "evidence": "GitHub reports 47,468 contribution-calendar events in the last 12 months. Associated API fields report 9,646 commits, 4,006 pull requests, 106 reviews, and 2,398 issues; these fields are not an additive breakdown",
+      "evidence": "GitHub reports 52,494 contribution-calendar events in the last 12 months. Associated API fields report 4,268 commits, 1,303 pull requests, 53 reviews, and 1,678 issues; these fields are not an additive breakdown",
       "source": "GitHub GraphQL contributionsCollection and contributionCalendar",
       "analysis": "This is an activity count, not a count of shipped units. GitHub events vary in scope and do not establish review, merge, quality, or impact."
     },
@@ -816,20 +806,20 @@
     {
       "axis": "pull_requests_year",
       "title": "Pull requests opened (12 months)",
-      "value": 4006.0,
+      "value": 1303.0,
       "unit": "pull requests",
       "status": "measured",
-      "evidence": "GitHub reports 4,006 pull requests opened in the trailing 12-month collection",
+      "evidence": "GitHub reports 1,303 pull requests opened in the trailing 12-month collection",
       "source": "GitHub GraphQL contributionsCollection.totalPullRequestContributions",
       "analysis": "Opened pull requests are activity events; this field does not say whether they were reviewed, mergeable, merged, distinct in scope, or created without automation."
     },
     {
       "axis": "repos_visible",
       "title": "Visible non-fork repository corpus",
-      "value": 53.0,
+      "value": 52.0,
       "unit": "repositories",
       "status": "measured",
-      "evidence": "53 non-fork repositories were visible across the personal account and 10 organization memberships returned by the API",
+      "evidence": "52 non-fork repositories were visible across the personal account and 10 organization memberships returned by the API",
       "source": "GitHub GraphQL repositories connections with isFork=false",
       "analysis": "Organization repositories can include work by other contributors. Visibility does not establish individual authorship, maintenance, or operation."
     },
@@ -839,7 +829,7 @@
       "value": 4.0,
       "unit": "primary-language labels",
       "status": "derived",
-      "evidence": "GitHub assigns 4 distinct primary-language labels across the visible non-fork corpus \u2014 led by Python (32), TypeScript (10), JavaScript (3), HTML (3)",
+      "evidence": "GitHub assigns 4 distinct primary-language labels across the visible non-fork corpus \u2014 led by Python (31), TypeScript (10), JavaScript (3), HTML (3)",
       "source": "Distinct repository.primaryLanguage.name values in the visible corpus",
       "analysis": "A repository has one GitHub-assigned primary language. This describes the corpus and does not establish individual proficiency or authorship."
     },

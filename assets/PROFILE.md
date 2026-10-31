@@ -1,14 +1,14 @@
 # MEASURED PROFILE
 
-*Generated 2026-10-30T09:22:37.407585Z for [@4444J99](https://github.com/4444J99). Counts come from the GitHub API; derived observations name their transformation. No percentile ranking is published because this repository does not carry a validated population distribution.*
+*Generated 2026-10-31T09:18:52.178585Z for [@4444J99](https://github.com/4444J99). Counts come from the GitHub API; derived observations name their transformation. No percentile ranking is published because this repository does not carry a validated population distribution.*
 
-*Source implementation: `4444J99/laurea` at `f41851b4a21089728d0b12c6ff872431022aec27`.*
+*Source implementation: `4444J99/laurea` at `26258e69517e507bd99a13d52e67c86d2155eb22`.*
 
 ## GitHub contribution activity (12 months) — **measured**
 
-**Observed:** 47,468 contribution events
+**Observed:** 52,494 contribution events
 
-GitHub reports 47,468 contribution-calendar events in the last 12 months. Associated API fields report 9,646 commits, 4,006 pull requests, 106 reviews, and 2,398 issues; these fields are not an additive breakdown.
+GitHub reports 52,494 contribution-calendar events in the last 12 months. Associated API fields report 4,268 commits, 1,303 pull requests, 53 reviews, and 1,678 issues; these fields are not an additive breakdown.
 
 **Definition:** GitHub GraphQL contributionsCollection and contributionCalendar.
 
@@ -26,9 +26,9 @@ GitHub returned 10 organization memberships for this account.
 
 ## Pull requests opened (12 months) — **measured**
 
-**Observed:** 4,006 pull requests
+**Observed:** 1,303 pull requests
 
-GitHub reports 4,006 pull requests opened in the trailing 12-month collection.
+GitHub reports 1,303 pull requests opened in the trailing 12-month collection.
 
 **Definition:** GitHub GraphQL contributionsCollection.totalPullRequestContributions.
 
@@ -36,9 +36,9 @@ GitHub reports 4,006 pull requests opened in the trailing 12-month collection.
 
 ## Visible non-fork repository corpus — **measured**
 
-**Observed:** 53 repositories
+**Observed:** 52 repositories
 
-53 non-fork repositories were visible across the personal account and 10 organization memberships returned by the API.
+52 non-fork repositories were visible across the personal account and 10 organization memberships returned by the API.
 
 **Definition:** GitHub GraphQL repositories connections with isFork=false.
 
@@ -48,7 +48,7 @@ GitHub reports 4,006 pull requests opened in the trailing 12-month collection.
 
 **Observed:** 4 primary-language labels
 
-GitHub assigns 4 distinct primary-language labels across the visible non-fork corpus — led by Python (32), TypeScript (10), JavaScript (3), HTML (3).
+GitHub assigns 4 distinct primary-language labels across the visible non-fork corpus — led by Python (31), TypeScript (10), JavaScript (3), HTML (3).
 
 **Definition:** Distinct repository.primaryLanguage.name values in the visible corpus.
 
