@@ -1,4 +1,6 @@
 name: census-publication
+# Receipt: green progress polish 2026-11-01 — align to actions/checkout@v7 and setup-python@v7 (Node 24) for consistency with laurea.yml, achievement-evidence.yml and public-highlights.yml after successful public-highlights run on 2966ae2.
+
 on:
   pull_request:
     paths:
@@ -22,17 +24,19 @@ on:
       - 'tests/test_census_publication.py'
       - '.github/workflows/census-publication.yml'
   workflow_dispatch:
+
 permissions:
   contents: read
+
 jobs:
   evidence:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - run: python scripts/render_source_census.py --check
