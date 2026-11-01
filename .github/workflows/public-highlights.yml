@@ -1,4 +1,5 @@
 name: public-highlights
+# Receipt: green progress polish 2026-11-01 — align to actions/checkout@v7 and setup-python@v7 (Node 24) for consistency with laurea.yml and achievement-evidence.yml after successful achievement-evidence run on 5f16a4f.
 
 on:
   pull_request:
@@ -28,10 +29,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - run: python scripts/render_highlights.py --check
