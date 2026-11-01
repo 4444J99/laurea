@@ -1,5 +1,6 @@
 name: laurea
-# Receipt: green progress polish 2026-11-01 — successful run on receipt commit fa3925a (actions/checkout@v7 and setup-python@v7, Node 24).
+# Receipt: green progress polish 2026-11-01 — successful run on receipt commit fb8b12d (actions/checkout@v7 and setup-python@v7, Node 24).
+# Prior: green progress polish 2026-11-01 — successful run on receipt commit fa3925a (actions/checkout@v7 and setup-python@v7, Node 24).
 # Prior: green progress polish 2026-11-01 — successful run on 2026-10-31 recompute (commit 3fd8276); actions/checkout@v7 and setup-python@v7 (Node 24).
 # Prior: green progress polish 2026-10-25 — successful run with actions/checkout@v7 and setup-python@v7 (Node 24).
 
