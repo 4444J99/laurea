@@ -1,14 +1,14 @@
 {
   "schema_version": "laurea.report.v2",
   "login": "4444J99",
-  "generated_at": "2026-11-06T09:20:21.872585Z",
+  "generated_at": "2026-11-07T09:18:50.122150Z",
   "source_repository": "4444J99/laurea",
-  "source_sha": "41fc2d9a64546430478dceaf9f2d381839664922",
+  "source_sha": "ac9c34b4031132df60a9cee273e2c507e254f84c",
   "snapshot": {
     "login": "4444J99",
     "name": "Anthony James Padavano",
     "created_at": "2016-12-27T17:24:06Z",
-    "followers": 39,
+    "followers": 38,
     "orgs": [
       "organvm-i-theoria",
       "organvm-ii-poiesis",
@@ -47,7 +47,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-05T22:07:43Z",
+        "pushedAt": "2026-11-06T21:44:26Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -123,7 +123,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-06T00:07:58Z",
+        "pushedAt": "2026-11-06T16:24:12Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -223,7 +223,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-06T01:38:40Z",
+        "pushedAt": "2026-11-06T10:11:28Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -253,7 +253,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-06T00:20:22Z",
+        "pushedAt": "2026-11-06T11:33:53Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -293,7 +293,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-05T21:58:32Z",
+        "pushedAt": "2026-11-06T18:49:59Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -313,7 +313,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-05T22:05:32Z",
+        "pushedAt": "2026-11-06T21:46:30Z",
         "primaryLanguage": {
           "name": "TypeScript"
         }
@@ -351,7 +351,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-06T05:31:06Z",
+        "pushedAt": "2026-11-07T01:38:35Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -641,7 +641,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-05T09:21:14Z",
+        "pushedAt": "2026-11-06T09:20:23Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -671,7 +671,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-06T05:11:54Z",
+        "pushedAt": "2026-11-07T02:53:10Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -721,7 +721,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-05T22:06:10Z",
+        "pushedAt": "2026-11-07T00:23:25Z",
         "primaryLanguage": {
           "name": "Python"
         }
@@ -779,29 +779,29 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-05T18:23:33Z",
+        "pushedAt": "2026-11-07T04:22:21Z",
         "primaryLanguage": {
           "name": "HTML"
         }
       }
     ],
     "contributions": {
-      "total": 53100,
-      "commits": 4343,
-      "pull_requests": 1381,
+      "total": 53463,
+      "commits": 4380,
+      "pull_requests": 1416,
       "reviews": 51,
-      "issues": 1709,
-      "restricted": 45590
+      "issues": 1715,
+      "restricted": 45875
     }
   },
   "findings": [
     {
       "axis": "contributions_year",
       "title": "GitHub contribution activity (12 months)",
-      "value": 53100.0,
+      "value": 53463.0,
       "unit": "contribution events",
       "status": "measured",
-      "evidence": "GitHub reports 53,100 contribution-calendar events in the last 12 months. Associated API fields report 4,343 commits, 1,381 pull requests, 51 reviews, and 1,709 issues; these fields are not an additive breakdown",
+      "evidence": "GitHub reports 53,463 contribution-calendar events in the last 12 months. Associated API fields report 4,380 commits, 1,416 pull requests, 51 reviews, and 1,715 issues; these fields are not an additive breakdown",
       "source": "GitHub GraphQL contributionsCollection and contributionCalendar",
       "analysis": "This is an activity count, not a count of shipped units. GitHub events vary in scope and do not establish review, merge, quality, or impact."
     },
@@ -818,10 +818,10 @@
     {
       "axis": "pull_requests_year",
       "title": "Pull requests opened (12 months)",
-      "value": 1381.0,
+      "value": 1416.0,
       "unit": "pull requests",
       "status": "measured",
-      "evidence": "GitHub reports 1,381 pull requests opened in the trailing 12-month collection",
+      "evidence": "GitHub reports 1,416 pull requests opened in the trailing 12-month collection",
       "source": "GitHub GraphQL contributionsCollection.totalPullRequestContributions",
       "analysis": "Opened pull requests are activity events; this field does not say whether they were reviewed, mergeable, merged, distinct in scope, or created without automation."
     },
