@@ -1,0 +1,81 @@
+{
+  "schema_version": "laurea.rege-matrix-execution.v1",
+  "observed_on": "2026-10-02",
+  "subject": "4444J99",
+  "source_repository": {
+    "repository_id": 1140011103,
+    "full_name": "4444J99/recursive-engine--generative-entity",
+    "default_branch": "main",
+    "base_sha": "4e8a94450ce1ce12d0fb0acbb16215600f854db8",
+    "pull_request": 35,
+    "head_sha": "a00d55f9c3bbbb4486ec0fc7e589bb35d5da905e",
+    "head_branch": "census-test-boundaries-investigation-10136480834312221184",
+    "draft": true
+  },
+  "workflow": {
+    "path": ".github/workflows/ci.yml",
+    "blob_sha": "f72e46f5221f522addd2c0b8ed49ae0113fcbb4b",
+    "run_id": 37060759590,
+    "test_command": "timeout --signal=TERM 300s python -m pytest rege/tests --cov=rege --cov-report=xml --cov-report=term --cov-report=html",
+    "collection_count": 1998,
+    "test_root": "rege/tests",
+    "change_reason": "The prior required job only checked root-level tests/test/test_*.py locations, so the package suite could be skipped while the job passed. The observed head explicitly executes the declared package test root and fails closed on the pyproject development environment."
+  },
+  "environments": [
+    {
+      "python": "3.11.16",
+      "job_id": 111016545955,
+      "job_conclusion": "failure",
+      "test_step_conclusion": "failure",
+      "pytest": "9.1.1",
+      "click": "8.5.0",
+      "pytest_cov": "7.1.0",
+      "coverage": "7.16.2",
+      "collected": 1998,
+      "passed": 1997,
+      "failed": 1,
+      "skipped": 0,
+      "duration_seconds": 12.19,
+      "failure": {
+        "test": "rege/tests/test_parser_validator_misc_coverage.py::TestValidatorInvalidDepth::test_invalid_depth_adds_error",
+        "exception": "TypeError",
+        "message": "unsupported operand type(s) for 'in': 'str' and 'EnumType'",
+        "source_path": "rege/parser/validator.py",
+        "source_blob_sha": "7b724ae1cdff2ff87b18125f05586adfe7db2d53",
+        "test_blob_sha": "75c1ae3647b311bb54d0a68eee544c70ed4cb5e8",
+        "interpretation": "The validator uses Enum containment on a deliberately invalid string depth. Python 3.11 raises TypeError instead of returning a validation error."
+      }
+    },
+    {
+      "python": "3.12.14",
+      "job_id": 111016545641,
+      "job_conclusion": "cancelled",
+      "test_step_conclusion": "success",
+      "pytest": "9.1.1",
+      "click": "8.5.0",
+      "pytest_cov": "7.1.0",
+      "coverage": "7.16.2",
+      "collected": 1998,
+      "passed": 1998,
+      "failed": 0,
+      "skipped": 0,
+      "duration_seconds": 11.13,
+      "coverage_xml_generated": true,
+      "interpretation": "The complete package test step passed. The matrix job was subsequently cancelled after the sibling Python 3.11 job failed; the successful test step remains directly observed evidence, but the overall job is not relabeled success."
+    }
+  ],
+  "derived": {
+    "defined_and_collected_tests": 1998,
+    "python_312_pass_rate_percent": 100,
+    "python_311_pass_rate_percent": 99.94994994994995,
+    "cross_version_full_suite_green": false,
+    "new_evidence_status": "real matrix execution replaced prior false-green discovery; one Python 3.11 compatibility defect is now isolated"
+  },
+  "limits": [
+    "This is hosted CI evidence for one exact pull-request head, not production efficacy or deployment evidence.",
+    "The 1,998 count is the collected package suite on this head; it is not multiplied across matrix environments.",
+    "Python 3.12's test step passed, but its overall matrix job was cancelled after the Python 3.11 failure; the job itself is not called green.",
+    "Ruff and mypy are continue-on-error in the observed workflow and are not treated as passing quality gates.",
+    "The source repair for the Python 3.11 defect is not included in this evidence record."
+  ]
+}

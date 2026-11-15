@@ -51,6 +51,12 @@ The recruiter-originated **top-1% Python committer** finding remains separately 
 This new edition complements the dated September 22 findings; it does not relabel activity as commits, corpus completeness as efficacy, or maintained third-party material as sole authorship.
 <!-- LAVREA:SOURCE-CENSUS:END -->
 
+## External contribution reach — October 2, 2026
+
+**32 public pull requests authored by `4444J99` across 30 current repository identities outside the `4444J99` namespace: 7 merged, 13 open, 12 closed unmerged.** This is a dated current-owner namespace census, not a lifetime-submission total or an independence claim. The independently verified upstream-acceptance set remains six projects.
+
+[External-owner PR census](EXTERNAL_PR_CENSUS.md) · [Machine-readable evidence](evidence/2026-10-02-external-owner-pr-census.json)
+
 ## The whole practice
 
 [Explore the Distinction Atlas](DISTINCTIONS.md): nine documented areas spanning systems engineering, instruction design, computational representation, literary infrastructure and released music, with audience-specific pathways for applied AI, creative technology, learning and research.
