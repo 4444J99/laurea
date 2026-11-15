@@ -14,7 +14,7 @@ from pathlib import Path, PurePosixPath
 
 SOURCES = [
     ('skills', 'organvm-iv-taxis/a-i--skills'),
-    ('narrative', 'organvm-ii-poiesis/narratological-algorithmic-lenses'),
+    ('narrative', '4444J99/narratological-algorithmic-lenses'),
     ('titan', 'organvm-iii-ergon/agentic-titan'),
     ('rege', '4444J99/recursive-engine--generative-entity'),
 ]
