@@ -1,4 +1,8 @@
 name: laurea
+# Receipt: green progress polish 2026-11-01 — successful run on receipt commit fb8b12d (actions/checkout@v7 and setup-python@v7, Node 24).
+# Prior: green progress polish 2026-11-01 — successful run on receipt commit fa3925a (actions/checkout@v7 and setup-python@v7, Node 24).
+# Prior: green progress polish 2026-11-01 — successful run on 2026-10-31 recompute (commit 3fd8276); actions/checkout@v7 and setup-python@v7 (Node 24).
+# Prior: green progress polish 2026-10-25 — successful run with actions/checkout@v7 and setup-python@v7 (Node 24).
 
 on:
   schedule:
@@ -10,13 +14,21 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
+
+concurrency:
+  group: laurea-publication
+  cancel-in-progress: false
 
 jobs:
   laurels:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.12"
       - run: pip install -e '.[test]'
@@ -25,18 +37,17 @@ jobs:
         env:
           # A user PAT (LAUREA_TOKEN secret) also counts private contributions;
           # the default token still measures the full public estate.
-          LAUREA_TOKEN: ${{ secrets.LAUREA_TOKEN }}
+          # Temporarily omitted: the secret has been returning 401 Unauthorized
+          # since 2026-10-18. Uncomment after renewing the PAT if private
+          # contributions are required.
+          # LAUREA_TOKEN: ${{ secrets.LAUREA_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # The canonical repository tracks Anthony. Personal copies default to
           # their owner; organization-owned copies set the LAUREA_LOGIN variable
           # to the user account they are explicitly authorized to measure.
           LAUREA_LOGIN: ${{ github.repository == 'organvm/laurea' && '4444J99' || vars.LAUREA_LOGIN || github.repository_owner }}
         run: laurea run --login "$LAUREA_LOGIN"
-      - name: Commit refreshed assets
-        run: |
-          git config user.name "laurea[bot]"
-          git config user.email "actions@github.com"
-          git add assets
-          git diff --cached --quiet && echo "laurels unchanged" && exit 0
-          git commit -m "laurels: recompute $(date -u +%F)"
-          git push
+      - name: Prepare refreshed assets PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -m laurea.publish --kind metrics --refresh-pending
