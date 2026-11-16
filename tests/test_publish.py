@@ -40,7 +40,7 @@ def sandbox(tmp_path, monkeypatch):
                                  "repository": {"full_name": "owner/repo", "id": 7}}))
     env["GITHUB_EVENT_PATH"] = str(event)
     calls, bodies = [], []
-    settings = {"create_fails": False, "created": False, "wrong_pr": False, "wrong_origin": False}
+    settings = {"create_fails": False, "create_fail_once": False, "created": False, "wrong_pr": False, "wrong_origin": False}
     real = p.command
     def command(argv, *, root, env):
         """Intercept provider calls and delegate the fixture's permitted local Git commands."""
@@ -52,6 +52,9 @@ def sandbox(tmp_path, monkeypatch):
         if argv[1:3] == ["pr", "create"]:
             bodies.append(Path(argv[argv.index("--body-file") + 1]).read_text())
             if settings["create_fails"]:
+                raise RuntimeError("ambiguous create")
+            if settings["create_fail_once"] and not settings.get("create_failed_once"):
+                settings["create_failed_once"] = True
                 raise RuntimeError("ambiguous create")
             settings["created"] = True
             return "https://github.com/owner/repo/pull/9"
@@ -142,20 +145,48 @@ def test_existing_branch_is_not_updated(sandbox):
 
 
 @pytest.mark.parametrize("created", [True, False])
-def test_ambiguous_create_is_read_once_without_retry(sandbox, created):
-    """Verify that ambiguous create is read once without retry."""
+def test_ambiguous_create_retries_once_after_proven_absence(sandbox, created, monkeypatch):
+    """Verify that an ambiguous create is read back once and retried once only when the readback proves no PR exists."""
     root, remote, env, calls, _, settings, git, sha = sandbox
-    settings.update(create_fails=True, created=created)
+    monkeypatch.setattr(p, "PR_CREATE_RETRY_DELAY_SECONDS", 0)
+    if created:
+        settings.update(create_fails=True, created=True)
+        expected_creates = 1
+    else:
+        # First create fails; the retry succeeds, as in the Nov 15 laurels
+        # failure where the readback found 0 PRs for the published branch.
+        settings.update(create_fail_once=True, created=False)
+        expected_creates = 2
     (root / "assets/metrics.json").write_text("changed")
     receipt = {}
-    if created:
-        assert p.publish("metrics", root=root, env=env, receipt=receipt)["status"] == "pr_open"
-    else:
-        with pytest.raises(RuntimeError, match="PR publication"):
-            p.publish("metrics", root=root, env=env, receipt=receipt)
-        assert receipt["status"] == "branch_published"
+    assert p.publish("metrics", root=root, env=env, receipt=receipt)["status"] == "pr_open"
+    assert receipt["push_reconciled"] is True
+    assert sum(call[:3] == ["gh", "pr", "create"] for call in calls) == expected_creates
     assert git("rev-parse", "refs/heads/main", cwd=remote) == sha
-    assert sum(call[:3] == ["gh", "pr", "create"] for call in calls) == 1
+
+
+def test_both_creates_failing_keeps_branch_published(sandbox, monkeypatch):
+    """Verify that two failed creates still raise with the branch preserved and the push reconciled."""
+    root, remote, env, calls, _, settings, git, sha = sandbox
+    monkeypatch.setattr(p, "PR_CREATE_RETRY_DELAY_SECONDS", 0)
+    settings.update(create_fails=True, created=False)
+    (root / "assets/metrics.json").write_text("changed")
+    receipt = {}
+    with pytest.raises(RuntimeError, match="PR publication"):
+        p.publish("metrics", root=root, env=env, receipt=receipt)
+    assert receipt["status"] == "branch_published"
+    assert receipt["push_reconciled"] is True
+    assert sum(call[:3] == ["gh", "pr", "create"] for call in calls) == 2
+    assert git("rev-parse", "refs/heads/main", cwd=remote) == sha
+
+
+def test_push_reconciled_is_true_after_verified_push(sandbox):
+    """Verify that the receipt records a verified push as reconciled."""
+    root, _, env, _, _, _, _, _ = sandbox
+    (root / "assets/metrics.json").write_text("changed")
+    result = p.publish("metrics", root=root, env=env)
+    assert result["status"] == "pr_open"
+    assert result["push_reconciled"] is True
 
 
 def test_wrong_pr_head_cannot_be_accepted(sandbox):
