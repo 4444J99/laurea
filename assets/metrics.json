@@ -1,9 +1,9 @@
 {
   "schema_version": "laurea.report.v2",
   "login": "4444J99",
-  "generated_at": "2026-11-14T09:18:45.030551Z",
+  "generated_at": "2026-11-16T09:28:41.885874Z",
   "source_repository": "4444J99/laurea",
-  "source_sha": "c53e9da5f161184436fe4263f8ed2d13dc211a06",
+  "source_sha": "d6f8145629a9e294fad0705ab4603f96a8e9670a",
   "snapshot": {
     "login": "4444J99",
     "name": "Anthony James Padavano",
@@ -23,36 +23,87 @@
     ],
     "repos": [
       {
+        "id": "R_kgDONx_cBg",
+        "nameWithOwner": "4444J99/generative-multimedia-spatial-environment",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "d9c4ed16539f2c63697f6137f8a86ef461b38aa1"
+          }
+        },
         "name": "generative-multimedia-spatial-environment",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 2,
-        "pushedAt": "2026-11-13T04:08:09Z",
+        "pushedAt": "2026-11-14T14:57:41Z",
         "primaryLanguage": {
           "name": "JavaScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOQHk3hw",
+        "nameWithOwner": "4444J99/reverse-engine-recursive-run",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "d880b25881904264e243a1a1b5e051efa1fe6a09"
+          }
+        },
         "name": "reverse-engine-recursive-run",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 2,
-        "pushedAt": "2026-11-13T14:08:08Z",
+        "pushedAt": "2026-11-15T03:34:51Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOQKj6cw",
+        "nameWithOwner": "4444J99/auto-revision-epistemic-engine",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "778fe7d2f3bced0078dc925f9584f74444f0fce7"
+          }
+        },
         "name": "auto-revision-epistemic-engine",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-13T21:44:30Z",
+        "pushedAt": "2026-11-15T03:19:02Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOQOlikA",
+        "nameWithOwner": "4444J99/a-i--skills",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "df5445878f12d78d81ec48571fa11063f9a5cd46"
+          }
+        },
         "name": "a-i--skills",
         "isFork": false,
         "isArchived": true,
@@ -60,9 +111,23 @@
         "pushedAt": "2026-10-29T15:46:23Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOQjhVjg",
+        "nameWithOwner": "4444J99/core-engine",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "3c8297f6bcf44dcc59e5719731df395651c99255"
+          }
+        },
         "name": "core-engine",
         "isFork": false,
         "isArchived": true,
@@ -70,9 +135,23 @@
         "pushedAt": "2026-03-10T12:29:17Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOQjha2g",
+        "nameWithOwner": "4444J99/performance-sdk",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "89ca907db7871bfc81665802fcf2e980c57885a6"
+          }
+        },
         "name": "performance-sdk",
         "isFork": false,
         "isArchived": true,
@@ -80,35 +159,91 @@
         "pushedAt": "2026-03-10T12:29:29Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOQjhgow",
+        "nameWithOwner": "4444J99/docs",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "22834b0b267a7d84ffa2de085381624036709bc0"
+          }
+        },
         "name": "docs",
         "isFork": false,
         "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-02-11T09:34:47Z",
-        "primaryLanguage": null
+        "primaryLanguage": null,
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
+        }
       },
       {
+        "id": "R_kgDOQjhjaA",
+        "nameWithOwner": "4444J99/example-generative-visual",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "97971d8b51b139a293cb64a7effbaec950f6e8d2"
+          }
+        },
         "name": "example-generative-visual",
         "isFork": false,
         "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-03-10T12:29:26Z",
-        "primaryLanguage": null
+        "primaryLanguage": null,
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
+        }
       },
       {
+        "id": "R_kgDOQwR4TA",
+        "nameWithOwner": "4444J99/metasystem-master",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "8adbf30b47ef3ca1ab478117fadaacf02f3ce628"
+          }
+        },
         "name": "metasystem-master",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-12T08:35:01Z",
+        "pushedAt": "2026-11-15T01:50:13Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOQ87a7Q",
+        "nameWithOwner": "4444J99/agentic-titan",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "498f267d829108a0bc71050d578939898d1b0fda"
+          }
+        },
         "name": "agentic-titan",
         "isFork": false,
         "isArchived": true,
@@ -116,29 +251,71 @@
         "pushedAt": "2026-10-26T23:46:26Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOQ9dM3A",
+        "nameWithOwner": "4444J99/universal-mail--automation",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "f1b97a3dd76510e1400235125ef4483e6fc93f21"
+          }
+        },
         "name": "universal-mail--automation",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-13T16:23:13Z",
+        "pushedAt": "2026-11-15T02:07:24Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOQ9mryg",
+        "nameWithOwner": "4444J99/linguistic-atomization-framework",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "a569933979c861c589070629019dfec91c717a67"
+          }
+        },
         "name": "linguistic-atomization-framework",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 2,
-        "pushedAt": "2026-11-13T16:29:44Z",
+        "pushedAt": "2026-11-15T01:58:17Z",
         "primaryLanguage": {
           "name": "HTML"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOQ-eMkA",
+        "nameWithOwner": "4444J99/organon-noumenon--ontogenetic-morphe",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "767bbff2da89908d4d244dee4af3596c00368afe"
+          }
+        },
         "name": "organon-noumenon--ontogenetic-morphe",
         "isFork": false,
         "isArchived": true,
@@ -146,29 +323,71 @@
         "pushedAt": "2026-10-28T00:33:59Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOQ_JgHA",
+        "nameWithOwner": "4444J99/sema-metra--alchemica-mundi",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "db2b837707bd762d3ef250e70cf801003c991ef4"
+          }
+        },
         "name": "sema-metra--alchemica-mundi",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-13T16:24:55Z",
+        "pushedAt": "2026-11-16T04:14:09Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOQ_MwXw",
+        "nameWithOwner": "4444J99/recursive-engine--generative-entity",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "5cb2c66a06c09169ae44a832547f35d36035a5d2"
+          }
+        },
         "name": "recursive-engine--generative-entity",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-13T14:08:19Z",
+        "pushedAt": "2026-11-15T03:11:56Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORHHVuA",
+        "nameWithOwner": "4444J99/etceter4",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "dfcbf0f38bfcb49630a00be9a979b9879daa48c9"
+          }
+        },
         "name": "etceter4",
         "isFork": false,
         "isArchived": false,
@@ -176,19 +395,47 @@
         "pushedAt": "2026-10-16T23:01:27Z",
         "primaryLanguage": {
           "name": "HTML"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORKxddw",
+        "nameWithOwner": "4444J99/the-actual-news",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "3bd0873184f9070036e00e11908bf484ca561509"
+          }
+        },
         "name": "the-actual-news",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-13T16:20:17Z",
+        "pushedAt": "2026-11-16T05:25:12Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORNUsfw",
+        "nameWithOwner": "4444J99/organvm-profile-readme",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "84347ee041e0e5db7dbaa3e0dac127d9f816c7fb"
+          }
+        },
         "name": "organvm-profile-readme",
         "isFork": false,
         "isArchived": true,
@@ -196,49 +443,119 @@
         "pushedAt": "2026-10-05T13:41:28Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORNuRSQ",
+        "nameWithOwner": "4444J99/salon-archive",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "5ec7a21496001985fcead80ee871995e7b1ced64"
+          }
+        },
         "name": "salon-archive",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-13T16:20:37Z",
+        "pushedAt": "2026-11-15T02:08:27Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORPHIHQ",
+        "nameWithOwner": "4444J99/adaptive-personal-syllabus",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "019dfc706810a0a0ede2a921829f414c31d443f2"
+          }
+        },
         "name": "adaptive-personal-syllabus",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 3,
-        "pushedAt": "2026-10-30T14:14:57Z",
+        "pushedAt": "2026-11-14T16:00:03Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORPLqEQ",
+        "nameWithOwner": "4444J99/alchemia-ingestvm",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "974678a21a7d492e11ad217e0b0f2c2424ea248d"
+          }
+        },
         "name": "alchemia-ingestvm",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-13T14:06:53Z",
+        "pushedAt": "2026-11-15T02:27:21Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORP7e8w",
+        "nameWithOwner": "4444J99/alchemical-synthesizer",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "7a968bee0ae117df8f4434eddb3110269033a3ad"
+          }
+        },
         "name": "alchemical-synthesizer",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-13T14:06:54Z",
+        "pushedAt": "2026-11-15T03:24:50Z",
         "primaryLanguage": {
           "name": "JavaScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORSnAwg",
+        "nameWithOwner": "4444J99/analytics-engine",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "48a9407a7d0becfd0789271c233ec2a5c2cdfab7"
+          }
+        },
         "name": "analytics-engine",
         "isFork": false,
         "isArchived": true,
@@ -246,19 +563,47 @@
         "pushedAt": "2026-10-13T01:21:38Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORSnA-Q",
+        "nameWithOwner": "4444J99/editorial-standards",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "2339db052b739b23a59ec170f1bdee8c4cb80321"
+          }
+        },
         "name": "editorial-standards",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-06T11:33:53Z",
+        "pushedAt": "2026-11-15T02:13:23Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORSnBLQ",
+        "nameWithOwner": "4444J99/reading-observatory",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "c252b2977af307f3cad2a73f6dfa2323ba7b5b02"
+          }
+        },
         "name": "reading-observatory",
         "isFork": false,
         "isArchived": true,
@@ -266,9 +611,23 @@
         "pushedAt": "2026-10-12T15:45:10Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORSsCrw",
+        "nameWithOwner": "4444J99/koinonia-db",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "3fe455fcbdeca98ab209f38a6b892dc29217c6a1"
+          }
+        },
         "name": "koinonia-db",
         "isFork": false,
         "isArchived": true,
@@ -276,29 +635,71 @@
         "pushedAt": "2026-11-04T09:01:02Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORSsFXQ",
+        "nameWithOwner": "4444J99/schema-definitions",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "3f6296c320e772b319f233c316d406ad29a11546"
+          }
+        },
         "name": "schema-definitions",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-13T14:08:25Z",
+        "pushedAt": "2026-11-15T03:36:46Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORSsFeg",
+        "nameWithOwner": "4444J99/organvm-engine",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "a08a5169ada465f224135ec9b6c6fdde062e1125"
+          }
+        },
         "name": "organvm-engine",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-13T22:59:19Z",
+        "pushedAt": "2026-11-15T05:29:27Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORWWWEg",
+        "nameWithOwner": "4444J99/peer-audited--behavioral-blockchain",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "204fc540372f0a715914287ab909b1c995beea74"
+          }
+        },
         "name": "peer-audited--behavioral-blockchain",
         "isFork": false,
         "isArchived": true,
@@ -306,37 +707,93 @@
         "pushedAt": "2026-11-05T00:17:16Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORe1Mdw",
+        "nameWithOwner": "4444J99/stakeholder-portal",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "bce0c25247a6100c42058511707e2baaa5a1788b"
+          }
+        },
         "name": "stakeholder-portal",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-13T21:46:13Z",
+        "pushedAt": "2026-11-15T01:52:31Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORh4jIQ",
+        "nameWithOwner": "4444J99/hierarchia-mundi",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "a1b48d248d5ece389f9cf52d92c4ecac4ee18690"
+          }
+        },
         "name": "hierarchia-mundi",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-06T00:21:13Z",
+        "pushedAt": "2026-11-15T03:20:46Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORkBeGA",
+        "nameWithOwner": "4444J99/styx-behavioral-economics-theory",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "455b2a36460f5c0f649319dc7030508e21c50495"
+          }
+        },
         "name": "styx-behavioral-economics-theory",
         "isFork": false,
         "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-10-30T06:44:03Z",
-        "primaryLanguage": null
+        "primaryLanguage": null,
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
+        }
       },
       {
+        "id": "R_kgDORs_e6g",
+        "nameWithOwner": "4444J99/padavano",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "cb828020b9beb1944d6a15aa5d98207a8f524e7c"
+          }
+        },
         "name": "padavano",
         "isFork": false,
         "isArchived": true,
@@ -344,19 +801,47 @@
         "pushedAt": "2026-10-30T06:21:20Z",
         "primaryLanguage": {
           "name": "HTML"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORtFmMA",
+        "nameWithOwner": "4444J99/conversation-corpus-engine",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "3e89f2d65d5b9a0f8b9a67ceb2e19be22a3482d9"
+          }
+        },
         "name": "conversation-corpus-engine",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-14T01:19:05Z",
+        "pushedAt": "2026-11-16T09:24:30Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORtVMSw",
+        "nameWithOwner": "4444J99/hive",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "07b82a51f6f8ef5fbfd55a0c5d35419e466b67a9"
+          }
+        },
         "name": "hive",
         "isFork": true,
         "isArchived": true,
@@ -364,9 +849,23 @@
         "pushedAt": "2026-05-02T03:14:25Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORtXlcw",
+        "nameWithOwner": "4444J99/langgraph",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "30babb86626ffa917dbd189bc40e8ed47fc3574b"
+          }
+        },
         "name": "langgraph",
         "isFork": true,
         "isArchived": true,
@@ -374,9 +873,23 @@
         "pushedAt": "2026-03-24T01:13:22Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORtXldQ",
+        "nameWithOwner": "4444J99/sdk-python",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "8f003b4f842462a643be23743d5c4a3c4d8249a2"
+          }
+        },
         "name": "sdk-python",
         "isFork": true,
         "isArchived": true,
@@ -384,9 +897,23 @@
         "pushedAt": "2026-04-07T19:28:37Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORtXleQ",
+        "nameWithOwner": "4444J99/dbt-mcp",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "fdf0873facd83f7c656d8d84345ec43652bb1130"
+          }
+        },
         "name": "dbt-mcp",
         "isFork": true,
         "isArchived": true,
@@ -394,9 +921,23 @@
         "pushedAt": "2026-03-27T02:48:26Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORtXlgg",
+        "nameWithOwner": "4444J99/github-stars",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "1074698a7b412118ecbd20d2e808b887a5cc37b8"
+          }
+        },
         "name": "github-stars",
         "isFork": true,
         "isArchived": true,
@@ -404,9 +945,23 @@
         "pushedAt": "2026-07-30T05:46:34Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORtXlhw",
+        "nameWithOwner": "4444J99/ipapi-py",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "9bd655266582ec70d90d01296aa92784da5a27a5"
+          }
+        },
         "name": "ipapi-py",
         "isFork": true,
         "isArchived": true,
@@ -414,9 +969,23 @@
         "pushedAt": "2026-03-22T03:52:11Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORtXlrQ",
+        "nameWithOwner": "4444J99/skills",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "b0cbd3df1533b396d281a6886d5132f623393a9c"
+          }
+        },
         "name": "skills",
         "isFork": true,
         "isArchived": true,
@@ -424,9 +993,23 @@
         "pushedAt": "2026-03-22T03:54:57Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORupMxw",
+        "nameWithOwner": "4444J99/summarize_recent_commit",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "cd4cfc72083a16a7e37d7537e7e36be4f8c2eebd"
+          }
+        },
         "name": "summarize_recent_commit",
         "isFork": true,
         "isArchived": true,
@@ -434,9 +1017,23 @@
         "pushedAt": "2026-03-23T20:06:39Z",
         "primaryLanguage": {
           "name": "Rust"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORu7X8A",
+        "nameWithOwner": "4444J99/gait",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "69543c42efc36ee093c35b52d7d3265615ea413c"
+          }
+        },
         "name": "gait",
         "isFork": true,
         "isArchived": true,
@@ -444,9 +1041,23 @@
         "pushedAt": "2026-03-23T23:47:13Z",
         "primaryLanguage": {
           "name": "Go"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORu7Ywg",
+        "nameWithOwner": "4444J99/iwf",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "ed9f8c228f56a0ab1009573395f5e43a5b76e819"
+          }
+        },
         "name": "iwf",
         "isFork": true,
         "isArchived": true,
@@ -454,9 +1065,23 @@
         "pushedAt": "2026-03-23T23:45:49Z",
         "primaryLanguage": {
           "name": "Go"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORu7Y5A",
+        "nameWithOwner": "4444J99/dagster-sdlc",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "ca635865df7a51dee2f634023278f32bcc3f1313"
+          }
+        },
         "name": "dagster-sdlc",
         "isFork": true,
         "isArchived": true,
@@ -464,9 +1089,23 @@
         "pushedAt": "2026-05-22T18:05:47Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORyndSQ",
+        "nameWithOwner": "4444J99/fastapi_mcp",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "e5cad13cabfc725bbcb047e526816d887d96da62"
+          }
+        },
         "name": "fastapi_mcp",
         "isFork": true,
         "isArchived": true,
@@ -474,9 +1113,23 @@
         "pushedAt": "2026-03-27T18:27:53Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORyneNg",
+        "nameWithOwner": "4444J99/python-sdk",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "fb2276b95fb5ac6631f9c160c9b1bd7a6d7312a9"
+          }
+        },
         "name": "python-sdk",
         "isFork": true,
         "isArchived": true,
@@ -484,9 +1137,23 @@
         "pushedAt": "2026-05-02T02:51:18Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORynvyg",
+        "nameWithOwner": "4444J99/anthropic-sdk-python",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "d7c0974ce6ab94ca135b10b2a45308203c0e0c7e"
+          }
+        },
         "name": "anthropic-sdk-python",
         "isFork": true,
         "isArchived": true,
@@ -494,9 +1161,23 @@
         "pushedAt": "2026-03-27T18:32:48Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORyv-6A",
+        "nameWithOwner": "4444J99/fastmcp",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "3e1aadb282f9d4d13032899fd5dab51053536488"
+          }
+        },
         "name": "fastmcp",
         "isFork": true,
         "isArchived": true,
@@ -504,9 +1185,23 @@
         "pushedAt": "2026-05-02T02:51:19Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORyv-_w",
+        "nameWithOwner": "4444J99/camel",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "b547bc49f5cc1a9b742ae34d953e72fc100b9ad1"
+          }
+        },
         "name": "camel",
         "isFork": true,
         "isArchived": true,
@@ -514,9 +1209,23 @@
         "pushedAt": "2026-08-27T17:47:31Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORzOCKQ",
+        "nameWithOwner": "4444J99/k6",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "be36b5557116a6322e21537ffe72728e92190e71"
+          }
+        },
         "name": "k6",
         "isFork": true,
         "isArchived": true,
@@ -524,9 +1233,23 @@
         "pushedAt": "2026-08-27T17:47:44Z",
         "primaryLanguage": {
           "name": "Go"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORzOEvg",
+        "nameWithOwner": "4444J99/agentkit",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "0fe026bf3f26c9161aa3b3fc4923f1683d519003"
+          }
+        },
         "name": "agentkit",
         "isFork": true,
         "isArchived": true,
@@ -534,9 +1257,23 @@
         "pushedAt": "2026-05-30T23:56:14Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORzOvAA",
+        "nameWithOwner": "4444J99/openai-agents-python",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "9f5575ada4e7852a182bbe76f4ec21bb6e88268c"
+          }
+        },
         "name": "openai-agents-python",
         "isFork": true,
         "isArchived": true,
@@ -544,9 +1281,23 @@
         "pushedAt": "2026-05-02T02:51:23Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORzPf3g",
+        "nameWithOwner": "4444J99/dbt-databricks",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "4d763820c857e8bcb944ae3f17509f43b4ef149e"
+          }
+        },
         "name": "dbt-databricks",
         "isFork": true,
         "isArchived": true,
@@ -554,9 +1305,23 @@
         "pushedAt": "2026-05-09T12:04:35Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORzP4SA",
+        "nameWithOwner": "4444J99/contrib--notion-mcp-server--4444j99-fork",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "3bef7addac59b237da3bb41f36a520babc47fa3c"
+          }
+        },
         "name": "contrib--notion-mcp-server--4444j99-fork",
         "isFork": true,
         "isArchived": true,
@@ -564,9 +1329,23 @@
         "pushedAt": "2026-03-28T15:07:24Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDORzQIWA",
+        "nameWithOwner": "4444J99/guarddog",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "983410fe7bb2f591b3e493bc8fee232b00d3d6bc"
+          }
+        },
         "name": "guarddog",
         "isFork": true,
         "isArchived": true,
@@ -574,9 +1353,23 @@
         "pushedAt": "2026-06-05T15:44:59Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOR1LhCw",
+        "nameWithOwner": "4444J99/a2a-python",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "6d49122238a5e7d497c5d002792732446071dcb2"
+          }
+        },
         "name": "a2a-python",
         "isFork": true,
         "isArchived": true,
@@ -584,9 +1377,23 @@
         "pushedAt": "2026-03-30T21:45:33Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOR1MJdg",
+        "nameWithOwner": "4444J99/contrib--dapr-dapr--4444j99-fork",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "f7427a1290f333420f172b826b16d4e1f4cabd57"
+          }
+        },
         "name": "contrib--dapr-dapr--4444j99-fork",
         "isFork": true,
         "isArchived": true,
@@ -594,19 +1401,47 @@
         "pushedAt": "2026-08-27T17:47:39Z",
         "primaryLanguage": {
           "name": "Go"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOR51G6A",
+        "nameWithOwner": "4444J99/rules-system-bound",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "ad10ba5919a385de2021a8dc8dd406ffd724766a"
+          }
+        },
         "name": "rules-system-bound",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-28T11:27:50Z",
+        "pushedAt": "2026-11-15T01:51:21Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOSUC-KQ",
+        "nameWithOwner": "4444J99/trendpulse",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "0a40aa8e181b8927d5634190c0144fac9444b299"
+          }
+        },
         "name": "trendpulse",
         "isFork": false,
         "isArchived": true,
@@ -614,9 +1449,23 @@
         "pushedAt": "2026-11-09T01:13:20Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOSUFMrg",
+        "nameWithOwner": "4444J99/vulnpulse",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "b8b91bde5c313f7d2a3edf22245d2b5a1911ea42"
+          }
+        },
         "name": "vulnpulse",
         "isFork": false,
         "isArchived": true,
@@ -624,29 +1473,71 @@
         "pushedAt": "2026-10-16T22:35:14Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOS0hbpw",
+        "nameWithOwner": "4444J99/media-ark",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "a8fa0d3f30dbb280cf47666e1682d177b031bd2c"
+          }
+        },
         "name": "media-ark",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-06T00:22:06Z",
+        "pushedAt": "2026-11-15T03:40:09Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOTNqj7w",
+        "nameWithOwner": "4444J99/laurea",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "d6f8145629a9e294fad0705ab4603f96a8e9670a"
+          }
+        },
         "name": "laurea",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-12T09:20:13Z",
+        "pushedAt": "2026-11-16T07:23:21Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOTQ2NAA",
+        "nameWithOwner": "4444J99/4444J99",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "08dceea101039be013cbf25b4b56f6a2f76456e4"
+          }
+        },
         "name": "4444J99",
         "isFork": false,
         "isArchived": false,
@@ -654,9 +1545,23 @@
         "pushedAt": "2026-11-07T22:24:15Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOUFV90g",
+        "nameWithOwner": "4444J99/the-thing-without-a-name",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "2e105c30b69033fa665cfcaacff4c393f94dada3"
+          }
+        },
         "name": "the-thing-without-a-name",
         "isFork": false,
         "isArchived": true,
@@ -664,29 +1569,71 @@
         "pushedAt": "2026-09-01T01:36:41Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOUVSVRw",
+        "nameWithOwner": "4444J99/tool-video-loop-compositor",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "573ba4060e332bc1b6d60e3dc71e8a5e76d93d33"
+          }
+        },
         "name": "tool-video-loop-compositor",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-14T01:41:27Z",
+        "pushedAt": "2026-11-16T08:59:17Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOU3wExA",
+        "nameWithOwner": "4444J99/guide-github-standard",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "b492520a9d721c791bd927b87f7b7f8803cbde6c"
+          }
+        },
         "name": "guide-github-standard",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-12T10:24:57Z",
+        "pushedAt": "2026-11-15T05:17:49Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOU-2DAQ",
+        "nameWithOwner": "4444J99/ges-native-enforcement-pilot",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "492460f74c38625708545d045d3fb88a8e04bd74"
+          }
+        },
         "name": "ges-native-enforcement-pilot",
         "isFork": false,
         "isArchived": true,
@@ -694,77 +1641,189 @@
         "pushedAt": "2026-10-12T15:34:47Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOVAHn7w",
+        "nameWithOwner": "4444J99/timed-text-navigation-loop",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "0d4b4c1d12792739913d2b7fe35101b55c5ccffb"
+          }
+        },
         "name": "timed-text-navigation-loop",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-06T00:23:26Z",
+        "pushedAt": "2026-11-16T03:38:14Z",
         "primaryLanguage": {
           "name": "JavaScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOVAYltA",
+        "nameWithOwner": "4444J99/tool-audiovisual-postproduction",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "9a811579be8bd44bd888e346a9e5fe404484707c"
+          }
+        },
         "name": "tool-audiovisual-postproduction",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-14T00:27:20Z",
+        "pushedAt": "2026-11-16T03:53:59Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOVEE64A",
+        "nameWithOwner": "4444J99/narratological-algorithmic-lenses",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "09bf6011dd37ad353fa54a9129b79a31279ed789"
+          }
+        },
         "name": "narratological-algorithmic-lenses",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-14T00:24:54Z",
+        "pushedAt": "2026-11-14T16:10:07Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOVENawA",
+        "nameWithOwner": "4444J99/hub-audiovisual-projects",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "697d884b896fa9d9f53d511f94750175d60dd21b"
+          }
+        },
         "name": "hub-audiovisual-projects",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-13T22:26:38Z",
+        "pushedAt": "2026-11-16T02:39:30Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOVGaugA",
+        "nameWithOwner": "4444J99/context-aware-essay-evaluation",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "e79824a521e3bc7c2b97d806c4d5fb9787aec000"
+          }
+        },
         "name": "context-aware-essay-evaluation",
         "isFork": false,
         "isArchived": true,
         "stargazerCount": 0,
         "pushedAt": "2026-10-13T00:50:04Z",
-        "primaryLanguage": null
+        "primaryLanguage": null,
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
+        }
       },
       {
+        "id": "R_kgDOVGiqBQ",
+        "nameWithOwner": "4444J99/multi-repo-governance-toolkit",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "f216a05db1f9a7eea2e8833a32a081243524233c"
+          }
+        },
         "name": "multi-repo-governance-toolkit",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-28T06:05:06Z",
+        "pushedAt": "2026-11-15T02:14:16Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOVGqpCg",
+        "nameWithOwner": "4444J99/domus-genoma",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "abe6bce073508906a85eaf8edca806035d9da7c9"
+          }
+        },
         "name": "domus-genoma",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-10-17T17:14:45Z",
+        "pushedAt": "2026-11-14T12:04:27Z",
         "primaryLanguage": {
           "name": "Python"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOVWaI0A",
+        "nameWithOwner": "4444J99/ops-scheduler-core",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "deb28ef6d121a32cff56585821dced0dcf025491"
+          }
+        },
         "name": "ops-scheduler-core",
         "isFork": false,
         "isArchived": false,
@@ -772,9 +1831,23 @@
         "pushedAt": "2026-11-08T07:31:53Z",
         "primaryLanguage": {
           "name": "TypeScript"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       },
       {
+        "id": "R_kgDOVkM3vg",
+        "nameWithOwner": "4444J99/versforms",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "f164cb186f821ee63577d9ecbf61fa7e1f590d83"
+          }
+        },
         "name": "versforms",
         "isFork": false,
         "isArchived": false,
@@ -782,26 +1855,56 @@
         "pushedAt": "2026-11-07T23:57:01Z",
         "primaryLanguage": {
           "name": "HTML"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
         }
       }
     ],
+    "repository_aggregates": {
+      "scope": "token_visible",
+      "nonfork_repositories": 53,
+      "stars": 34,
+      "primary_languages": {
+        "JavaScript": 3,
+        "Python": 32,
+        "TypeScript": 10,
+        "HTML": 4
+      }
+    },
+    "coverage": {
+      "status": "complete",
+      "scope": "token-visible personal repositories and organization memberships; not an administered-estate census",
+      "organization_scope_complete": true,
+      "sources_attempted": 12,
+      "source_count_scope": "membership discovery and repository connections",
+      "failed_sources": 0,
+      "observed_repositories": 77,
+      "public_repositories": 77,
+      "private_repositories_excluded": 0,
+      "visibility_unmeasured": 0,
+      "archived_public_repositories": 43,
+      "health_status": "unmeasured"
+    },
     "contributions": {
-      "total": 53637,
-      "commits": 4529,
-      "pull_requests": 1466,
-      "reviews": 50,
-      "issues": 1717,
-      "restricted": 45849
+      "total": 54340,
+      "commits": 4731,
+      "pull_requests": 1594,
+      "reviews": 56,
+      "issues": 1780,
+      "restricted": 46153
     }
   },
   "findings": [
     {
       "axis": "contributions_year",
       "title": "GitHub contribution activity (12 months)",
-      "value": 53637.0,
+      "value": 54340.0,
       "unit": "contribution events",
       "status": "measured",
-      "evidence": "GitHub reports 53,637 contribution-calendar events in the last 12 months. Associated API fields report 4,529 commits, 1,466 pull requests, 50 reviews, and 1,717 issues; these fields are not an additive breakdown",
+      "evidence": "GitHub reports 54,340 contribution-calendar events in the last 12 months. Associated API fields report 4,731 commits, 1,594 pull requests, 56 reviews, and 1,780 issues; these fields are not an additive breakdown",
       "source": "GitHub GraphQL contributionsCollection and contributionCalendar",
       "analysis": "This is an activity count, not a count of shipped units. GitHub events vary in scope and do not establish review, merge, quality, or impact."
     },
@@ -812,16 +1915,16 @@
       "unit": "organizations",
       "status": "measured",
       "evidence": "GitHub returned 10 organization memberships for this account",
-      "source": "GitHub GraphQL user.organizations (first 20 visible to the token)",
+      "source": "GitHub GraphQL user.organizations (paginated, visible to the token)",
       "analysis": "Membership does not by itself establish ownership, administrative authority, or individual responsibility for every repository in an organization."
     },
     {
       "axis": "pull_requests_year",
       "title": "Pull requests opened (12 months)",
-      "value": 1466.0,
+      "value": 1594.0,
       "unit": "pull requests",
       "status": "measured",
-      "evidence": "GitHub reports 1,466 pull requests opened in the trailing 12-month collection",
+      "evidence": "GitHub reports 1,594 pull requests opened in the trailing 12-month collection",
       "source": "GitHub GraphQL contributionsCollection.totalPullRequestContributions",
       "analysis": "Opened pull requests are activity events; this field does not say whether they were reviewed, mergeable, merged, distinct in scope, or created without automation."
     },
