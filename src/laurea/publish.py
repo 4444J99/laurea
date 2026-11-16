@@ -8,7 +8,15 @@ from pathlib import Path
 import re
 import subprocess
 import tempfile
+import time
 from urllib.parse import quote
+
+
+# Seconds to wait before retrying a PR create that the readback proved
+# produced no PR. One retry only; GitHub allows a single PR per head
+# branch, so a retry after a create that secretly succeeded fails with
+# 422 and the second readback still finds the one PR.
+PR_CREATE_RETRY_DELAY_SECONDS = 10
 
 
 def command(argv, *, root, env):
@@ -185,15 +193,17 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_tabl
     head = run("git", "rev-parse", "HEAD")
     receipt["head_sha"] = head
     # No force, rebase, default-ref push, retry, or automatic merge.
-    push_failed = False
     try:
         run("git", "push", "origin", f"HEAD:refs/heads/{branch}")
     except (OSError, RuntimeError, subprocess.TimeoutExpired):
-        push_failed = True
+        pass  # One ls-remote readback reconciles an ambiguous push; never send it again.
     remote = run("git", "ls-remote", "origin", "refs/heads/" + branch)
     if remote.split() != [head, "refs/heads/" + branch]:
         raise RuntimeError("branch publication is unverified")
-    receipt.update(status="branch_published", push_reconciled=push_failed)
+    # The ls-remote check above verified the push; record the verified
+    # result, not the push-failure flag (a push that raised but provably
+    # landed is reconciled, not unreconciled).
+    receipt.update(status="branch_published", push_reconciled=True)
     body = (f"Generated {kind} snapshot from default-source commit {sha}.\n\n"
             f"Owner and generation receipt: {receipt['owner_run']}\n\n"
             "Review the generated diff and merge through the repository rail. "
@@ -204,14 +214,30 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_tabl
     try:
         with os.fdopen(fd, "w") as stream:
             stream.write(body)
-        try:
-            run("gh", "pr", "create", "--repo", repository, "--base", default,
-                "--head", branch, "--title", f"{kind}: refresh generated snapshot",
-                "--body-file", body_path)
-        except (OSError, RuntimeError, subprocess.TimeoutExpired):
-            pass  # One readback reconciles an ambiguous create; never send it again.
-        pulls = api("/pulls?state=open&head=" + quote(repository.split("/")[0] + ":" + branch, safe="")
-                    + "&base=" + quote(default, safe="") + "&per_page=100")
+        def create_pr():
+            try:
+                run("gh", "pr", "create", "--repo", repository, "--base", default,
+                    "--head", branch, "--title", f"{kind}: refresh generated snapshot",
+                    "--body-file", body_path)
+            except (OSError, RuntimeError, subprocess.TimeoutExpired):
+                pass  # One readback reconciles an ambiguous create; never send it again.
+
+        def read_back_pr():
+            return api("/pulls?state=open&head=" + quote(repository.split("/")[0] + ":" + branch, safe="")
+                       + "&base=" + quote(default, safe="") + "&per_page=100")
+
+        create_pr()
+        pulls = read_back_pr()
+        if isinstance(pulls, list) and len(pulls) == 0:
+            # The readback proves no PR exists for the branch: the create
+            # genuinely failed (502 / dropped connection / timeout) or the
+            # readback lagged one that secretly succeeded. Retry once after
+            # a short settle delay; GitHub allows one PR per head branch,
+            # so a retry after a secret success fails with 422 and the
+            # second readback still finds the one PR. At most 2 creates.
+            time.sleep(PR_CREATE_RETRY_DELAY_SECONDS)
+            create_pr()
+            pulls = read_back_pr()
         if not isinstance(pulls, list) or len(pulls) != 1:
             raise RuntimeError("PR publication is unverified; preserve the remote branch")
         pr = pulls[0]
