@@ -13,10 +13,18 @@ from .corpus import aggregate_repositories
 import json
 import os
 import subprocess
+import time
+import urllib.error
 import urllib.request
 from typing import Any
 
 GRAPHQL_URL = "https://api.github.com/graphql"
+
+# Transient GitHub GraphQL gateway failures are retried a bounded number
+# of times. Auth failures and GraphQL payload errors are not retried.
+GQL_RETRY_ATTEMPTS = 3
+GQL_RETRY_BACKOFF_SECONDS = (2, 4)
+GQL_RETRY_STATUS_CODES = frozenset({502, 503, 504})
 
 _USER_QUERY = """
 query($login: String!) {
@@ -107,8 +115,17 @@ def resolve_token() -> str:
     )
 
 
+def _transient_http_error(exc: BaseException) -> bool:
+    """Return True when the failure is a retryable GraphQL gateway status."""
+    return isinstance(exc, urllib.error.HTTPError) and exc.code in GQL_RETRY_STATUS_CODES
+
+
 def _gql(query: str, variables: dict[str, Any], token: str) -> dict[str, Any]:
-    """Send one authenticated GraphQL request with a 30-second timeout and reject API error payloads."""
+    """Send one authenticated GraphQL request with a 30-second timeout and reject API error payloads.
+
+    Retry 502, 503, and 504 responses up to GQL_RETRY_ATTEMPTS total tries,
+    sleeping GQL_RETRY_BACKOFF_SECONDS between attempts.
+    """
     body = json.dumps({"query": query, "variables": variables}).encode()
     req = urllib.request.Request(
         GRAPHQL_URL,
@@ -119,11 +136,18 @@ def _gql(query: str, variables: dict[str, Any], token: str) -> dict[str, Any]:
             "User-Agent": "laurea",
         },
     )
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        payload = json.loads(resp.read())
-    if payload.get("errors"):
-        raise RuntimeError(f"GraphQL errors: {payload['errors']}")
-    return payload["data"]
+    for attempt in range(GQL_RETRY_ATTEMPTS):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                payload = json.loads(resp.read())
+            if payload.get("errors"):
+                raise RuntimeError(f"GraphQL errors: {payload['errors']}")
+            return payload["data"]
+        except urllib.error.HTTPError as exc:
+            if not _transient_http_error(exc) or attempt == GQL_RETRY_ATTEMPTS - 1:
+                raise
+            time.sleep(GQL_RETRY_BACKOFF_SECONDS[attempt])
+    raise RuntimeError("GraphQL retry loop exited without a result")
 
 
 class CoverageError(RuntimeError):
