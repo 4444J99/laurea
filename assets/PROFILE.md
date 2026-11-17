@@ -1,14 +1,22 @@
 # MEASURED PROFILE
 
-*Generated 2026-11-14T09:18:45.030551Z for [@4444J99](https://github.com/4444J99). Counts come from the GitHub API; derived observations name their transformation. No percentile ranking is published because this repository does not carry a validated population distribution.*
+*Generated 2026-11-17T02:10:09.835677Z for [@4444J99](https://github.com/4444J99). Counts come from the GitHub API; derived observations name their transformation. No percentile ranking is published because this repository does not carry a validated population distribution.*
 
-*Source implementation: `4444J99/laurea` at `c53e9da5f161184436fe4263f8ed2d13dc211a06`.*
+*Source implementation: `4444J99/laurea` at `e587d75535be21c2f0ab1f6dd6ae21f48f7edebd`.*
+
+## Source coverage
+
+Collection: **complete**. Health: **unmeasured**.
+
+Observed repositories: 77; private repositories excluded: 0; failed sources: 0.
+
+Token-visible membership scope is not an administered-estate census. Default SHA identifies a source generation; it does not prove executed verification, security coverage or PR readiness.
 
 ## GitHub contribution activity (12 months) — **measured**
 
-**Observed:** 53,637 contribution events
+**Observed:** 54,465 contribution events
 
-GitHub reports 53,637 contribution-calendar events in the last 12 months. Associated API fields report 4,529 commits, 1,466 pull requests, 50 reviews, and 1,717 issues; these fields are not an additive breakdown.
+GitHub reports 54,465 contribution-calendar events in the last 12 months. Associated API fields report 4,780 commits, 1,605 pull requests, 56 reviews, and 1,783 issues; these fields are not an additive breakdown.
 
 **Definition:** GitHub GraphQL contributionsCollection and contributionCalendar.
 
@@ -20,15 +28,15 @@ GitHub reports 53,637 contribution-calendar events in the last 12 months. Associ
 
 GitHub returned 10 organization memberships for this account.
 
-**Definition:** GitHub GraphQL user.organizations (first 20 visible to the token).
+**Definition:** GitHub GraphQL user.organizations (paginated, visible to the token).
 
 **Boundary:** Membership does not by itself establish ownership, administrative authority, or individual responsibility for every repository in an organization.
 
 ## Pull requests opened (12 months) — **measured**
 
-**Observed:** 1,466 pull requests
+**Observed:** 1,605 pull requests
 
-GitHub reports 1,466 pull requests opened in the trailing 12-month collection.
+GitHub reports 1,605 pull requests opened in the trailing 12-month collection.
 
 **Definition:** GitHub GraphQL contributionsCollection.totalPullRequestContributions.
 
