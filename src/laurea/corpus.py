@@ -44,6 +44,60 @@ def aggregate_repositories(repos: list[dict[str, Any]]) -> dict[str, Any]:
             "stars": stars, "primary_languages": languages}
 
 
+def aggregate_quality(signals: list[dict[str, Any]]) -> dict[str, Any]:
+    """Count test presence, CI health, and docs density over active repositories.
+
+    ``signals`` carries one identity-free record per active repository:
+    ``test_signal`` (bool), ``ci`` (one of "green", "failing", "pending",
+    "none"), ``substantive_readme`` (bool), ``docs_dir`` (bool). Counts are
+    validated against the denominator rather than inferred; return no
+    repository identities.
+    """
+    active = len(signals)
+    counts = {
+        "test_presence": 0,
+        "ci_green": 0,
+        "ci_no_ci": 0,
+        "ci_pending": 0,
+        "docs_substantive_readme": 0,
+        "docs_dir": 0,
+    }
+    for signal in signals:
+        if (not isinstance(signal, dict) or type(signal.get("test_signal")) is not bool
+                or signal.get("ci") not in ("green", "failing", "pending", "none")
+                or type(signal.get("substantive_readme")) is not bool
+                or type(signal.get("docs_dir")) is not bool):
+            raise ValueError("repository quality signal unavailable")
+        if signal["test_signal"]:
+            counts["test_presence"] += 1
+        if signal["ci"] == "green":
+            counts["ci_green"] += 1
+        elif signal["ci"] == "none":
+            counts["ci_no_ci"] += 1
+        elif signal["ci"] == "pending":
+            counts["ci_pending"] += 1
+        if signal["substantive_readme"]:
+            counts["docs_substantive_readme"] += 1
+        if signal["docs_dir"]:
+            counts["docs_dir"] += 1
+    quality = {"active_repositories": active, **counts}
+    validate_quality(quality)
+    return quality
+
+
+def validate_quality(quality: dict[str, Any]) -> None:
+    """Reject malformed quality aggregates: counts must be integers within the denominator."""
+    keys = ("active_repositories", "test_presence", "ci_green", "ci_no_ci",
+            "ci_pending", "docs_substantive_readme", "docs_dir")
+    if not isinstance(quality, dict) or set(quality) != set(keys):
+        raise ValueError("invalid repository quality aggregate evidence")
+    if any(type(quality.get(key)) is not int or quality[key] < 0 for key in keys):
+        raise ValueError("invalid repository quality aggregate evidence")
+    denominator = quality["active_repositories"]
+    if any(quality[key] > denominator for key in keys[1:]):
+        raise ValueError("repository quality counts exceed the active denominator")
+
+
 def corpus_totals(snapshot: dict[str, Any]) -> dict[str, Any]:
     """Validate complete corpus evidence and return identity-free totals.
 
@@ -60,4 +114,6 @@ def corpus_totals(snapshot: dict[str, Any]) -> dict[str, Any]:
                    for k, v in value["primary_languages"].items())
             or sum(value["primary_languages"].values()) > value["nonfork_repositories"]):
         raise ValueError("invalid repository aggregate evidence")
+    if "quality" in value:
+        validate_quality(value["quality"])
     return value

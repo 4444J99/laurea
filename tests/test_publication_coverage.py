@@ -15,7 +15,23 @@ def snapshot():
             "orgs": [], "repos": [],
             "contributions": dict.fromkeys(["total", "commits", "pull_requests", "reviews", "issues", "restricted"], 0),
             "coverage": {"status": "complete", "organization_scope_complete": True,
-                         "failed_sources": 0, "private_repositories_excluded": 0}}
+                         "failed_sources": 0, "private_repositories_excluded": 0},
+            "repository_aggregates": {
+                "scope": "token_visible", "nonfork_repositories": 0, "stars": 0,
+                "primary_languages": {},
+                "quality": {"active_repositories": 0, "test_presence": 0, "ci_green": 0,
+                            "ci_no_ci": 0, "ci_pending": 0, "docs_substantive_readme": 0,
+                            "docs_dir": 0},
+            }}
+
+
+def _quality_for(active, **counts):
+    """Build quality aggregates for a synthetic active corpus of the given size."""
+    quality = {"active_repositories": active, "test_presence": 0, "ci_green": 0,
+               "ci_no_ci": 0, "ci_pending": 0, "docs_substantive_readme": 0,
+               "docs_dir": 0}
+    quality.update(counts)
+    return quality
 
 
 def report(value):
@@ -63,6 +79,8 @@ def test_private_aggregate_semantics_reach_all_consumers(monkeypatch):
     value["repos"] = [public]
     value["coverage"]["private_repositories_excluded"] = 2
     value["repository_aggregates"] = aggregate_repositories([public, private, private_fork])
+    value["repository_aggregates"]["quality"] = _quality_for(
+        1, test_presence=1, ci_no_ci=1, docs_substantive_readme=1)
     measured = report(value)
     assert measured.by_axis("repos_visible").value == 2
     assert measured.by_axis("language_breadth").value == 2
@@ -77,6 +95,7 @@ def test_redacted_snapshot_without_aggregates_cannot_change_metric_meaning():
     """Verify that redacted snapshot without aggregates cannot change metric meaning."""
     value = snapshot()
     value["coverage"]["private_repositories_excluded"] = 1
+    del value["repository_aggregates"]
     with pytest.raises(ValueError, match="aggregate"):
         run_all(value)
 
