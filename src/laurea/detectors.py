@@ -227,6 +227,125 @@ def tenure(snapshot: Snapshot) -> Finding:
     )
 
 
+def _quality(snapshot: Snapshot) -> dict[str, Any] | None:
+    """Return validated quality aggregates, or None for a legacy snapshot.
+
+    A snapshot without a coverage record predates quality evidence; like
+    require_complete, its recorded semantics are preserved and the quality
+    detectors report no finding. A snapshot with coverage but no quality
+    aggregates is malformed and fails closed instead of reporting a
+    fabricated zero.
+    """
+    if "coverage" not in snapshot:
+        return None
+    totals = corpus_totals(snapshot)
+    quality = totals.get("quality")
+    if quality is None:
+        raise ValueError("snapshot is missing quality aggregates")
+    return quality
+
+
+def _quality_fraction(snapshot: Snapshot, key: str) -> tuple[float, int, int] | None:
+    """Return (fraction, count, denominator) for one quality count.
+
+    None when the snapshot carries no quality evidence or the denominator is
+    empty: no fraction over nothing is reported.
+    """
+    quality = _quality(snapshot)
+    if quality is None:
+        return None
+    denominator = quality["active_repositories"]
+    if denominator == 0:
+        return None
+    count = quality[key]
+    return count / denominator, count, denominator
+
+
+@detector
+def test_presence(snapshot: Snapshot) -> Finding | None:
+    """Report the fraction of active repositories with a test signal, not whether tests pass or cover anything."""
+    measured = _quality_fraction(snapshot, "test_presence")
+    if measured is None:
+        return None
+    value, count, denominator = measured
+    return Finding(
+        axis="test_presence",
+        title="Test-suite presence across the active corpus",
+        value=value,
+        unit="fraction",
+        status=STATUS_MEASURED,
+        evidence=(
+            f"{count} of {denominator} active repositories show a test signal: "
+            "a tests/ or test/ directory, a *_test.py or *.test.* file, "
+            "pyproject [tool.pytest], or a CI test step"
+        ),
+        source="REST git-trees probe of the default branch plus workflow-file read",
+        analysis=(
+            "Presence of a test suite is not evidence tests pass or cover anything."
+        ),
+    )
+
+
+@detector
+def ci_health(snapshot: Snapshot) -> Finding | None:
+    """Report the fraction of active repositories whose latest completed default-branch run is green."""
+    quality = _quality(snapshot)
+    if quality is None:
+        return None
+    denominator = quality["active_repositories"]
+    if denominator == 0:
+        return None
+    count = quality["ci_green"]
+    no_ci = quality["ci_no_ci"]
+    pending = quality["ci_pending"]
+    evidence = (
+        f"{count} of {denominator} active repositories have a green latest "
+        f"completed default-branch run; {no_ci} have no CI at all"
+    )
+    if pending:
+        evidence += f"; {pending} have runs but no completed verdict yet"
+    return Finding(
+        axis="ci_health",
+        title="CI health across the active corpus",
+        value=count / denominator,
+        unit="fraction",
+        status=STATUS_MEASURED,
+        evidence=evidence,
+        source="REST check-runs and commit status on the default-branch head",
+        analysis=(
+            "A green latest run is not evidence of correctness, only of a passing gate at that head."
+        ),
+    )
+
+
+@detector
+def docs_density(snapshot: Snapshot) -> Finding | None:
+    """Report the fraction of active repositories with a substantive README, not whether the docs are accurate."""
+    quality = _quality(snapshot)
+    if quality is None:
+        return None
+    denominator = quality["active_repositories"]
+    if denominator == 0:
+        return None
+    count = quality["docs_substantive_readme"]
+    docs_dir = quality["docs_dir"]
+    return Finding(
+        axis="docs_density",
+        title="Documentation density across the active corpus",
+        value=count / denominator,
+        unit="fraction",
+        status=STATUS_MEASURED,
+        evidence=(
+            f"{count} of {denominator} active repositories have a README of at "
+            f"least 1024 bytes; {docs_dir} have a docs/ directory"
+        ),
+        source="REST git-trees probe of the default branch; substantive means at least 1024 bytes",
+        analysis=(
+            "A long README is not evidence the docs are accurate or current."
+        ),
+    )
+
+
 def run_all(snapshot: Snapshot) -> list[Finding]:
     """Validate one snapshot, then return its bounded observations."""
     _validate_snapshot(snapshot)

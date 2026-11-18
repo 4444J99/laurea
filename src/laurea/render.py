@@ -15,6 +15,7 @@ NOT_MEASURED = (
     "system reliability in production",
     "product adoption, user satisfaction, or business impact",
     "professional experience or engineering judgment",
+    "reliability or engineering judgment — likely not GitHub-measurable; kept here rather than proxied",
 )
 PUBLIC_LIMITATION = "GitHub activity does not establish authorship, quality, reliability, adoption, or impact."
 CARD_BOUNDARY = "Boundary: not proof of authorship, quality, proficiency, or impact."
