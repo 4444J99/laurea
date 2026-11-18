@@ -19,14 +19,57 @@ from urllib.parse import quote
 PR_CREATE_RETRY_DELAY_SECONDS = 10
 
 
+def redact_diagnostic(text):
+    """Scrub credential-shaped material from a diagnostic string.
+
+    The receipt is printed to the workflow log, so a diagnostic must never
+    carry a token, an authorization header, or embedded URL credentials,
+    even if the failing command echoed one.
+    """
+    redacted = str(text or "")
+    redacted = re.sub(r"ghp_[A-Za-z0-9]{20,}", "***", redacted)
+    redacted = re.sub(r"gho_[A-Za-z0-9]{20,}", "***", redacted)
+    redacted = re.sub(r"ghu_[A-Za-z0-9]{20,}", "***", redacted)
+    redacted = re.sub(r"ghs_[A-Za-z0-9]{20,}", "***", redacted)
+    redacted = re.sub(r"ghr_[A-Za-z0-9]{20,}", "***", redacted)
+    redacted = re.sub(r"github_pat_[A-Za-z0-9_]{10,}", "***", redacted)
+    redacted = re.sub(r"(?i)(authorization\s*:\s*)\S+", r"\1***", redacted)
+    redacted = re.sub(r"(?i)\b(bearer|token)\s*[:=]\s*\S+", r"\1: ***", redacted)
+    redacted = re.sub(r"(https?://[^:/\s]+:)[^@\s]+(@)", r"\1***\2", redacted)
+    return redacted
+
+
+class PublicationCommandError(RuntimeError):
+    """A failed publication command, carrying a redacted diagnostic.
+
+    The diagnostic names the failing command, its exit code, and a bounded
+    stderr tail with credential-shaped material scrubbed. It never carries
+    raw output: the receipt is printed to the workflow log.
+    """
+
+    def __init__(self, message, *, exit_code=None, diagnostic=None):
+        super().__init__(message)
+        self.exit_code = exit_code
+        self.diagnostic = diagnostic
+
+
 def command(argv, *, root, env):
     """Execute a bounded publication command in the supplied checkout and environment.
 
     Reject nonzero exits or oversized output; remove trailing newlines only from successful stdout.
+    A failure raises PublicationCommandError carrying a redacted diagnostic
+    (command, exit code, bounded stderr tail) instead of discarding the cause.
     """
     result = subprocess.run(argv, cwd=root, env=env, capture_output=True, text=True, timeout=30)
     if result.returncode or len(result.stdout) + len(result.stderr) > 2_000_000:
-        raise RuntimeError("publication command did not complete")
+        if result.returncode and len(result.stdout) + len(result.stderr) <= 2_000_000:
+            tail = (result.stderr or result.stdout)[-500:]
+            diagnostic = redact_diagnostic(
+                f"{' '.join(argv[:3])} failed: exit {result.returncode}: {tail}".strip())
+        else:
+            diagnostic = "command output exceeded 2,000,000 bytes"
+        raise PublicationCommandError("publication command did not complete",
+                                      exit_code=result.returncode, diagnostic=diagnostic)
     return result.stdout.rstrip("\n")
 
 
@@ -219,8 +262,15 @@ def publish(kind, *, issue=None, root=None, env=None, receipt=None, refresh_tabl
                 run("gh", "pr", "create", "--repo", repository, "--base", default,
                     "--head", branch, "--title", f"{kind}: refresh generated snapshot",
                     "--body-file", body_path)
-            except (OSError, RuntimeError, subprocess.TimeoutExpired):
-                pass  # One readback reconciles an ambiguous create; never send it again.
+            except (OSError, RuntimeError, subprocess.TimeoutExpired) as exc:
+                # Record the redacted create diagnostic so the receipt names
+                # the failure instead of the static "no retry was attempted"
+                # string; the branch is still preserved and the readback
+                # still reconciles an ambiguous create. Never retry here.
+                diagnostic = getattr(exc, "diagnostic", None) or "gh pr create failed without a diagnostic"
+                receipt["pr_create_diagnostic"] = redact_diagnostic(diagnostic)
+                receipt["pr_create_attempts"] = receipt.get("pr_create_attempts", 0) + 1
+                # One readback reconciles an ambiguous create; never send it again.
 
         def read_back_pr():
             return api("/pulls?state=open&head=" + quote(repository.split("/")[0] + ":" + branch, safe="")
@@ -407,8 +457,15 @@ def main(argv=None):
     try:
         publish(args.kind, issue=args.issue, receipt=receipt, refresh_table=args.refresh_table, refresh_pending=args.refresh_pending)
     except (OSError, ValueError, KeyError, TypeError, AttributeError, RuntimeError, subprocess.TimeoutExpired):
+        diagnostic = receipt.get("pr_create_diagnostic")
+        if diagnostic:
+            attempts = receipt.get("pr_create_attempts", 2)
+            reason = (f"PR creation failed {attempts} time(s) after the branch was published; "
+                      f"last diagnostic: {diagnostic}")
+        else:
+            reason = "publication requires reconciliation; no retry was attempted"
         receipt.update(last_verified_state=receipt.get("status", "none"), status="unverified",
-                       reason="publication requires reconciliation; no retry was attempted")
+                       reason=reason)
         print(json.dumps(receipt, indent=2))
         return 1
     print(json.dumps(receipt, indent=2))

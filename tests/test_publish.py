@@ -52,10 +52,16 @@ def sandbox(tmp_path, monkeypatch):
         if argv[1:3] == ["pr", "create"]:
             bodies.append(Path(argv[argv.index("--body-file") + 1]).read_text())
             if settings["create_fails"]:
-                raise RuntimeError("ambiguous create")
+                raise p.PublicationCommandError(
+                    "publication command did not complete", exit_code=1,
+                    diagnostic=settings.get("create_diagnostic",
+                        "gh pr create failed: exit 1: HTTP 422 Validation Failed (canned diagnostic)"))
             if settings["create_fail_once"] and not settings.get("create_failed_once"):
                 settings["create_failed_once"] = True
-                raise RuntimeError("ambiguous create")
+                raise p.PublicationCommandError(
+                    "publication command did not complete", exit_code=1,
+                    diagnostic=settings.get("create_diagnostic",
+                        "gh pr create failed: exit 1: HTTP 422 Validation Failed (canned diagnostic)"))
             settings["created"] = True
             return "https://github.com/owner/repo/pull/9"
         assert argv[1] == "api"
@@ -176,6 +182,46 @@ def test_both_creates_failing_keeps_branch_published(sandbox, monkeypatch):
         p.publish("metrics", root=root, env=env, receipt=receipt)
     assert receipt["status"] == "branch_published"
     assert receipt["push_reconciled"] is True
+    assert sum(call[:3] == ["gh", "pr", "create"] for call in calls) == 2
+    assert git("rev-parse", "refs/heads/main", cwd=remote) == sha
+
+
+def test_command_failure_carries_redacted_diagnostic(tmp_path):
+    """Verify that a failing command raises with its exit code and a token-free stderr tail."""
+    import sys
+    fake_token = "ghp_" + "A" * 36
+    with pytest.raises(p.PublicationCommandError) as excinfo:
+        p.command([sys.executable, "-c",
+                   f"import sys; print('HTTP 422 Validation Failed; token {fake_token}', file=sys.stderr); sys.exit(3)"],
+                  root=tmp_path, env=dict(os.environ))
+    assert excinfo.value.exit_code == 3
+    assert "exit 3" in excinfo.value.diagnostic
+    assert "HTTP 422 Validation Failed" in excinfo.value.diagnostic
+    assert fake_token not in excinfo.value.diagnostic
+    assert "ghp_" not in excinfo.value.diagnostic
+
+
+def test_both_creates_failing_receipt_names_the_create_diagnostic(sandbox, monkeypatch, capsys):
+    """Verify that two failed creates stamp a receipt whose reason names the create failure, not the static string."""
+    root, remote, env, calls, _, settings, git, sha = sandbox
+    monkeypatch.setattr(p, "PR_CREATE_RETRY_DELAY_SECONDS", 0)
+    settings.update(create_fails=True, created=False,
+                    create_diagnostic="gh pr create failed: exit 1: HTTP 422 Validation Failed; token ghp_" + "B" * 36)
+    (root / "assets/metrics.json").write_text("changed")
+    # main() reads its context from the process environment and cwd, not
+    # the sandbox env dict, so point both at the fixture before calling it.
+    for key, value in env.items():
+        monkeypatch.setenv(key, value)
+    monkeypatch.chdir(root)
+    assert p.main(["--kind", "metrics"]) == 1
+    result = json.loads(capsys.readouterr().out)
+    assert result["status"] == "unverified"
+    assert result["last_verified_state"] == "branch_published"
+    assert result["reason"].startswith("PR creation failed 2 time(s)")
+    assert "HTTP 422 Validation Failed" in result["reason"]
+    assert "no retry was attempted" not in result["reason"]
+    assert "ghp_" not in json.dumps(result)
+    assert result["pr_create_attempts"] == 2
     assert sum(call[:3] == ["gh", "pr", "create"] for call in calls) == 2
     assert git("rev-parse", "refs/heads/main", cwd=remote) == sha
 
