@@ -14,7 +14,7 @@ from laurea.cli import _compute, _load, _render
 from laurea.detectors import run_all
 from laurea.github import collect
 from laurea.models import Report
-from laurea.render import CARD_BOUNDARY, PUBLIC_LIMITATION, render_all
+from laurea.render import CARD_BOUNDARY, PUBLIC_LIMITATION, hero_card, render_all
 from laurea.verdict import verdict_card
 
 
@@ -150,6 +150,106 @@ def test_rendered_assets_are_valid_and_wrap_bounded_hero_copy():
     )
     assert heading.endswith("…")
     assert CARD_BOUNDARY in " ".join(language_root.itertext())
+
+
+def _estimated_text_width(text: str, size: int, letter_spacing: int = 0) -> float:
+    """Conservative per-character width estimate for SVG text at `size` px.
+
+    Factors are fractions of the font size, set above the measured
+    Liberation Sans (Arial-metric) widths for the same strings — caps
+    0.64em, digits 0.60em, lowercase 0.55em measured — so a passing
+    estimate means the text fits in the real renderers (Segoe UI /
+    Helvetica / Arial) with headroom. Letter spacing adds per gap.
+    """
+    width = 0.0
+    for char in text:
+        if char.isupper():
+            width += 0.70 * size
+        elif char.isdigit():
+            width += 0.62 * size
+        elif char.islower():
+            width += 0.56 * size
+        elif char == " ":
+            width += 0.30 * size
+        else:
+            width += 0.40 * size
+    return width + letter_spacing * max(len(text) - 1, 0)
+
+
+def test_hero_card_fits_profile_column_width():
+    """The hero is a 420px card; every text line must fit inside it.
+
+    Guards laurea #4: the old 800px single-row layout cropped in the
+    GitHub profile column, and its title alone measured 416px — wider
+    than a 420px card. The footer still emits the report's canonical
+    source repository unchanged.
+    """
+    report = _report()
+    hero = hero_card(report)
+    root = ET.fromstring(hero)
+    assert root.attrib["width"] == "420"
+    assert root.attrib["height"] == "300"
+    assert root.attrib["viewBox"] == "0 0 420 300"
+    assert "800" not in hero
+    assert report.source_repository in hero
+    # Ancestor <g transform="translate(cx, cy)"> shifts text x positions.
+    parent = {child: node for node in root.iter() for child in node}
+    def translate_x(element):
+        shift = 0.0
+        node = element
+        while node is not None:
+            transform = node.attrib.get("transform", "")
+            if transform.startswith("translate("):
+                shift += float(transform[len("translate("):].split(",")[0])
+            node = parent.get(node)
+        return shift
+
+    for element in root.iter():
+        if not element.tag.endswith("text"):
+            continue
+        classes = element.attrib.get("class", "").split()
+        style = element.attrib.get("style", "")
+        if "font-size:" in style:
+            size = int(style.split("font-size:")[1].split("px")[0])
+        elif "big" in classes:
+            size = 34
+        elif "status" in classes:
+            size = 13
+        else:
+            size = 12
+        spacing = 1 if "status" in classes else 0
+        anchor = element.attrib.get("text-anchor", "start")
+        x = float(element.attrib.get("x", "0")) + translate_x(element)
+        # Each tspan is its own laid-out line; a text element without
+        # tspans is a single line. itertext() would join the lines.
+        tspans = [child for child in element if child.tag.endswith("tspan")]
+        lines = [
+            (
+                float(tspan.attrib.get("x", element.attrib.get("x", "0")))
+                + translate_x(element),
+                "".join(tspan.itertext()).strip(),
+            )
+            for tspan in tspans
+        ] or [(x, "".join(element.itertext()).strip())]
+        for line_x, line in lines:
+            if not line:
+                continue
+            width = _estimated_text_width(line, size, spacing)
+            if anchor == "middle":
+                assert line_x - width / 2 >= 8, f"{line!r} overflows left"
+                assert line_x + width / 2 <= 412, f"{line!r} overflows right"
+            else:
+                assert line_x + width <= 412, f"{line!r} overflows right"
+    # A seven-figure contribution total must still fit its 210px cell.
+    big = _report()
+    big.snapshot["contributions"]["total"] = 1_234_567
+    big_hero = hero_card(big)
+    assert "1,234,567" in big_hero
+    big_root = ET.fromstring(big_hero)
+    for element in big_root.iter():
+        if element.tag.endswith("text") and "big" in element.attrib.get("class", ""):
+            text = "".join(element.itertext()).strip()
+            assert _estimated_text_width(text, 34) <= 194, f"{text!r} overflows its cell"
 
 
 def test_profile_states_boundaries_and_never_duplicates_terminal_periods(monkeypatch):

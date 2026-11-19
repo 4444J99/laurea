@@ -115,7 +115,7 @@ The [generated profile](assets/PROFILE.md) and [metrics](assets/metrics.json) co
 
 The generated profile also measures three quality-signal fractions over the active corpus (non-fork, non-archived repositories), each a dated measurement, not a live counter: **test presence** — the fraction with a test signal (a `tests/` or `test/` directory, a `*_test.py` or `*.test.*` file, `pyproject [tool.pytest]`, or a CI test step); **CI health** — the fraction whose latest completed default-branch run is green, with repositories that have no CI at all counted separately; **docs density** — the fraction with a README of at least 1024 bytes, with the `docs/` directory count beside it. Reliability and engineering judgment stay NOT_MEASURED — likely not GitHub-measurable, kept honestly rather than proxied.
 
-<p align="center"><img src="assets/cards/hero.svg" alt="Dated GitHub API activity snapshot" width="800"/></p>
+<p align="center"><img src="assets/cards/hero.svg" alt="Dated GitHub API activity snapshot" width="420"/></p>
 <p align="center"><img src="assets/cards/contributions_year.svg" alt="Contribution activity" width="420"/><img src="assets/cards/repos_visible.svg" alt="Visible non-fork corpus" width="420"/></p>
 <p align="center"><img src="assets/cards/language_breadth.svg" alt="Primary-language breadth" width="420"/><img src="assets/cards/language_layer_coverage.svg" alt="Mapped language-layer coverage" width="420"/></p>
 
