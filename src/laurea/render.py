@@ -108,7 +108,14 @@ def _tspans(lines: list[str], x: int, line_height: int = 14) -> str:
 
 
 def hero_card(report: Report) -> str:
-    """Render a generic profile card without population-ranking claims."""
+    """Render a generic profile card without population-ranking claims.
+
+    Laid out for a 420px profile column: the same width as the repo's
+    axis cards (and the README's per-card width), so the card fits the
+    GitHub profile column where the old 800px single-row layout cropped.
+    The four metrics sit in a 2x2 grid; every text extent is bounded by
+    construction (see tests/test_laurea.py::test_hero_card_fits_profile_column_width).
+    """
     contributions = report.snapshot["contributions"]
     repositories = corpus_totals(report.snapshot)["nonfork_repositories"]
     stats = (
@@ -120,29 +127,31 @@ def hero_card(report: Report) -> str:
         ),
         (f"{len(report.snapshot['orgs'])}", ["organization memberships", "queried"]),
     )
+    # 2x2 grid: cell centres at x=105/315, value rows at y=152/222.
+    positions = ((105, 152), (315, 152), (105, 222), (315, 222))
     columns = "".join(
         f"""
-  <g class="fade d{index + 1}" transform="translate({70 + index * 180}, 160)">
-    <text class="big" text-anchor="middle" x="60">{escape(value)}</text>
-    <text class="ev" text-anchor="middle" x="60" y="24">{_tspans(labels, 60)}</text>
+  <g class="fade d{index + 1}" transform="translate({cx}, {cy})">
+    <text class="big" text-anchor="middle" x="0">{escape(value)}</text>
+    <text class="ev" text-anchor="middle" x="0" y="24">{_tspans(labels, 0)}</text>
   </g>"""
-        for index, (value, labels) in enumerate(stats)
+        for index, ((value, labels), (cx, cy)) in enumerate(zip(stats, positions))
     )
-    limitation = _tspans(_wrap(PUBLIC_LIMITATION, 86), 400, 15)
+    limitation = _tspans(_wrap(PUBLIC_LIMITATION, 52), 210, 15)
     source = (
         report.source_repository
         if report.source_repository != "unknown"
         else "source repository unavailable"
     )
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="800" height="270" viewBox="0 0 800 270" role="img" aria-label="Measured GitHub activity profile">
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="420" height="300" viewBox="0 0 420 300" role="img" aria-label="Measured GitHub activity profile">
   {_STYLE}
   <defs>{_shimmer("H")}{_shimmer("L")}</defs>
-  <rect width="799" height="269" x="0.5" y="0.5" rx="12" fill="{BG}" stroke="{BORDER}"/>
-  {_laurel(400, 62, 0.65)}
-  <text class="status fade" fill="url(#shH)" text-anchor="middle" x="400" y="96" style="font-size:20px">MEASURED GITHUB ACTIVITY PROFILE</text>
-  <text class="ev fade d1" text-anchor="middle" x="400" y="119">{limitation}</text>
+  <rect width="419" height="299" x="0.5" y="0.5" rx="12" fill="{BG}" stroke="{BORDER}"/>
+  {_laurel(210, 40, 0.5)}
+  <text class="status fade" fill="url(#shH)" text-anchor="middle" x="210" y="82" style="font-size:16px">MEASURED GITHUB ACTIVITY PROFILE</text>
+  <text class="ev fade d1" text-anchor="middle" x="210" y="102">{limitation}</text>
   {columns}
-  <text class="ev fade d4" text-anchor="middle" x="400" y="252">LAVREA · generated for @{escape(report.login)} · {escape(source)}</text>
+  <text class="ev fade d4" text-anchor="middle" x="210" y="288">LAVREA · generated for @{escape(report.login)} · {escape(source)}</text>
 </svg>
 """
 
