@@ -1,9 +1,9 @@
 {
   "schema_version": "laurea.report.v2",
   "login": "4444J99",
-  "generated_at": "2026-11-19T09:22:22.555824Z",
+  "generated_at": "2026-11-19T13:36:33.592630Z",
   "source_repository": "4444J99/laurea",
-  "source_sha": "def7abd4c572cb0238d1124bf6c3df42d36eef80",
+  "source_sha": "c8c77b70b0e46e992e8f5621665e28af563d886a",
   "snapshot": {
     "login": "4444J99",
     "name": "Anthony James Padavano",
@@ -839,14 +839,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "62ec2e290556f05ff70df4fa6e0071c5a2bb7a2c"
+            "oid": "ccbbf89d8a7470569af75e5e73b211504a3c6aff"
           }
         },
         "name": "conversation-corpus-engine",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-18T21:22:34Z",
+        "pushedAt": "2026-11-19T13:17:54Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -1535,14 +1535,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "def7abd4c572cb0238d1124bf6c3df42d36eef80"
+            "oid": "c8c77b70b0e46e992e8f5621665e28af563d886a"
           }
         },
         "name": "laurea",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-18T11:38:16Z",
+        "pushedAt": "2026-11-19T13:34:25Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -1607,14 +1607,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "4ff2f0939e752b5727b1e71a8e90f8ee3e67f2a8"
+            "oid": "648906c0be56907cf48df105cdb88ab34544b493"
           }
         },
         "name": "tool-video-loop-compositor",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-18T18:50:54Z",
+        "pushedAt": "2026-11-19T11:33:10Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -2020,7 +2020,7 @@
       "quality": {
         "active_repositories": 40,
         "test_presence": 39,
-        "ci_green": 31,
+        "ci_green": 34,
         "ci_no_ci": 2,
         "ci_pending": 0,
         "docs_substantive_readme": 40,
@@ -2043,32 +2043,32 @@
       "quality_repositories_probed": 40
     },
     "contributions": {
-      "total": 54733,
-      "commits": 5139,
-      "pull_requests": 1746,
+      "total": 54755,
+      "commits": 5155,
+      "pull_requests": 1751,
       "reviews": 59,
       "issues": 1890,
-      "restricted": 45868
+      "restricted": 45869
     }
   },
   "findings": [
     {
       "axis": "ci_health",
       "title": "CI health across the active corpus",
-      "value": 0.775,
+      "value": 0.85,
       "unit": "fraction",
       "status": "measured",
-      "evidence": "31 of 40 active repositories have a green latest completed default-branch run; 2 have no CI at all",
+      "evidence": "34 of 40 active repositories have a green latest completed default-branch run; 2 have no CI at all",
       "source": "REST check-runs and commit status on the default-branch head",
       "analysis": "A green latest run is not evidence of correctness, only of a passing gate at that head."
     },
     {
       "axis": "contributions_year",
       "title": "GitHub contribution activity (12 months)",
-      "value": 54733.0,
+      "value": 54755.0,
       "unit": "contribution events",
       "status": "measured",
-      "evidence": "GitHub reports 54,733 contribution-calendar events in the last 12 months. Associated API fields report 5,139 commits, 1,746 pull requests, 59 reviews, and 1,890 issues; these fields are not an additive breakdown",
+      "evidence": "GitHub reports 54,755 contribution-calendar events in the last 12 months. Associated API fields report 5,155 commits, 1,751 pull requests, 59 reviews, and 1,890 issues; these fields are not an additive breakdown",
       "source": "GitHub GraphQL contributionsCollection and contributionCalendar",
       "analysis": "This is an activity count, not a count of shipped units. GitHub events vary in scope and do not establish review, merge, quality, or impact."
     },
@@ -2095,10 +2095,10 @@
     {
       "axis": "pull_requests_year",
       "title": "Pull requests opened (12 months)",
-      "value": 1746.0,
+      "value": 1751.0,
       "unit": "pull requests",
       "status": "measured",
-      "evidence": "GitHub reports 1,746 pull requests opened in the trailing 12-month collection",
+      "evidence": "GitHub reports 1,751 pull requests opened in the trailing 12-month collection",
       "source": "GitHub GraphQL contributionsCollection.totalPullRequestContributions",
       "analysis": "Opened pull requests are activity events; this field does not say whether they were reviewed, mergeable, merged, distinct in scope, or created without automation."
     },
