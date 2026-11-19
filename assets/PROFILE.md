@@ -1,18 +1,46 @@
 # MEASURED PROFILE
 
-*Generated 2026-11-14T09:18:45.030551Z for [@4444J99](https://github.com/4444J99). Counts come from the GitHub API; derived observations name their transformation. No percentile ranking is published because this repository does not carry a validated population distribution.*
+*Generated 2026-11-19T09:22:22.555824Z for [@4444J99](https://github.com/4444J99). Counts come from the GitHub API; derived observations name their transformation. No percentile ranking is published because this repository does not carry a validated population distribution.*
 
-*Source implementation: `4444J99/laurea` at `c53e9da5f161184436fe4263f8ed2d13dc211a06`.*
+*Source implementation: `4444J99/laurea` at `def7abd4c572cb0238d1124bf6c3df42d36eef80`.*
+
+## Source coverage
+
+Collection: **complete**. Health: **unmeasured**.
+
+Observed repositories: 83; private repositories excluded: 0; failed sources: 0.
+
+Token-visible membership scope is not an administered-estate census. Default SHA identifies a source generation; it does not prove executed verification, security coverage or PR readiness.
+
+## CI health across the active corpus — **measured**
+
+**Observed:** 0.8 fraction
+
+31 of 40 active repositories have a green latest completed default-branch run; 2 have no CI at all.
+
+**Definition:** REST check-runs and commit status on the default-branch head.
+
+**Boundary:** A green latest run is not evidence of correctness, only of a passing gate at that head.
 
 ## GitHub contribution activity (12 months) — **measured**
 
-**Observed:** 53,637 contribution events
+**Observed:** 54,733 contribution events
 
-GitHub reports 53,637 contribution-calendar events in the last 12 months. Associated API fields report 4,529 commits, 1,466 pull requests, 50 reviews, and 1,717 issues; these fields are not an additive breakdown.
+GitHub reports 54,733 contribution-calendar events in the last 12 months. Associated API fields report 5,139 commits, 1,746 pull requests, 59 reviews, and 1,890 issues; these fields are not an additive breakdown.
 
 **Definition:** GitHub GraphQL contributionsCollection and contributionCalendar.
 
 **Boundary:** This is an activity count, not a count of shipped units. GitHub events vary in scope and do not establish review, merge, quality, or impact.
+
+## Documentation density across the active corpus — **measured**
+
+**Observed:** 1 fraction
+
+40 of 40 active repositories have a README of at least 1024 bytes; 33 have a docs/ directory.
+
+**Definition:** REST git-trees probe of the default branch; substantive means at least 1024 bytes.
+
+**Boundary:** A long README is not evidence the docs are accurate or current.
 
 ## Visible organization memberships — **measured**
 
@@ -20,15 +48,15 @@ GitHub reports 53,637 contribution-calendar events in the last 12 months. Associ
 
 GitHub returned 10 organization memberships for this account.
 
-**Definition:** GitHub GraphQL user.organizations (first 20 visible to the token).
+**Definition:** GitHub GraphQL user.organizations (paginated, visible to the token).
 
 **Boundary:** Membership does not by itself establish ownership, administrative authority, or individual responsibility for every repository in an organization.
 
 ## Pull requests opened (12 months) — **measured**
 
-**Observed:** 1,466 pull requests
+**Observed:** 1,746 pull requests
 
-GitHub reports 1,466 pull requests opened in the trailing 12-month collection.
+GitHub reports 1,746 pull requests opened in the trailing 12-month collection.
 
 **Definition:** GitHub GraphQL contributionsCollection.totalPullRequestContributions.
 
@@ -36,19 +64,29 @@ GitHub reports 1,466 pull requests opened in the trailing 12-month collection.
 
 ## Visible non-fork repository corpus — **measured**
 
-**Observed:** 53 repositories
+**Observed:** 59 repositories
 
-53 non-fork repositories were visible across the personal account and 10 organization memberships returned by the API.
+59 non-fork repositories were visible across the personal account and 10 organization memberships returned by the API.
 
 **Definition:** GitHub GraphQL repositories connections with isFork=false.
 
 **Boundary:** Organization repositories can include work by other contributors. Visibility does not establish individual authorship, maintenance, or operation.
 
+## Test-suite presence across the active corpus — **measured**
+
+**Observed:** 1.0 fraction
+
+39 of 40 active repositories show a test signal: a tests/ or test/ directory, a *_test.py or *.test.* file, pyproject [tool.pytest], or a CI test step.
+
+**Definition:** REST git-trees probe of the default branch plus workflow-file read.
+
+**Boundary:** Presence of a test suite is not evidence tests pass or cover anything.
+
 ## Primary-language breadth of the visible corpus — **derived**
 
 **Observed:** 4 primary-language labels
 
-GitHub assigns 4 distinct primary-language labels across the visible non-fork corpus — led by Python (32), TypeScript (10), HTML (4), JavaScript (3).
+GitHub assigns 4 distinct primary-language labels across the visible non-fork corpus — led by Python (35), TypeScript (10), HTML (7), JavaScript (3).
 
 **Definition:** Distinct repository.primaryLanguage.name values in the visible corpus.
 
@@ -84,5 +122,6 @@ LAVREA reports an API-visible activity and repository corpus. It does not establ
 - system reliability in production
 - product adoption, user satisfaction, or business impact
 - professional experience or engineering judgment
+- reliability or engineering judgment — likely not GitHub-measurable; kept here rather than proxied
 
 GitHub activity does not establish authorship, quality, reliability, adoption, or impact.
