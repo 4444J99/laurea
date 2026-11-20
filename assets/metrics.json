@@ -1,14 +1,14 @@
 {
   "schema_version": "laurea.report.v2",
   "login": "4444J99",
-  "generated_at": "2026-11-19T13:36:33.592630Z",
+  "generated_at": "2026-11-20T09:21:45.062831Z",
   "source_repository": "4444J99/laurea",
-  "source_sha": "c8c77b70b0e46e992e8f5621665e28af563d886a",
+  "source_sha": "ee47bc4c3fcc524a802c58474e59bb1cebb371f0",
   "snapshot": {
     "login": "4444J99",
     "name": "Anthony James Padavano",
     "created_at": "2016-12-27T17:24:06Z",
-    "followers": 37,
+    "followers": 38,
     "orgs": [
       "organvm-i-theoria",
       "organvm-ii-poiesis",
@@ -29,14 +29,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "a17dd9988c4cd4c2a95f238fe72f0a45d3785fd5"
+            "oid": "517825ed9038b592f36dc10f5ae8a3c17777ef03"
           }
         },
         "name": "generative-multimedia-spatial-environment",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 2,
-        "pushedAt": "2026-11-16T17:55:18Z",
+        "pushedAt": "2026-11-20T04:33:05Z",
         "primaryLanguage": {
           "name": "JavaScript"
         },
@@ -53,14 +53,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "d880b25881904264e243a1a1b5e051efa1fe6a09"
+            "oid": "2248960d76450ce2b67d287b6870d84183cda3a0"
           }
         },
         "name": "reverse-engine-recursive-run",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 2,
-        "pushedAt": "2026-11-15T03:34:51Z",
+        "pushedAt": "2026-11-19T23:38:35Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -265,14 +265,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "ed3f7b090afb5ade8cb060ce19f9e84fc98d8d27"
+            "oid": "313ef255aa5d1c560a5f37ac9e1d10ff3298deb7"
           }
         },
         "name": "universal-mail--automation",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-17T04:16:57Z",
+        "pushedAt": "2026-11-19T23:52:52Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -337,14 +337,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "4e377c71e1bc1baa36281e7798e29e0ec76b89eb"
+            "oid": "63cdf881aceaffad7b5784e7914dbeda4ef36716"
           }
         },
         "name": "sema-metra--alchemica-mundi",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-17T23:52:24Z",
+        "pushedAt": "2026-11-19T17:33:13Z",
         "primaryLanguage": {
           "name": "TypeScript"
         },
@@ -409,14 +409,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "9d75d2285191580d1265dea4c92f2c7e2f00989a"
+            "oid": "3de45bf1e1d71ca527ea5fb623ed18db4305aaa4"
           }
         },
         "name": "the-actual-news",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-19T08:11:15Z",
+        "pushedAt": "2026-11-19T18:37:25Z",
         "primaryLanguage": {
           "name": "TypeScript"
         },
@@ -481,14 +481,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "019dfc706810a0a0ede2a921829f414c31d443f2"
+            "oid": "f524f1867372a8bd62d892ff711a370015072844"
           }
         },
         "name": "adaptive-personal-syllabus",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 3,
-        "pushedAt": "2026-11-14T16:00:03Z",
+        "pushedAt": "2026-11-20T07:50:05Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -680,7 +680,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-17T17:10:47Z",
+        "pushedAt": "2026-11-19T21:54:01Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -798,7 +798,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-15T01:54:09Z",
+        "pushedAt": "2026-11-20T02:24:45Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -839,14 +839,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "ccbbf89d8a7470569af75e5e73b211504a3c6aff"
+            "oid": "0197ed8a99b5a8d59c105a433aa1dc20c710454e"
           }
         },
         "name": "conversation-corpus-engine",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-19T13:17:54Z",
+        "pushedAt": "2026-11-19T17:12:15Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -1535,14 +1535,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "c8c77b70b0e46e992e8f5621665e28af563d886a"
+            "oid": "ee47bc4c3fcc524a802c58474e59bb1cebb371f0"
           }
         },
         "name": "laurea",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-19T13:34:25Z",
+        "pushedAt": "2026-11-19T13:49:52Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -1607,14 +1607,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "648906c0be56907cf48df105cdb88ab34544b493"
+            "oid": "66bb40bda24a5aab7fc3f83a5010d6e35d60fc72"
           }
         },
         "name": "tool-video-loop-compositor",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-19T11:33:10Z",
+        "pushedAt": "2026-11-20T06:21:15Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -1751,14 +1751,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "322abd8ed8b61a587b8e309f32c1168df0551116"
+            "oid": "dc266c5284e7573abd3e35c0823cc15501f2a08d"
           }
         },
         "name": "hub-audiovisual-projects",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-18T13:11:28Z",
+        "pushedAt": "2026-11-19T17:01:29Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -1893,14 +1893,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "cf0e13496f7a76233d2618a696934c02cb6fb288"
+            "oid": "fef3c6cc8eaded582b5410f2cab6053337b9a851"
           }
         },
         "name": "versforms",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-17T18:35:47Z",
+        "pushedAt": "2026-11-19T16:07:20Z",
         "primaryLanguage": {
           "name": "HTML"
         },
@@ -2043,12 +2043,12 @@
       "quality_repositories_probed": 40
     },
     "contributions": {
-      "total": 54755,
-      "commits": 5155,
-      "pull_requests": 1751,
+      "total": 54801,
+      "commits": 5176,
+      "pull_requests": 1765,
       "reviews": 59,
-      "issues": 1890,
-      "restricted": 45869
+      "issues": 1891,
+      "restricted": 45879
     }
   },
   "findings": [
@@ -2065,10 +2065,10 @@
     {
       "axis": "contributions_year",
       "title": "GitHub contribution activity (12 months)",
-      "value": 54755.0,
+      "value": 54801.0,
       "unit": "contribution events",
       "status": "measured",
-      "evidence": "GitHub reports 54,755 contribution-calendar events in the last 12 months. Associated API fields report 5,155 commits, 1,751 pull requests, 59 reviews, and 1,890 issues; these fields are not an additive breakdown",
+      "evidence": "GitHub reports 54,801 contribution-calendar events in the last 12 months. Associated API fields report 5,176 commits, 1,765 pull requests, 59 reviews, and 1,891 issues; these fields are not an additive breakdown",
       "source": "GitHub GraphQL contributionsCollection and contributionCalendar",
       "analysis": "This is an activity count, not a count of shipped units. GitHub events vary in scope and do not establish review, merge, quality, or impact."
     },
@@ -2095,10 +2095,10 @@
     {
       "axis": "pull_requests_year",
       "title": "Pull requests opened (12 months)",
-      "value": 1751.0,
+      "value": 1765.0,
       "unit": "pull requests",
       "status": "measured",
-      "evidence": "GitHub reports 1,751 pull requests opened in the trailing 12-month collection",
+      "evidence": "GitHub reports 1,765 pull requests opened in the trailing 12-month collection",
       "source": "GitHub GraphQL contributionsCollection.totalPullRequestContributions",
       "analysis": "Opened pull requests are activity events; this field does not say whether they were reviewed, mergeable, merged, distinct in scope, or created without automation."
     },
