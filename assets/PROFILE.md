@@ -1,8 +1,8 @@
 # MEASURED PROFILE
 
-*Generated 2026-11-20T09:21:45.062831Z for [@4444J99](https://github.com/4444J99). Counts come from the GitHub API; derived observations name their transformation. No percentile ranking is published because this repository does not carry a validated population distribution.*
+*Generated 2026-11-21T09:19:58.105810Z for [@4444J99](https://github.com/4444J99). Counts come from the GitHub API; derived observations name their transformation. No percentile ranking is published because this repository does not carry a validated population distribution.*
 
-*Source implementation: `4444J99/laurea` at `ee47bc4c3fcc524a802c58474e59bb1cebb371f0`.*
+*Source implementation: `4444J99/laurea` at `349ebea8878b7bb895f0759ebe3eadb12d56820b`.*
 
 ## Source coverage
 
@@ -14,9 +14,9 @@ Token-visible membership scope is not an administered-estate census. Default SHA
 
 ## CI health across the active corpus — **measured**
 
-**Observed:** 0.8 fraction
+**Observed:** 0.9 fraction
 
-34 of 40 active repositories have a green latest completed default-branch run; 2 have no CI at all.
+35 of 40 active repositories have a green latest completed default-branch run; 2 have no CI at all.
 
 **Definition:** REST check-runs and commit status on the default-branch head.
 
@@ -24,9 +24,9 @@ Token-visible membership scope is not an administered-estate census. Default SHA
 
 ## GitHub contribution activity (12 months) — **measured**
 
-**Observed:** 54,801 contribution events
+**Observed:** 54,839 contribution events
 
-GitHub reports 54,801 contribution-calendar events in the last 12 months. Associated API fields report 5,176 commits, 1,765 pull requests, 59 reviews, and 1,891 issues; these fields are not an additive breakdown.
+GitHub reports 54,839 contribution-calendar events in the last 12 months. Associated API fields report 5,205 commits, 1,773 pull requests, 59 reviews, and 1,892 issues; these fields are not an additive breakdown.
 
 **Definition:** GitHub GraphQL contributionsCollection and contributionCalendar.
 
@@ -54,9 +54,9 @@ GitHub returned 10 organization memberships for this account.
 
 ## Pull requests opened (12 months) — **measured**
 
-**Observed:** 1,765 pull requests
+**Observed:** 1,773 pull requests
 
-GitHub reports 1,765 pull requests opened in the trailing 12-month collection.
+GitHub reports 1,773 pull requests opened in the trailing 12-month collection.
 
 **Definition:** GitHub GraphQL contributionsCollection.totalPullRequestContributions.
 
