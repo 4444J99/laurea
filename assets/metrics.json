@@ -1,9 +1,9 @@
 {
   "schema_version": "laurea.report.v2",
   "login": "4444J99",
-  "generated_at": "2026-11-20T09:21:45.062831Z",
+  "generated_at": "2026-11-21T09:19:58.105810Z",
   "source_repository": "4444J99/laurea",
-  "source_sha": "ee47bc4c3fcc524a802c58474e59bb1cebb371f0",
+  "source_sha": "349ebea8878b7bb895f0759ebe3eadb12d56820b",
   "snapshot": {
     "login": "4444J99",
     "name": "Anthony James Padavano",
@@ -29,14 +29,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "517825ed9038b592f36dc10f5ae8a3c17777ef03"
+            "oid": "6af21f223776c420ae0dc8bc305de7a238ae8203"
           }
         },
         "name": "generative-multimedia-spatial-environment",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 2,
-        "pushedAt": "2026-11-20T04:33:05Z",
+        "pushedAt": "2026-11-21T01:08:35Z",
         "primaryLanguage": {
           "name": "JavaScript"
         },
@@ -77,14 +77,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "778fe7d2f3bced0078dc925f9584f74444f0fce7"
+            "oid": "60c0e5d3e85bc6e52b2c71401a2a11f0d27a92fc"
           }
         },
         "name": "auto-revision-epistemic-engine",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-15T03:19:02Z",
+        "pushedAt": "2026-11-20T21:49:31Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -409,14 +409,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "3de45bf1e1d71ca527ea5fb623ed18db4305aaa4"
+            "oid": "b4288d2d48024483a1f4c63942525e1268aa1841"
           }
         },
         "name": "the-actual-news",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-19T18:37:25Z",
+        "pushedAt": "2026-11-20T20:52:21Z",
         "primaryLanguage": {
           "name": "TypeScript"
         },
@@ -457,14 +457,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "419a3b18272771875c52696537e245cc5f573cd1"
+            "oid": "44485369bb9ceb63af2fa44fc6c53b76dcb8779a"
           }
         },
         "name": "salon-archive",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-19T00:47:59Z",
+        "pushedAt": "2026-11-20T21:49:55Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -673,14 +673,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "32c60960740b0f8ebc4959600852a578b88b892e"
+            "oid": "1a8bcf829e41523db5d15aafa976b2690e5d7bd4"
           }
         },
         "name": "organvm-engine",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-19T21:54:01Z",
+        "pushedAt": "2026-11-21T01:32:53Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -721,14 +721,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "0a5f9b9ef72bc9c6fc778401b535f3cbc365b2e7"
+            "oid": "062f83636c1430b204a4a2a7b57c26bdf27548b0"
           }
         },
         "name": "stakeholder-portal",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-17T13:47:40Z",
+        "pushedAt": "2026-11-21T03:43:45Z",
         "primaryLanguage": {
           "name": "TypeScript"
         },
@@ -791,14 +791,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "9096fa453acd96b35fab06323849355890e33c81"
+            "oid": "6625b388db4392d64bda882cfaa37b8987148260"
           }
         },
         "name": "atomic-substrata",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-20T02:24:45Z",
+        "pushedAt": "2026-11-21T05:49:23Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -839,14 +839,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "0197ed8a99b5a8d59c105a433aa1dc20c710454e"
+            "oid": "f4f24511eb4e55a403592d83c3343511f3d111ec"
           }
         },
         "name": "conversation-corpus-engine",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-19T17:12:15Z",
+        "pushedAt": "2026-11-20T16:25:20Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -1535,14 +1535,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "ee47bc4c3fcc524a802c58474e59bb1cebb371f0"
+            "oid": "349ebea8878b7bb895f0759ebe3eadb12d56820b"
           }
         },
         "name": "laurea",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-19T13:49:52Z",
+        "pushedAt": "2026-11-20T09:33:02Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -1727,14 +1727,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "1c59b681173ef487540777e2d2dc45ea3d28bfb8"
+            "oid": "5e811ce0337cc1242ab76611e775a2b6c9776f09"
           }
         },
         "name": "narratological-algorithmic-lenses",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-16T19:25:17Z",
+        "pushedAt": "2026-11-21T00:53:52Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -2020,7 +2020,7 @@
       "quality": {
         "active_repositories": 40,
         "test_presence": 39,
-        "ci_green": 34,
+        "ci_green": 35,
         "ci_no_ci": 2,
         "ci_pending": 0,
         "docs_substantive_readme": 40,
@@ -2043,11 +2043,11 @@
       "quality_repositories_probed": 40
     },
     "contributions": {
-      "total": 54801,
-      "commits": 5176,
-      "pull_requests": 1765,
+      "total": 54839,
+      "commits": 5205,
+      "pull_requests": 1773,
       "reviews": 59,
-      "issues": 1891,
+      "issues": 1892,
       "restricted": 45879
     }
   },
@@ -2055,20 +2055,20 @@
     {
       "axis": "ci_health",
       "title": "CI health across the active corpus",
-      "value": 0.85,
+      "value": 0.875,
       "unit": "fraction",
       "status": "measured",
-      "evidence": "34 of 40 active repositories have a green latest completed default-branch run; 2 have no CI at all",
+      "evidence": "35 of 40 active repositories have a green latest completed default-branch run; 2 have no CI at all",
       "source": "REST check-runs and commit status on the default-branch head",
       "analysis": "A green latest run is not evidence of correctness, only of a passing gate at that head."
     },
     {
       "axis": "contributions_year",
       "title": "GitHub contribution activity (12 months)",
-      "value": 54801.0,
+      "value": 54839.0,
       "unit": "contribution events",
       "status": "measured",
-      "evidence": "GitHub reports 54,801 contribution-calendar events in the last 12 months. Associated API fields report 5,176 commits, 1,765 pull requests, 59 reviews, and 1,891 issues; these fields are not an additive breakdown",
+      "evidence": "GitHub reports 54,839 contribution-calendar events in the last 12 months. Associated API fields report 5,205 commits, 1,773 pull requests, 59 reviews, and 1,892 issues; these fields are not an additive breakdown",
       "source": "GitHub GraphQL contributionsCollection and contributionCalendar",
       "analysis": "This is an activity count, not a count of shipped units. GitHub events vary in scope and do not establish review, merge, quality, or impact."
     },
@@ -2095,10 +2095,10 @@
     {
       "axis": "pull_requests_year",
       "title": "Pull requests opened (12 months)",
-      "value": 1765.0,
+      "value": 1773.0,
       "unit": "pull requests",
       "status": "measured",
-      "evidence": "GitHub reports 1,765 pull requests opened in the trailing 12-month collection",
+      "evidence": "GitHub reports 1,773 pull requests opened in the trailing 12-month collection",
       "source": "GitHub GraphQL contributionsCollection.totalPullRequestContributions",
       "analysis": "Opened pull requests are activity events; this field does not say whether they were reviewed, mergeable, merged, distinct in scope, or created without automation."
     },
