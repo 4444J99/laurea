@@ -1,9 +1,9 @@
 {
   "schema_version": "laurea.report.v2",
   "login": "4444J99",
-  "generated_at": "2026-11-21T09:19:58.105810Z",
+  "generated_at": "2026-11-22T09:20:34.715889Z",
   "source_repository": "4444J99/laurea",
-  "source_sha": "349ebea8878b7bb895f0759ebe3eadb12d56820b",
+  "source_sha": "a07c1bcafe7cc9e136a89ef85951b13413007399",
   "snapshot": {
     "login": "4444J99",
     "name": "Anthony James Padavano",
@@ -409,14 +409,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "b4288d2d48024483a1f4c63942525e1268aa1841"
+            "oid": "09ac85cf3245436a665b2174a42e75f47f936bfb"
           }
         },
         "name": "the-actual-news",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-20T20:52:21Z",
+        "pushedAt": "2026-11-21T22:02:18Z",
         "primaryLanguage": {
           "name": "TypeScript"
         },
@@ -481,14 +481,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "f524f1867372a8bd62d892ff711a370015072844"
+            "oid": "524f57ab0b1c904d2ca7d69222d1a43f23c996e9"
           }
         },
         "name": "adaptive-personal-syllabus",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 3,
-        "pushedAt": "2026-11-20T07:50:05Z",
+        "pushedAt": "2026-11-22T07:50:09Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -529,14 +529,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "24b750ed303e782ded44ce4b130492d9e965002d"
+            "oid": "d7f06feb37acda06e764ecf0998a17ae0456fdf1"
           }
         },
         "name": "alchemical-synthesizer",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-19T04:47:21Z",
+        "pushedAt": "2026-11-21T19:51:44Z",
         "primaryLanguage": {
           "name": "JavaScript"
         },
@@ -673,14 +673,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "1a8bcf829e41523db5d15aafa976b2690e5d7bd4"
+            "oid": "1e4bec99a450d4c29338923c9a2e3396dc31756a"
           }
         },
         "name": "organvm-engine",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-21T01:32:53Z",
+        "pushedAt": "2026-11-21T13:39:52Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -721,14 +721,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "062f83636c1430b204a4a2a7b57c26bdf27548b0"
+            "oid": "500a5d176fb09a3b1f8dee6bafca061ff7cad695"
           }
         },
         "name": "stakeholder-portal",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-21T03:43:45Z",
+        "pushedAt": "2026-11-21T11:32:11Z",
         "primaryLanguage": {
           "name": "TypeScript"
         },
@@ -1535,14 +1535,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "349ebea8878b7bb895f0759ebe3eadb12d56820b"
+            "oid": "a07c1bcafe7cc9e136a89ef85951b13413007399"
           }
         },
         "name": "laurea",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-20T09:33:02Z",
+        "pushedAt": "2026-11-21T09:32:44Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -1869,14 +1869,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "0329c1682fed6b1ab1573f5f8d22607e2c3d7478"
+            "oid": "447aad256e02a6d30ce39925e6feca22ea73ba1e"
           }
         },
         "name": "journal-handwritten-web",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-19T04:50:35Z",
+        "pushedAt": "2026-11-21T09:48:31Z",
         "primaryLanguage": {
           "name": "HTML"
         },
@@ -2043,11 +2043,11 @@
       "quality_repositories_probed": 40
     },
     "contributions": {
-      "total": 54839,
-      "commits": 5205,
-      "pull_requests": 1773,
+      "total": 54883,
+      "commits": 5238,
+      "pull_requests": 1782,
       "reviews": 59,
-      "issues": 1892,
+      "issues": 1894,
       "restricted": 45879
     }
   },
@@ -2065,10 +2065,10 @@
     {
       "axis": "contributions_year",
       "title": "GitHub contribution activity (12 months)",
-      "value": 54839.0,
+      "value": 54883.0,
       "unit": "contribution events",
       "status": "measured",
-      "evidence": "GitHub reports 54,839 contribution-calendar events in the last 12 months. Associated API fields report 5,205 commits, 1,773 pull requests, 59 reviews, and 1,892 issues; these fields are not an additive breakdown",
+      "evidence": "GitHub reports 54,883 contribution-calendar events in the last 12 months. Associated API fields report 5,238 commits, 1,782 pull requests, 59 reviews, and 1,894 issues; these fields are not an additive breakdown",
       "source": "GitHub GraphQL contributionsCollection and contributionCalendar",
       "analysis": "This is an activity count, not a count of shipped units. GitHub events vary in scope and do not establish review, merge, quality, or impact."
     },
@@ -2095,10 +2095,10 @@
     {
       "axis": "pull_requests_year",
       "title": "Pull requests opened (12 months)",
-      "value": 1773.0,
+      "value": 1782.0,
       "unit": "pull requests",
       "status": "measured",
-      "evidence": "GitHub reports 1,773 pull requests opened in the trailing 12-month collection",
+      "evidence": "GitHub reports 1,782 pull requests opened in the trailing 12-month collection",
       "source": "GitHub GraphQL contributionsCollection.totalPullRequestContributions",
       "analysis": "Opened pull requests are activity events; this field does not say whether they were reviewed, mergeable, merged, distinct in scope, or created without automation."
     },
