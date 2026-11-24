@@ -1,7 +1,7 @@
 {
   "schema_version": "laurea.report.v2",
   "login": "4444J99",
-  "generated_at": "2026-11-23T09:25:51.245428Z",
+  "generated_at": "2026-11-24T09:22:54.424704Z",
   "source_repository": "4444J99/laurea",
   "source_sha": "a07c1bcafe7cc9e136a89ef85951b13413007399",
   "snapshot": {
@@ -673,14 +673,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "1e4bec99a450d4c29338923c9a2e3396dc31756a"
+            "oid": "945acf0ed42c7a303f4ed71b7c9e9d5d07848aad"
           }
         },
         "name": "organvm-engine",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-21T13:39:52Z",
+        "pushedAt": "2026-11-24T04:19:55Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -839,14 +839,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "146ce879b5b940a51479b76a9d2cbc87c2959401"
+            "oid": "8ad5efd206e5016269f19fc6339a57b08fbcd9f2"
           }
         },
         "name": "conversation-corpus-engine",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-23T03:33:47Z",
+        "pushedAt": "2026-11-23T13:57:33Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -1542,7 +1542,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-22T09:20:38Z",
+        "pushedAt": "2026-11-23T09:25:54Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -1869,14 +1869,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "b2b92b7c2a41e046c27ebf25b326e9d8937d0ebe"
+            "oid": "ed3fdf51aad180d0bfa611e162d80a3c2b1a3189"
           }
         },
         "name": "journal-handwritten-web",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-22T22:44:34Z",
+        "pushedAt": "2026-11-24T08:20:36Z",
         "primaryLanguage": {
           "name": "HTML"
         },
@@ -2005,26 +2005,50 @@
           "security": "unmeasured",
           "pr_readiness": "unmeasured"
         }
+      },
+      {
+        "id": "R_kgDOV4xPFA",
+        "nameWithOwner": "4444J99/conversation-corpus--surfaces",
+        "isPrivate": false,
+        "defaultBranchRef": {
+          "name": "main",
+          "target": {
+            "oid": "459149431e54a9a19162528d378ed59caea52353"
+          }
+        },
+        "name": "conversation-corpus--surfaces",
+        "isFork": false,
+        "isArchived": false,
+        "stargazerCount": 0,
+        "pushedAt": "2026-11-23T13:45:06Z",
+        "primaryLanguage": {
+          "name": "HTML"
+        },
+        "health": {
+          "verification": "unmeasured",
+          "security": "unmeasured",
+          "pr_readiness": "unmeasured"
+        }
       }
     ],
     "repository_aggregates": {
       "scope": "token_visible",
-      "nonfork_repositories": 59,
+      "nonfork_repositories": 60,
       "stars": 38,
       "primary_languages": {
         "JavaScript": 3,
         "Python": 35,
         "TypeScript": 10,
-        "HTML": 7
+        "HTML": 8
       },
       "quality": {
-        "active_repositories": 40,
+        "active_repositories": 41,
         "test_presence": 39,
         "ci_green": 35,
         "ci_no_ci": 2,
         "ci_pending": 0,
-        "docs_substantive_readme": 40,
-        "docs_dir": 33
+        "docs_substantive_readme": 41,
+        "docs_dir": 34
       }
     },
     "coverage": {
@@ -2034,41 +2058,41 @@
       "sources_attempted": 12,
       "source_count_scope": "membership discovery and repository connections",
       "failed_sources": 0,
-      "observed_repositories": 83,
-      "public_repositories": 83,
+      "observed_repositories": 84,
+      "public_repositories": 84,
       "private_repositories_excluded": 0,
       "visibility_unmeasured": 0,
       "archived_public_repositories": 43,
       "health_status": "unmeasured",
-      "quality_repositories_probed": 40
+      "quality_repositories_probed": 41
     },
     "contributions": {
-      "total": 54469,
-      "commits": 5260,
-      "pull_requests": 1790,
+      "total": 54535,
+      "commits": 5280,
+      "pull_requests": 1799,
       "reviews": 58,
       "issues": 1894,
-      "restricted": 45436
+      "restricted": 45484
     }
   },
   "findings": [
     {
       "axis": "ci_health",
       "title": "CI health across the active corpus",
-      "value": 0.875,
+      "value": 0.8536585365853658,
       "unit": "fraction",
       "status": "measured",
-      "evidence": "35 of 40 active repositories have a green latest completed default-branch run; 2 have no CI at all",
+      "evidence": "35 of 41 active repositories have a green latest completed default-branch run; 2 have no CI at all",
       "source": "REST check-runs and commit status on the default-branch head",
       "analysis": "A green latest run is not evidence of correctness, only of a passing gate at that head."
     },
     {
       "axis": "contributions_year",
       "title": "GitHub contribution activity (12 months)",
-      "value": 54469.0,
+      "value": 54535.0,
       "unit": "contribution events",
       "status": "measured",
-      "evidence": "GitHub reports 54,469 contribution-calendar events in the last 12 months. Associated API fields report 5,260 commits, 1,790 pull requests, 58 reviews, and 1,894 issues; these fields are not an additive breakdown",
+      "evidence": "GitHub reports 54,535 contribution-calendar events in the last 12 months. Associated API fields report 5,280 commits, 1,799 pull requests, 58 reviews, and 1,894 issues; these fields are not an additive breakdown",
       "source": "GitHub GraphQL contributionsCollection and contributionCalendar",
       "analysis": "This is an activity count, not a count of shipped units. GitHub events vary in scope and do not establish review, merge, quality, or impact."
     },
@@ -2078,7 +2102,7 @@
       "value": 1.0,
       "unit": "fraction",
       "status": "measured",
-      "evidence": "40 of 40 active repositories have a README of at least 1024 bytes; 33 have a docs/ directory",
+      "evidence": "41 of 41 active repositories have a README of at least 1024 bytes; 34 have a docs/ directory",
       "source": "REST git-trees probe of the default branch; substantive means at least 1024 bytes",
       "analysis": "A long README is not evidence the docs are accurate or current."
     },
@@ -2095,30 +2119,30 @@
     {
       "axis": "pull_requests_year",
       "title": "Pull requests opened (12 months)",
-      "value": 1790.0,
+      "value": 1799.0,
       "unit": "pull requests",
       "status": "measured",
-      "evidence": "GitHub reports 1,790 pull requests opened in the trailing 12-month collection",
+      "evidence": "GitHub reports 1,799 pull requests opened in the trailing 12-month collection",
       "source": "GitHub GraphQL contributionsCollection.totalPullRequestContributions",
       "analysis": "Opened pull requests are activity events; this field does not say whether they were reviewed, mergeable, merged, distinct in scope, or created without automation."
     },
     {
       "axis": "repos_visible",
       "title": "Visible non-fork repository corpus",
-      "value": 59.0,
+      "value": 60.0,
       "unit": "repositories",
       "status": "measured",
-      "evidence": "59 non-fork repositories were visible across the personal account and 10 organization memberships returned by the API",
+      "evidence": "60 non-fork repositories were visible across the personal account and 10 organization memberships returned by the API",
       "source": "GitHub GraphQL repositories connections with isFork=false",
       "analysis": "Organization repositories can include work by other contributors. Visibility does not establish individual authorship, maintenance, or operation."
     },
     {
       "axis": "test_presence",
       "title": "Test-suite presence across the active corpus",
-      "value": 0.975,
+      "value": 0.9512195121951219,
       "unit": "fraction",
       "status": "measured",
-      "evidence": "39 of 40 active repositories show a test signal: a tests/ or test/ directory, a *_test.py or *.test.* file, pyproject [tool.pytest], or a CI test step",
+      "evidence": "39 of 41 active repositories show a test signal: a tests/ or test/ directory, a *_test.py or *.test.* file, pyproject [tool.pytest], or a CI test step",
       "source": "REST git-trees probe of the default branch plus workflow-file read",
       "analysis": "Presence of a test suite is not evidence tests pass or cover anything."
     },
@@ -2128,7 +2152,7 @@
       "value": 4.0,
       "unit": "primary-language labels",
       "status": "derived",
-      "evidence": "GitHub assigns 4 distinct primary-language labels across the visible non-fork corpus \u2014 led by Python (35), TypeScript (10), HTML (7), JavaScript (3)",
+      "evidence": "GitHub assigns 4 distinct primary-language labels across the visible non-fork corpus \u2014 led by Python (35), TypeScript (10), HTML (8), JavaScript (3)",
       "source": "Distinct repository.primaryLanguage.name values in the visible corpus",
       "analysis": "A repository has one GitHub-assigned primary language. This describes the corpus and does not establish individual proficiency or authorship."
     },
