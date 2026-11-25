@@ -20,6 +20,6 @@
   <text class="status fade d1" x="396" y="34" text-anchor="end" fill="#e3b341">MEASURED</text>
   <text class="big fade d1" x="24" y="76">0.9</text>
   <text class="ev fade d2" x="93" y="76">fraction</text>
-  <text class="ev fade d2" x="24" y="104">35 of 40 active repositories have a green latest completed</text><text class="ev fade d3" x="24" y="120">default-branch run; 2 have no CI at all</text>
+  <text class="ev fade d2" x="24" y="104">35 of 41 active repositories have a green latest completed</text><text class="ev fade d3" x="24" y="120">default-branch run; 2 have no CI at all</text>
   <text class="ev fade d4" x="24" y="157">Boundary: not proof of authorship, quality, proficiency, or impact.</text>
 </svg>

@@ -1,14 +1,14 @@
 # MEASURED PROFILE
 
-*Generated 2026-11-21T09:19:58.105810Z for [@4444J99](https://github.com/4444J99). Counts come from the GitHub API; derived observations name their transformation. No percentile ranking is published because this repository does not carry a validated population distribution.*
+*Generated 2026-11-24T09:22:54.424704Z for [@4444J99](https://github.com/4444J99). Counts come from the GitHub API; derived observations name their transformation. No percentile ranking is published because this repository does not carry a validated population distribution.*
 
-*Source implementation: `4444J99/laurea` at `349ebea8878b7bb895f0759ebe3eadb12d56820b`.*
+*Source implementation: `4444J99/laurea` at `a07c1bcafe7cc9e136a89ef85951b13413007399`.*
 
 ## Source coverage
 
 Collection: **complete**. Health: **unmeasured**.
 
-Observed repositories: 83; private repositories excluded: 0; failed sources: 0.
+Observed repositories: 84; private repositories excluded: 0; failed sources: 0.
 
 Token-visible membership scope is not an administered-estate census. Default SHA identifies a source generation; it does not prove executed verification, security coverage or PR readiness.
 
@@ -16,7 +16,7 @@ Token-visible membership scope is not an administered-estate census. Default SHA
 
 **Observed:** 0.9 fraction
 
-35 of 40 active repositories have a green latest completed default-branch run; 2 have no CI at all.
+35 of 41 active repositories have a green latest completed default-branch run; 2 have no CI at all.
 
 **Definition:** REST check-runs and commit status on the default-branch head.
 
@@ -24,9 +24,9 @@ Token-visible membership scope is not an administered-estate census. Default SHA
 
 ## GitHub contribution activity (12 months) — **measured**
 
-**Observed:** 54,839 contribution events
+**Observed:** 54,535 contribution events
 
-GitHub reports 54,839 contribution-calendar events in the last 12 months. Associated API fields report 5,205 commits, 1,773 pull requests, 59 reviews, and 1,892 issues; these fields are not an additive breakdown.
+GitHub reports 54,535 contribution-calendar events in the last 12 months. Associated API fields report 5,280 commits, 1,799 pull requests, 58 reviews, and 1,894 issues; these fields are not an additive breakdown.
 
 **Definition:** GitHub GraphQL contributionsCollection and contributionCalendar.
 
@@ -36,7 +36,7 @@ GitHub reports 54,839 contribution-calendar events in the last 12 months. Associ
 
 **Observed:** 1 fraction
 
-40 of 40 active repositories have a README of at least 1024 bytes; 33 have a docs/ directory.
+41 of 41 active repositories have a README of at least 1024 bytes; 34 have a docs/ directory.
 
 **Definition:** REST git-trees probe of the default branch; substantive means at least 1024 bytes.
 
@@ -54,9 +54,9 @@ GitHub returned 10 organization memberships for this account.
 
 ## Pull requests opened (12 months) — **measured**
 
-**Observed:** 1,773 pull requests
+**Observed:** 1,799 pull requests
 
-GitHub reports 1,773 pull requests opened in the trailing 12-month collection.
+GitHub reports 1,799 pull requests opened in the trailing 12-month collection.
 
 **Definition:** GitHub GraphQL contributionsCollection.totalPullRequestContributions.
 
@@ -64,9 +64,9 @@ GitHub reports 1,773 pull requests opened in the trailing 12-month collection.
 
 ## Visible non-fork repository corpus — **measured**
 
-**Observed:** 59 repositories
+**Observed:** 60 repositories
 
-59 non-fork repositories were visible across the personal account and 10 organization memberships returned by the API.
+60 non-fork repositories were visible across the personal account and 10 organization memberships returned by the API.
 
 **Definition:** GitHub GraphQL repositories connections with isFork=false.
 
@@ -76,7 +76,7 @@ GitHub reports 1,773 pull requests opened in the trailing 12-month collection.
 
 **Observed:** 1.0 fraction
 
-39 of 40 active repositories show a test signal: a tests/ or test/ directory, a *_test.py or *.test.* file, pyproject [tool.pytest], or a CI test step.
+39 of 41 active repositories show a test signal: a tests/ or test/ directory, a *_test.py or *.test.* file, pyproject [tool.pytest], or a CI test step.
 
 **Definition:** REST git-trees probe of the default branch plus workflow-file read.
 
@@ -86,7 +86,7 @@ GitHub reports 1,773 pull requests opened in the trailing 12-month collection.
 
 **Observed:** 4 primary-language labels
 
-GitHub assigns 4 distinct primary-language labels across the visible non-fork corpus — led by Python (35), TypeScript (10), HTML (7), JavaScript (3).
+GitHub assigns 4 distinct primary-language labels across the visible non-fork corpus — led by Python (35), TypeScript (10), HTML (8), JavaScript (3).
 
 **Definition:** Distinct repository.primaryLanguage.name values in the visible corpus.
 
