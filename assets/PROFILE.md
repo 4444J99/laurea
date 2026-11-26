@@ -1,8 +1,8 @@
 # MEASURED PROFILE
 
-*Generated 2026-11-24T09:22:54.424704Z for [@4444J99](https://github.com/4444J99). Counts come from the GitHub API; derived observations name their transformation. No percentile ranking is published because this repository does not carry a validated population distribution.*
+*Generated 2026-11-26T09:22:47.313130Z for [@4444J99](https://github.com/4444J99). Counts come from the GitHub API; derived observations name their transformation. No percentile ranking is published because this repository does not carry a validated population distribution.*
 
-*Source implementation: `4444J99/laurea` at `a07c1bcafe7cc9e136a89ef85951b13413007399`.*
+*Source implementation: `4444J99/laurea` at `9edbf2d281f725e7f8c5ca13bbe0db5ba741e75e`.*
 
 ## Source coverage
 
@@ -24,9 +24,9 @@ Token-visible membership scope is not an administered-estate census. Default SHA
 
 ## GitHub contribution activity (12 months) — **measured**
 
-**Observed:** 54,535 contribution events
+**Observed:** 54,564 contribution events
 
-GitHub reports 54,535 contribution-calendar events in the last 12 months. Associated API fields report 5,280 commits, 1,799 pull requests, 58 reviews, and 1,894 issues; these fields are not an additive breakdown.
+GitHub reports 54,564 contribution-calendar events in the last 12 months. Associated API fields report 5,293 commits, 1,809 pull requests, 58 reviews, and 1,894 issues; these fields are not an additive breakdown.
 
 **Definition:** GitHub GraphQL contributionsCollection and contributionCalendar.
 
@@ -54,9 +54,9 @@ GitHub returned 10 organization memberships for this account.
 
 ## Pull requests opened (12 months) — **measured**
 
-**Observed:** 1,799 pull requests
+**Observed:** 1,809 pull requests
 
-GitHub reports 1,799 pull requests opened in the trailing 12-month collection.
+GitHub reports 1,809 pull requests opened in the trailing 12-month collection.
 
 **Definition:** GitHub GraphQL contributionsCollection.totalPullRequestContributions.
 
