@@ -1,7 +1,7 @@
 {
   "schema_version": "laurea.report.v2",
   "login": "4444J99",
-  "generated_at": "2026-11-25T09:23:16.455139Z",
+  "generated_at": "2026-11-26T09:22:47.313130Z",
   "source_repository": "4444J99/laurea",
   "source_sha": "9edbf2d281f725e7f8c5ca13bbe0db5ba741e75e",
   "snapshot": {
@@ -224,7 +224,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-19T08:52:31Z",
+        "pushedAt": "2026-11-26T08:36:09Z",
         "primaryLanguage": {
           "name": "TypeScript"
         },
@@ -368,7 +368,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-19T07:47:41Z",
+        "pushedAt": "2026-11-26T07:34:22Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -464,7 +464,7 @@
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-20T21:49:55Z",
+        "pushedAt": "2026-11-26T00:43:51Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -845,7 +845,7 @@
         "name": "conversation-corpus-engine",
         "isFork": false,
         "isArchived": false,
-        "stargazerCount": 1,
+        "stargazerCount": 0,
         "pushedAt": "2026-11-23T13:57:33Z",
         "primaryLanguage": {
           "name": "Python"
@@ -1541,8 +1541,8 @@
         "name": "laurea",
         "isFork": false,
         "isArchived": false,
-        "stargazerCount": 1,
-        "pushedAt": "2026-11-25T04:59:00Z",
+        "stargazerCount": 0,
+        "pushedAt": "2026-11-25T09:23:21Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -1709,7 +1709,7 @@
         "name": "tool-audiovisual-postproduction",
         "isFork": false,
         "isArchived": false,
-        "stargazerCount": 2,
+        "stargazerCount": 1,
         "pushedAt": "2026-11-18T09:55:32Z",
         "primaryLanguage": {
           "name": "Python"
@@ -1869,14 +1869,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "dea3fe0d445ec157751b5dd0b4a25a23f619c1d1"
+            "oid": "81f3564e3025a6bb04da1d4a913a48efdc4849e6"
           }
         },
         "name": "journal-handwritten-web",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-25T08:49:03Z",
+        "pushedAt": "2026-11-25T15:12:53Z",
         "primaryLanguage": {
           "name": "HTML"
         },
@@ -2034,7 +2034,7 @@
     "repository_aggregates": {
       "scope": "token_visible",
       "nonfork_repositories": 60,
-      "stars": 38,
+      "stars": 35,
       "primary_languages": {
         "JavaScript": 3,
         "Python": 35,
@@ -2067,12 +2067,12 @@
       "quality_repositories_probed": 41
     },
     "contributions": {
-      "total": 54553,
-      "commits": 5290,
-      "pull_requests": 1806,
+      "total": 54564,
+      "commits": 5293,
+      "pull_requests": 1809,
       "reviews": 58,
       "issues": 1894,
-      "restricted": 45473
+      "restricted": 45478
     }
   },
   "findings": [
@@ -2089,10 +2089,10 @@
     {
       "axis": "contributions_year",
       "title": "GitHub contribution activity (12 months)",
-      "value": 54553.0,
+      "value": 54564.0,
       "unit": "contribution events",
       "status": "measured",
-      "evidence": "GitHub reports 54,553 contribution-calendar events in the last 12 months. Associated API fields report 5,290 commits, 1,806 pull requests, 58 reviews, and 1,894 issues; these fields are not an additive breakdown",
+      "evidence": "GitHub reports 54,564 contribution-calendar events in the last 12 months. Associated API fields report 5,293 commits, 1,809 pull requests, 58 reviews, and 1,894 issues; these fields are not an additive breakdown",
       "source": "GitHub GraphQL contributionsCollection and contributionCalendar",
       "analysis": "This is an activity count, not a count of shipped units. GitHub events vary in scope and do not establish review, merge, quality, or impact."
     },
@@ -2119,10 +2119,10 @@
     {
       "axis": "pull_requests_year",
       "title": "Pull requests opened (12 months)",
-      "value": 1806.0,
+      "value": 1809.0,
       "unit": "pull requests",
       "status": "measured",
-      "evidence": "GitHub reports 1,806 pull requests opened in the trailing 12-month collection",
+      "evidence": "GitHub reports 1,809 pull requests opened in the trailing 12-month collection",
       "source": "GitHub GraphQL contributionsCollection.totalPullRequestContributions",
       "analysis": "Opened pull requests are activity events; this field does not say whether they were reviewed, mergeable, merged, distinct in scope, or created without automation."
     },
