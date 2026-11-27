@@ -1,14 +1,14 @@
 {
   "schema_version": "laurea.report.v2",
   "login": "4444J99",
-  "generated_at": "2026-11-26T09:22:47.313130Z",
+  "generated_at": "2026-11-27T09:22:36.198919Z",
   "source_repository": "4444J99/laurea",
-  "source_sha": "9edbf2d281f725e7f8c5ca13bbe0db5ba741e75e",
+  "source_sha": "defd7541a2c41b559a259747838358fa05936c84",
   "snapshot": {
     "login": "4444J99",
     "name": "Anthony James Padavano",
     "created_at": "2016-12-27T17:24:06Z",
-    "followers": 37,
+    "followers": 36,
     "orgs": [
       "organvm-i-theoria",
       "organvm-ii-poiesis",
@@ -29,14 +29,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "6af21f223776c420ae0dc8bc305de7a238ae8203"
+            "oid": "7fff5c99953c8ebbedfdf003739203fb414fd832"
           }
         },
         "name": "generative-multimedia-spatial-environment",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 2,
-        "pushedAt": "2026-11-21T01:08:35Z",
+        "pushedAt": "2026-11-27T04:39:23Z",
         "primaryLanguage": {
           "name": "JavaScript"
         },
@@ -217,14 +217,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "fca749b00f7f88a6f53c40858171c2edff16e0e4"
+            "oid": "a91e0d562f07e9d31440606bb97cf41e8a3d8400"
           }
         },
         "name": "metasystem-master",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-26T08:36:09Z",
+        "pushedAt": "2026-11-26T14:18:09Z",
         "primaryLanguage": {
           "name": "TypeScript"
         },
@@ -337,14 +337,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "63cdf881aceaffad7b5784e7914dbeda4ef36716"
+            "oid": "47e4197117a82aa15cdb881c5fe7d107a5641788"
           }
         },
         "name": "sema-metra--alchemica-mundi",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-19T17:33:13Z",
+        "pushedAt": "2026-11-26T21:34:02Z",
         "primaryLanguage": {
           "name": "TypeScript"
         },
@@ -361,14 +361,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "b011292d5e1fc8e73a940094ab6a89c1d5635bf5"
+            "oid": "7ac2f379044273adb1ce29ab632d2038371b7b4e"
           }
         },
         "name": "recursive-engine--generative-entity",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 1,
-        "pushedAt": "2026-11-26T07:34:22Z",
+        "pushedAt": "2026-11-26T22:22:43Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -457,14 +457,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "44485369bb9ceb63af2fa44fc6c53b76dcb8779a"
+            "oid": "d391466fabde03e2e5df13730624f3505560b319"
           }
         },
         "name": "salon-archive",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-26T00:43:51Z",
+        "pushedAt": "2026-11-26T14:18:16Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -673,14 +673,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "945acf0ed42c7a303f4ed71b7c9e9d5d07848aad"
+            "oid": "4c9d8d073ce5f395779625ad4cfc5dc6124ed705"
           }
         },
         "name": "organvm-engine",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-24T04:19:55Z",
+        "pushedAt": "2026-11-27T02:13:57Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -1535,14 +1535,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "9edbf2d281f725e7f8c5ca13bbe0db5ba741e75e"
+            "oid": "defd7541a2c41b559a259747838358fa05936c84"
           }
         },
         "name": "laurea",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-25T09:23:21Z",
+        "pushedAt": "2026-11-26T21:42:45Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -1631,14 +1631,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "95651552991b6c6f072e7d097110ba3912dc93c2"
+            "oid": "8bdde5b18b75cae0518dc88faa8d14b109cf424e"
           }
         },
         "name": "guide-github-standard",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-16T18:10:41Z",
+        "pushedAt": "2026-11-26T14:18:01Z",
         "primaryLanguage": {
           "name": "Python"
         },
@@ -1869,14 +1869,14 @@
         "defaultBranchRef": {
           "name": "main",
           "target": {
-            "oid": "81f3564e3025a6bb04da1d4a913a48efdc4849e6"
+            "oid": "0530a67a4ffb17e08bd73a63976f4e6907fc11cc"
           }
         },
         "name": "journal-handwritten-web",
         "isFork": false,
         "isArchived": false,
         "stargazerCount": 0,
-        "pushedAt": "2026-11-25T15:12:53Z",
+        "pushedAt": "2026-11-26T15:20:37Z",
         "primaryLanguage": {
           "name": "HTML"
         },
@@ -2067,12 +2067,12 @@
       "quality_repositories_probed": 41
     },
     "contributions": {
-      "total": 54564,
-      "commits": 5293,
-      "pull_requests": 1809,
+      "total": 54609,
+      "commits": 5306,
+      "pull_requests": 1811,
       "reviews": 58,
       "issues": 1894,
-      "restricted": 45478
+      "restricted": 45508
     }
   },
   "findings": [
@@ -2089,10 +2089,10 @@
     {
       "axis": "contributions_year",
       "title": "GitHub contribution activity (12 months)",
-      "value": 54564.0,
+      "value": 54609.0,
       "unit": "contribution events",
       "status": "measured",
-      "evidence": "GitHub reports 54,564 contribution-calendar events in the last 12 months. Associated API fields report 5,293 commits, 1,809 pull requests, 58 reviews, and 1,894 issues; these fields are not an additive breakdown",
+      "evidence": "GitHub reports 54,609 contribution-calendar events in the last 12 months. Associated API fields report 5,306 commits, 1,811 pull requests, 58 reviews, and 1,894 issues; these fields are not an additive breakdown",
       "source": "GitHub GraphQL contributionsCollection and contributionCalendar",
       "analysis": "This is an activity count, not a count of shipped units. GitHub events vary in scope and do not establish review, merge, quality, or impact."
     },
@@ -2119,10 +2119,10 @@
     {
       "axis": "pull_requests_year",
       "title": "Pull requests opened (12 months)",
-      "value": 1809.0,
+      "value": 1811.0,
       "unit": "pull requests",
       "status": "measured",
-      "evidence": "GitHub reports 1,809 pull requests opened in the trailing 12-month collection",
+      "evidence": "GitHub reports 1,811 pull requests opened in the trailing 12-month collection",
       "source": "GitHub GraphQL contributionsCollection.totalPullRequestContributions",
       "analysis": "Opened pull requests are activity events; this field does not say whether they were reviewed, mergeable, merged, distinct in scope, or created without automation."
     },
